@@ -1,3 +1,3 @@
-public class ExitUMLTest {
+public class ExitUMLTests {
     
 }
