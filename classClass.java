@@ -1,3 +1,4 @@
-public class Main {
-    
+public class classClass 
+{
+    //test!
 }
