@@ -1,17 +1,22 @@
+import java.util.ArrayList;
 public class ClassBase
 {
     //Name of the class.
     private String className;
-    //Array of attributes for this class.
-    private attributes[] classAttributes;
+    //ArrayList of attributes for this class.
+    private ArrayList<attributes> ClassAttributes;
     //Ingoing relationship.
     private Relationship ingoingRelationship;
-    //Array of outgoing relationships for the class.
-    private Relationship[] outgoingRelationships;
+    //ArrayList of outgoing relationships for the class.
+    private ArrayList<Relationship> OutgoingRelationships;
     
     public ClassBase(String name)
     {
         className = name;
+    }
+    public String getName()
+    {
+        return className;
     }
 
 }
