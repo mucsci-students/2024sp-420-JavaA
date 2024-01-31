@@ -1,7 +1,17 @@
-public class classBase
+public class ClassBase
 {
-    public static void main(String[] args)
+    //Name of the class.
+    private String className;
+    //Array of attributes for this class.
+    private attributes[] classAttributes;
+    //Ingoing relationship.
+    private Relationship ingoingRelationship;
+    //Array of outgoing relationships for the class.
+    private Relationship[] outgoingRelationships;
+    
+    public ClassBase(String name)
     {
-        System.out.println("classBase");
+        className = name;
     }
+
 }
