@@ -6,7 +6,7 @@ public class ClassBase
     //ArrayList of attributes for this class.
     private ArrayList<attributes> ClassAttributes;
     //Ingoing relationship.
-    private Relationship ingoingRelationship;
+    private ArrayList<Relationships> ingoingRelationships;
     //ArrayList of outgoing relationships for the class.
     private ArrayList<Relationship> OutgoingRelationships;
     
