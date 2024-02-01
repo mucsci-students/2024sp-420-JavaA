@@ -1,20 +1,12 @@
 import java.util.Scanner;
 
 public class ExitUML {
-    
-    private void exitUML(){
-        //if program is not saved call this
-        endProgramSave(0);
-        //if program is saved call this
-        endProgram(0);
+    public static void main(){
 
     }
-    private static void endProgram(int status){
-        System.exit(status);
-    }
-    private static void endProgramSave(int status){
+    private static void exitUML(int status){
         //create popup once front end is available
-        System.out.println("Your UML has not been saved would you like to save and exit, exit without saving, or return to UML?");
+        System.out.println("You are exiting NAME UML editor, type yes to save and exit, type no to exit without saving, anything else will return to the editor");
 
         //replace scanner with values from popups this is a place holder to show my idea
         Scanner obj = new Scanner(System.in);
@@ -24,22 +16,44 @@ public class ExitUML {
         obj.close();
 
         //if yes save and exit
-        if(mySave.equals("yes")){
-            //save here
-            System.exit(status);
-        }
-        //exit without save
-        else if(mySave.equals("no")){
-            System.exit(status);
-        }
-        else{
-            //return to work
+        switch(mySave){
+            case "yes":
+
+                //call save and exit
+                System.out.println("Saving and exiting.");
+                endProgramSave(status);
+
+            case "no":
+
+                //exit without save
+                System.out.println("Saving without exiting.");
+                endProgram(status);
+
+            default:
+
+                //nothing return to editor
+                System.out.println("Returning to editor.");
+
         }
     }
+    
 
-    //public get exit for other files returns status of exit
-    public void getExit(){ 
+    //exit without saving
+    private static void endProgram(int status){
+        System.out.println("You have exited without saving.");
+        System.exit(status);
+    }
+
+    //save and exit
+    private static void endProgramSave(int status){
+        //save
+        System.out.println("You have saved.");
+        System.exit(status);
+    }
+
+    //public call to exit for other files returns status of exit
+    public void callExit(){ 
         //calls exit function
-        exitUML();
+        exitUML(0);
     }
 }
