@@ -44,6 +44,19 @@ public class ClassContainer
         }
         return "No class matching that name was found.";
     }
+    public ClassBase getClassBase(String className)
+    {
+        for(ClassBase classList : classes)
+        {
+        //Loops through every class in Classes, checking if any match
+        //the class name, if so it returns it.
+            if(classList.getName().equals(className))
+            {
+                return classList;
+            }
+        }
+        return null;
+    }
     public String renameClass(ClassBase renClass)
     {
         return "Placeholder!";
