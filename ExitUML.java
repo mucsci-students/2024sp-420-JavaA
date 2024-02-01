@@ -1,9 +1,6 @@
 import java.util.Scanner;
 
 public class ExitUML {
-    public static void main(){
-
-    }
     private static void exitUML(int status){
         //create popup once front end is available
         System.out.println("You are exiting NAME UML editor, type yes to save and exit, type no to exit without saving, anything else will return to the editor");
