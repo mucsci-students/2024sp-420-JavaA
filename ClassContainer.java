@@ -8,7 +8,7 @@ public class ClassContainer
 
     public ClassContainer()
     {
-
+        Classes = new ArrayList<ClassBase>();
     }
 
     public String addClass(ClassBase newClass)
