@@ -2,13 +2,13 @@ import java.util.ArrayList;
 //Written by: Cullen Kurtz
 public class ClassContainer
 {
-    private ArrayList<ClassBase> Classes;
+    private ArrayList<ClassBase> classes;
     
 
 
     public ClassContainer()
     {
-        Classes = new ArrayList<ClassBase>();
+        classes = new ArrayList<ClassBase>();
     }
 
     public String addClass(ClassBase newClass)
@@ -17,14 +17,14 @@ public class ClassContainer
         boolean exists = false;
         //Loops through every class in Classes, checking if any match
         //the name of the new class being added.
-        for(ClassBase classList : Classes)
+        for(ClassBase classList : classes)
         {
             if(classList.getName().equals(newClass.getName()))
                 exists=true;
         }
         if(exists)
         return "Class with that name already exists!";
-        Classes.add(newClass);
+        classes.add(newClass);
         //Class was added with no issues.
         return "Class " + newClass.getName() + " was added.";
     }
@@ -32,13 +32,13 @@ public class ClassContainer
     //Going to wait until relationship stuff is made to do that.
     public String removeClass(ClassBase remClass)
     {
-        for(ClassBase classList : Classes)
+        for(ClassBase classList : classes)
         {
         //Loops through every class in Classes, checking if any match
         //the class being removed. If so, it removes it.
             if(classList.getName().equals(remClass.getName()))
             {
-                Classes.remove(classList);
+                classes.remove(classList);
                 return "Class was successfully removed!";
             }
         }
