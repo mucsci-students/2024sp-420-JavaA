@@ -31,5 +31,13 @@ public class ClassBase
     {
 
     }
+    public ClassBase setEquals(ClassBase input)
+    {
+        input.className = className;
+        input.classAttributes = classAttributes;
+        input.ingoingRelationships = ingoingRelationships;
+        input.outgoingRelationships = outgoingRelationships;
+        return input;
+    }
 
 }
