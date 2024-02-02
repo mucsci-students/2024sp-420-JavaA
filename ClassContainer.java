@@ -33,13 +33,13 @@ public class ClassContainer
 
     //Doesn't yet deal with classes with relationships!!!
     //Going to wait until relationship stuff is made to do that.
-    public String removeClass(ClassBase remClass)
+    public String removeClass(String remClass)
     {
         for(ClassBase classList : classes)
         {
         //Loops through every class in Classes, checking if any match
         //the class being removed. If so, it removes it.
-            if(classList.getName().equals(remClass.getName()))
+            if(classList.getName().equals(remClass))
             {
                 classes.remove(classList);
                 return "Class was successfully removed!";
@@ -49,9 +49,24 @@ public class ClassContainer
     }
 
     //Renames a class, doesn't account for relationships yet.
-    public String renameClass(ClassBase renClass)
+    public String renameClass(String renClass, String newName)
     {
-        return "Placeholder!";
+        int classInd = -1;
+        for(ClassBase classList : classes)
+        {
+            if(classList.getName().equals(renClass))
+            {
+                classInd = classes.indexOf(classList);
+            }
+            if(classList.getName().equals(newName))
+                return "A class with your new name already exists!";
+        }
+        if(classInd != -1)
+        {
+            classes.get(classInd).setName(newName);
+            return "Class " + renClass + " was successfully renamed to " + newName + ".";
+        }
+        return "You can't rename a class that doesn't exist!";
     }
     
     //Returns the ClassBase object of the given name.
