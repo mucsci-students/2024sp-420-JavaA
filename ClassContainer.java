@@ -5,12 +5,14 @@ public class ClassContainer
     private ArrayList<ClassBase> classes;
     
 
-
+    //Basic constructor.
     public ClassContainer()
     {
         classes = new ArrayList<ClassBase>();
     }
 
+    //Attempts to add a class to the ClassContainer.
+    //If a class with that name exists, it instead notifies the user.
     public String addClass(ClassBase newClass)
     {
         //If true, class with that name already exists!
@@ -28,6 +30,7 @@ public class ClassContainer
         //Class was added with no issues.
         return "Class " + newClass.getName() + " was added.";
     }
+
     //Doesn't yet deal with classes with relationships!!!
     //Going to wait until relationship stuff is made to do that.
     public String removeClass(ClassBase remClass)
@@ -44,6 +47,15 @@ public class ClassContainer
         }
         return "No class matching that name was found.";
     }
+
+    //Renames a class, doesn't account for relationships yet.
+    public String renameClass(ClassBase renClass)
+    {
+        return "Placeholder!";
+    }
+    
+    //Returns the ClassBase object of the given name.
+    //Note: Does not remove it from ClassContainer.
     public ClassBase getClassBase(String className)
     {
         for(ClassBase classList : classes)
@@ -57,8 +69,11 @@ public class ClassContainer
         }
         return null;
     }
-    public String renameClass(ClassBase renClass)
+
+    //Returns the ClassContainer object for purposes of using
+    //ArrayList methods.
+    public ArrayList<ClassBase> getContainer() 
     {
-        return "Placeholder!";
+        return classes;
     }
 }
