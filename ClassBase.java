@@ -22,6 +22,10 @@ public class ClassBase
     {
         return className;
     }
+    public void setName(String newName)
+    {
+        className = newName;
+    }
 
     public void addIngoingRelationship()
     {
