@@ -11,7 +11,7 @@ public class RelationshipTests {
 
             /*
              * Test 1
-             * test if relationship is added
+             * test if relationship is added.
              */
             case 1:
                 

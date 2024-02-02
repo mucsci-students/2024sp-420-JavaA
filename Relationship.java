@@ -33,11 +33,17 @@ public class Relationship {
     public void delRelation(String relationship){
 
         //finds if there is a relationship in relationships with the given name and calls deleteRelation if there is
+        deleteRelation(getRelation(relationship));
+    }
+    public Relationship getRelation(String relName){
         for (Relationship rel : relationships){
-            if (rel.getName().equals(relationship)){
-                deleteRelation(rel);
+            if (rel.getName().equals(relName)){
+                return rel;
             }
         }
+        Relationship relTemp = new Relationship("relName", "relName", "relName");
+        return relTemp;
+        
     }
     public String getName(){
         
