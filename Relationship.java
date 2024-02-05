@@ -7,7 +7,7 @@ public class Relationship {
     private String toClass;
     private static List<Relationship> relationships = new ArrayList<>();
     
-    public Relationship(String name, String fromClass, String toClass) {
+    public void setRelationship(String name, String fromClass, String toClass) {
 
         //Variables to store name of relationship and the names of the two classes it belongs to
         this.name = name;
@@ -23,13 +23,6 @@ public class Relationship {
         relationships.remove(relationship);
     }
 
-    public void setRelation(String name, String fromClass, String toClass){
-
-        //sets names of variables in class
-        this.name = name;
-        this.fromClass = fromClass;
-        this.toClass = toClass;
-    }
     public void delRelation(String relationship){
 
         //finds if there is a relationship in relationships with the given name and calls deleteRelation if there is
@@ -41,7 +34,8 @@ public class Relationship {
                 return rel;
             }
         }
-        Relationship relTemp = new Relationship("relName", "relName", "relName");
+        System.out.println(relName + "does not exist");
+        Relationship relTemp = new Relationship();
         return relTemp;
         
     }
@@ -64,5 +58,15 @@ public class Relationship {
 
         //returns list of all relationship
         return relationships;
+    }
+    
+    @Override
+    public String toString() 
+    {
+        return "Relationship{" +
+            "name='" + name + '\'' +
+            ", fromClass='" + fromClass + '\'' +
+            ", toClass='" + toClass + '\'' +
+            '}';
     }
 }
