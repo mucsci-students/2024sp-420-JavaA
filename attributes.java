@@ -1,14 +1,13 @@
-public class attributes <E> {
+public class attributes {
 
     //Name for the attribute
     private String name;
 
     //content of the attribute
-    private E content;
+    private String content;
 
-    public attributes(newName, newContent){
+    public attributes(String newName, String newContent){
         this.name = newName;
-
         this.content = newContent;
     }
 
@@ -23,16 +22,15 @@ public class attributes <E> {
     }
 
     //Change the content of the attribute
-    public void setContent(E newContent){
+    public void setContent(String newContent){
         this.content = newContent;
     }
 
     //returns the content of the attribute
-    public E getContent(){
+    public String getContent(){
         return this.content;
     }
     
-}
     
     @Override
     public String toString() 
