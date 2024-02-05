@@ -65,4 +65,14 @@ public class Relationship {
         //returns list of all relationship
         return relationships;
     }
+
+    @Override
+    public String toString() 
+    {
+        return "Relationship{" +
+            "name='" + name + '\'' +
+            ", fromClass='" + fromClass + '\'' +
+            ", toClass='" + toClass + '\'' +
+            '}';
+    }
 }
