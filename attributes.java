@@ -33,3 +33,14 @@ public class attributes <E> {
     }
     
 }
+    
+    @Override
+    public String toString() 
+    {
+        return "Attribute{" +
+            "name='" + name + '\'' +
+            ", className='" + className + '\'' +
+            ", content='" + content + '\'' +
+            '}';
+    }
+}
