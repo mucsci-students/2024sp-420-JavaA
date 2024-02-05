@@ -32,7 +32,7 @@ public class ClassBase
     */
     public void addAttribute(String newName, E newContent){
 
-        for(Attributes att: classAttributes){
+        for (attributes att: classAttributes){
             if(att.getName().equalsIgnoreCase(newName)){
                 throw new exception("Attribute already exists");
             }
@@ -47,7 +47,7 @@ public class ClassBase
     */
     public void setAttName(String oldName, String newName){
         int set = 0;
-        for(Attributes att: classAttributes){
+        for(attributes att: classAttributes){
             if(att.getName().equalsIgnoreCase(oldName)){
                 att.setName(newName);
                 set++;
@@ -67,7 +67,7 @@ public class ClassBase
     */
     public void setAttContent(String Name, E NewContent){
         int set = 0;
-        for(Attributes att: classAttributes){
+        for(attributes att: classAttributes){
             if(att.getName().equalsIgnoreCase(Name)){
                 att.setContent(newContent);
                 set++;
@@ -87,7 +87,7 @@ public class ClassBase
     */
     public void deleteAttribute(String Name){
         int removed = 0;
-        for(Attributes att: classAttributes){
+        for(attributes att: classAttributes){
             if(att.getName().equalsIgnoreCase(Name)){
                 classAttributes.remove(att);
                 removed++;
