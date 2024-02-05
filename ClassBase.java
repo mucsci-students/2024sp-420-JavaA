@@ -27,8 +27,8 @@ public class ClassBase
     }
 
     //adds the attribute that called this method to the list
-    public void addAttribute(String attName, String attContent){
-        classAttributes.add(new attributes(attName, attContent));
+    public void addAttribute(attributes myAtt){
+        classAttributes.add(myAtt);
     }
 
     //updates either the name or content of an attribute
