@@ -3,16 +3,16 @@ import java.util.List;
 
 public class Relationship {
     private String name;
-    private String firstClass;
-    private String secondClass;
+    private String fromClass;
+    private String toClass;
     private static List<Relationship> relationships = new ArrayList<>();
     
-    public Relationship(String name, String firstClass, String secondClass) {
+    public Relationship(String name, String fromClass, String toClass) {
 
         //Variables to store name of relationship and the names of the two classes it belongs to
         this.name = name;
-        this.firstClass = firstClass;
-        this.secondClass = secondClass;
+        this.fromClass = fromClass;
+        this.toClass = toClass;
 
         //adds this relationship to the arraylist of relationships
         relationships.add(this);
@@ -23,12 +23,12 @@ public class Relationship {
         relationships.remove(relationship);
     }
 
-    public void setRelation(String name, String firstClass, String secondClass){
+    public void setRelation(String name, String fromClass, String toClass){
 
         //sets names of variables in class
         this.name = name;
-        this.firstClass = firstClass;
-        this.secondClass = secondClass;
+        this.fromClass = fromClass;
+        this.toClass = toClass;
     }
     public void delRelation(String relationship){
 
@@ -50,15 +50,15 @@ public class Relationship {
         //returns name of relationship
         return name;
     }
-    public String getFirstClass(){
+    public String getFromClass(){
 
         //returns the first class in the relationship
-        return firstClass;
+        return fromClass;
     }
-    public String getSecondClass(){
+    public String getToClass(){
 
         //returns the second class in the relationship
-        return secondClass;
+        return toClass;
     }
     public List<Relationship> getAllRelationships() {
 
