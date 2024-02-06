@@ -24,17 +24,20 @@ public class InputHandler
                     String className = userInput.nextLine();
                     ClassBase myClass = new ClassBase(className);
                     myClassContainer.addClass(myClass);
+                    System.out.println(className +" class added.");
                     break;
                 case "remove class":
                     System.out.println("Please type the name of the class you wish to delete.");
                     className = userInput.nextLine();
                     myClassContainer.removeClass(className);
+                    System.out.println(className + " class removed.");
                     break;
                 case "rename class":
                     System.out.println("Please type the name of the class you wish to rename and the new name of the class.");
                     className = userInput.nextLine();
                     String newName = userInput.nextLine();
                     myClassContainer.renameClass(className, newName);
+                    System.out.println(className + "renamed to " + newName +".");
                     break;
                 case "add relationship":
                     System.out.println("Please type the name of the relationship.");
@@ -44,9 +47,14 @@ public class InputHandler
                     System.out.println("Please type the name of the class it goes to.");
                     String relTo = userInput.nextLine();
                     myRelationship.setRelationship(relName, relFrom, relTo);
+                    System.out.println(relName + " relationship added.");
                     break;
-                //case "remove relationship":           I dont think this was one of the reqs for relationship but I will check and add it if it was
-                //    break;
+                case "remove relationship":
+                    System.out.println("Please type the name of the relationship you wish to remove.");
+                    String relDelete = userInput.nextLine();
+                    myRelationship.delRelation(relDelete);
+                    System.out.println(relDelete + " relationship deleted.");
+                    break;
                 case "add attribute":
                     System.out.println("Please type attribute name.");
                     String attName = userInput.nextLine();
@@ -58,6 +66,7 @@ public class InputHandler
                     myAttributes.setContent(attContent);
                     ClassBase tempClass = myClassContainer.getClassBase(className2);
                     tempClass.addAttribute(myAttributes);
+                    System.out.println(attName + " attribute added with " + attContent + " as its content.");
                     break;
                 case "edit attribute":
                     System.out.println("From which class.");
