@@ -34,10 +34,10 @@ public class Relationship {
                 return rel;
             }
         }
-        System.out.println(relName + "does not exist");
+        System.out.println(relName + " does not exist");
         Relationship relTemp = new Relationship();
+        relTemp.setRelationship(relName, "thisisnotarealclass", "thisisalsonotarealclass");
         return relTemp;
-        
     }
     public String getName(){
         
