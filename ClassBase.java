@@ -32,26 +32,29 @@ public class ClassBase
     }
 
     //updates either the name or content of an attribute
-    public void updateAttribute(String updating, String updateType, String update){
-        for(attributes attribute: classAttributes){
-            if(attribute.getName().equalsIgnoreCase(updating)){
-                if(updateType.equalsIgnoreCase("Name")){
-                    attribute.setName(update);
-                }
-                else{
-                    attribute.setContent(update);
-                }
-            }
+    public void updateAttribute(attributes myAtt, String updateType, String update){
+        if(updateType.equalsIgnoreCase("Name")){
+            myAtt.setName(update);
         }
+        else{
+            myAtt.setContent(update);
+        }
+        
     }
 
     //deletes the attribute from the list
-    public void deleteAttribute(String name){
-        for(attributes attribute: classAttributes){
-            if(attribute.getName().equalsIgnoreCase(name)){
-                classAttributes.remove(attribute);
+    public void deleteAttribute(attributes myAtt){
+        classAttributes.remove(myAtt);
+    }
+
+    //used to find an attribute for deleting or updating
+    public attributes getAttribute(String attName){
+        for(attributes att: classAttributes){
+            if(att.getName().equalsIgnoreCase(attName)){
+                return att;
             }
         }
+        return null;
     }
     
 

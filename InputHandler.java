@@ -10,11 +10,10 @@ public class InputHandler
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         while (true)
         {
-        Scanner input = new Scanner(System.in);
         Scanner userInput = new Scanner(System.in);
         while(true)
         {
-            String userString = input.nextLine();
+            String userString = userInput.nextLine();
             switch(userString)
             {
                 case "help":
@@ -61,6 +60,24 @@ public class InputHandler
                     tempClass.addAttribute(myAttributes);
                     break;
                 case "edit attribute":
+                    System.out.println("From which class.");
+                    className = userInput.nextLine();
+                    System.out.println("Which attribute would you like to change.");
+                    attName = userInput.nextLine();
+                    System.out.println("What edit would you like to make, name or content of an attribute.");
+                    String updateType = userInput.nextLine();
+                    System.out.println("Type the new change.");
+                    String updatedContent = userInput.nextLine();
+                    tempClass = myClassContainer.getClassBase(className);
+                    tempClass.updateAttribute(tempClass.getAttribute(attName), updateType, updatedContent);
+                    break;
+                case "remove attribute":
+                    System.out.println("From which class.");
+                    className = userInput.nextLine();
+                    System.out.println("Which attribute would you like to remove.");
+                    attName = userInput.nextLine();
+                    tempClass = myClassContainer.getClassBase(className);
+                    tempClass.deleteAttribute(tempClass.getAttribute(attName));
                     break;
                 case "save":
                     break;
@@ -68,6 +85,7 @@ public class InputHandler
                     break;
                 case "exit":
                     ExitUML myExit = new ExitUML();
+                    userInput.close();
                     myExit.callExit();
                     break;
                 default:
