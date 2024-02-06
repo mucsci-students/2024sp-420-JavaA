@@ -4,6 +4,7 @@ public class InputHandler
     ClassContainer myClassContainer = new ClassContainer();
     Relationship myRelationship = new Relationship();
     attributes myAttributes = new attributes();
+
     public void main(String[] args)
     {
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
@@ -48,6 +49,16 @@ public class InputHandler
                 //case "remove relationship":           I dont think this was one of the reqs for relationship but I will check and add it if it was
                 //    break;
                 case "add attribute":
+                    System.out.println("Please type attribute name.");
+                    String attName = userInput.nextLine();
+                    myAttributes.setName(attName);
+                    System.out.println("Please type attribute content.");
+                    String attContent = userInput.nextLine();
+                    System.out.println("Please type class name.");
+                    String className2 = userInput.nextLine();
+                    myAttributes.setContent(attContent);
+                    ClassBase tempClass = myClassContainer.getClassBase(className2);
+                    tempClass.addAttribute(myAttributes);
                     break;
                 case "edit attribute":
                     break;
