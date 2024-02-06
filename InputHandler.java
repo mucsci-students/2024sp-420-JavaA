@@ -10,11 +10,10 @@ public class InputHandler
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         while (true)
         {
-        Scanner input = new Scanner(System.in);
         Scanner userInput = new Scanner(System.in);
         while(true)
         {
-            String userString = input.nextLine();
+            String userString = userInput.nextLine();
             switch(userString)
             {
                 case "help":
@@ -70,26 +69,24 @@ public class InputHandler
                     System.out.println(attName + " attribute added with " + attContent + " as its content.");
                     break;
                 case "edit attribute":
-                    System.out.println("Please type what attribute you want to change.");
-                    String atName = userInput.nextLine();
-                    System.out.println("Please type 'Name' if you wish to update attribute name and 'Content' if you wish to update attribute content.");
-                    String updating = userInput.nextLine();
-                    System.out.println("Please type the class that holds this attribute.");
-                    String claName = userInput.nextLine();
-                    ClassBase tempClass2 = myClassContainer.getClassBase(claName);
-                    System.out.println("Please type new updated information.");
-                    String updated = userInput.nextLine();
-                    tempClass2.updateAttribute(atName, updating, updated);
-                    System.out.println(atName + " has had its " + updating + " updated to " + updated + ".");
+                    System.out.println("From which class.");
+                    className = userInput.nextLine();
+                    System.out.println("Which attribute would you like to change.");
+                    attName = userInput.nextLine();
+                    System.out.println("What edit would you like to make, name or content of an attribute.");
+                    String updateType = userInput.nextLine();
+                    System.out.println("Type the new change.");
+                    String updatedContent = userInput.nextLine();
+                    tempClass = myClassContainer.getClassBase(className);
+                    tempClass.updateAttribute(tempClass.getAttribute(attName), updateType, updatedContent);
                     break;
-                case "delete attribute":
-                    System.out.println("Please type what attribute you wish to delete.");
-                    String delAtt = userInput.nextLine();
-                    System.out.println("Please type which class holds this attribute.");
-                    String delClass = userInput.nextLine();
-                    ClassBase tempClass3 = myClassContainer.getClassBase(delClass);
-                    tempClass3.deleteAttribute(delAtt);
-                    System.out.println(delAtt + " attribute deleted.");
+                case "remove attribute":
+                    System.out.println("From which class.");
+                    className = userInput.nextLine();
+                    System.out.println("Which attribute would you like to remove.");
+                    attName = userInput.nextLine();
+                    tempClass = myClassContainer.getClassBase(className);
+                    tempClass.deleteAttribute(tempClass.getAttribute(attName));
                     break;
                 case "save":
                     break;
@@ -97,6 +94,7 @@ public class InputHandler
                     break;
                 case "exit":
                     ExitUML myExit = new ExitUML();
+                    userInput.close();
                     myExit.callExit();
                     break;
                 default:
