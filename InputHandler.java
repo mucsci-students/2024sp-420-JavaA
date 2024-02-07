@@ -43,9 +43,37 @@ public class InputHandler
                 case "remove class":
                     System.out.println("Please type the name of the class you wish to delete.");
                     className = userInput.nextLine();
-                    //Prints the return of removeClass, so would say whether it works or not.
-                    String removing = myClassContainer.removeClass(className);
-                    System.out.println(removing);
+                    boolean hasRel = false;
+                    //Checks if the class has any relationships existing.
+                    //If so, it informs the user and asks them to remove them before removing the class.
+                    for (Relationship rel : myRelationship.getAllRelationships())
+                    {
+                        if(rel.getFromClass().equals(className))
+                        {
+                            hasRel = true;
+                        }
+                        else
+                        {
+                            if(rel.getToClass().equals(className))
+                            {
+                                hasRel = true;
+                            }
+                        }
+                        if(hasRel == true)
+                        {
+                            System.out.println(rel.getName() + " is an existing relationship.");
+                        }
+                    }
+                    if(hasRel == true)
+                    {
+                        System.out.println("Please remove the existing relationship(s) before removing the class.");
+                    }
+                    else
+                    {
+                        //Prints the return of removeClass, so would say whether it works or not.
+                        String removing = myClassContainer.removeClass(className);
+                        System.out.println(removing);
+                    }
                     break;
                 case "rename class":
                     System.out.println("Please type the name of the class you wish to rename.");
