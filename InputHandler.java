@@ -17,7 +17,19 @@ public class InputHandler
             switch(userString)
             {
                 case "help":
-                    System.out.println("Help denied :)");
+                    System.out.println("Here is a list of commands, please enter them without the '':");
+                    System.out.println("'add class', will prompt you for a class name to add.");
+                    System.out.println("'remove class', will prompt you for a class name to remove.");
+                    System.out.println("'rename class', will prompt you for a class you wish to rename, and then the name you wish to rename it to. ");
+                    System.out.println("'add relationship', will prompt you for the name of the relationship you wish to add, as well as the class it goes from/to.");
+                    System.out.println("'remove relationship', asks you for the name of the relationship you wish to remove.");
+                    System.out.println("'add attribute', asks you for the name of the attribute you wish to add, the content, and the class name.");
+                    System.out.println("'edit attribute', asks you which class you want to edit an attribute from, which attribute you want to edit, how would you like to edit it, and the edit itself.");
+                    System.out.println("'remove attribute', asks which class you would like to remove an attribute from, and which attribute you would like to remove. ");
+                    System.out.println("'save', saves the class.");
+                    System.out.println("'load', asks you for a file to load from, then loads said file.");
+                    System.out.println("'exit', closes the program.");
+                    System.out.println("'help', loads this document.");
                     break;
                 case "add class":
                     System.out.println("Please type the name of the class you wish to add.");
