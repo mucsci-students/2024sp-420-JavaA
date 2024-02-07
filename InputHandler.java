@@ -1,12 +1,12 @@
 import java.util.Scanner;
 public class InputHandler
 {  
-    ClassContainer myClassContainer = new ClassContainer();
-    Relationship myRelationship = new Relationship();
-    attributes myAttributes = new attributes();
 
-    public void main(String[] args)
+    public static void main(String[] args)
     {
+        ClassContainer myClassContainer = new ClassContainer();
+        Relationship myRelationship = new Relationship();
+        attributes myAttributes = new attributes();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         while (true)
         {
@@ -17,6 +17,7 @@ public class InputHandler
             switch(userString)
             {
                 case "help":
+                //Prints a large amount of stuff, which hopefully would tell the user how to use the program.
                     System.out.println("Here is a list of commands, please enter them without the '':");
                     System.out.println("'add class', will prompt you for a class name to add.");
                     System.out.println("'remove class', will prompt you for a class name to remove.");
@@ -29,27 +30,31 @@ public class InputHandler
                     System.out.println("'save', saves the class.");
                     System.out.println("'load', asks you for a file to load from, then loads said file.");
                     System.out.println("'exit', closes the program.");
-                    System.out.println("'help', loads this document.");
+                    System.out.println("'help', displays the help text.");
                     break;
                 case "add class":
                     System.out.println("Please type the name of the class you wish to add.");
                     String className = userInput.nextLine();
                     ClassBase myClass = new ClassBase(className);
-                    myClassContainer.addClass(myClass);
-                    System.out.println(className +" class added.");
+                    //Prints the return of addClass, so would say whether it works or not.
+                    String add = myClassContainer.addClass(myClass);
+                    System.out.println(add);
                     break;
                 case "remove class":
                     System.out.println("Please type the name of the class you wish to delete.");
                     className = userInput.nextLine();
-                    myClassContainer.removeClass(className);
-                    System.out.println(className + " class removed.");
+                    //Prints the return of removeClass, so would say whether it works or not.
+                    String removing = myClassContainer.removeClass(className);
+                    System.out.println(removing);
                     break;
                 case "rename class":
-                    System.out.println("Please type the name of the class you wish to rename and the new name of the class.");
+                    System.out.println("Please type the name of the class you wish to rename.");
                     className = userInput.nextLine();
+                    System.out.println("Please type the new name of the class.");
                     String newName = userInput.nextLine();
-                    myClassContainer.renameClass(className, newName);
-                    System.out.println(className + "renamed to " + newName +".");
+                    //Prints the return of renameClass, so would say whether it works or not.
+                    String rename = myClassContainer.renameClass(className, newName);
+                    System.out.println(rename);
                     break;
                 case "add relationship":
                     System.out.println("Please type the name of the relationship.");
