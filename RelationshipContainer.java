@@ -4,37 +4,57 @@ import java.util.List;
 public class RelationshipContainer {
     private static List<Relationship> relationships = new ArrayList<>();
     
-    public void addRelationship(String relName, String fromClass, String toClass){
+    /*
+     * addRelationship - returns boolean based on whether or not a relationship was created
+     * if there is already a relationship with that name then it will not add a duplicate
+     * and returns false. If there was no match then it will call the setter for relationship
+     * and add a new relationship to the container
+     */
+    public boolean addRelationship(String relName, String fromClass, String toClass){
+        //loops through relationship container
+        for (Relationship rel : relationships){ 
+            if (rel.getName().equals(relName)){
+                return false;
+            }
+        }
+
+        //sets new relationship
         Relationship rel = new Relationship();
         rel.setRelationship(relName, fromClass, toClass);
         relationships.add(rel);
+        return true;
     }
+    /*
+     * deleteRelation - calls remove on relationship container from a given relationship
+     * done so that users can call remove relationship and not have a relationship object
+     * to call remove on relationships
+     */
     private void deleteRelation(Relationship relationship){
-
         //removes the given relationship from the arraylist
         relationships.remove(relationship);
     }
-    public void delRelation(String relationship){
-        //finds if there is a relationship in relationships with the given name and calls deleteRelation if there is
-        deleteRelation(getRelation(relationship));
-    }
-    public Relationship getRelation(String relName){
+
+    /*
+     * Remove Relationship - returns a boolean value based on
+     * whether or not there was a match found for the given relationship name
+     * if there was it returns true if not it returns false
+     */
+    public boolean removeRelationship(String relationship){
+        //loops through relationship container searching for a name match
         for (Relationship rel : relationships){
-            if (rel.getName().equals(relName)){
-                return rel;
-            }
-            else{
-                System.out.println("No Relationship with that name");
-                return null;
+            if (rel.getName().equals(relationship)){
+                deleteRelation(rel);
+                return true;
             }
         }
-        Relationship relTemp = new Relationship();
-        return relTemp;
-
+        
+        return false;
     }
-    public List<Relationship> getAllRelationships() {
 
-        //returns list of all relationship
+    /*
+     * getAllRelationships - getter for relationship container
+     */
+    public List<Relationship> getAllRelationships() {
         return relationships;
     }
 }
