@@ -43,6 +43,14 @@ public class Relationship {
         return toClass;
     }
 
+    public void setFromClass(String newFromClass){
+        this.fromClass = newFromClass;
+    }
+
+    public void setToClass(String newToClass){
+        this.toClass = newToClass;
+    }
+
     /*
      * toString - override for toString to fit JSON format
      */
