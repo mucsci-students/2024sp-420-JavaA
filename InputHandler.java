@@ -5,7 +5,7 @@ public class InputHandler
     public static void main(String[] args)
     {
         ClassContainer myClassContainer = new ClassContainer();
-        Relationship myRelationship = new Relationship();
+        RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         attributes myAttributes = new attributes();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         while (true)
@@ -46,7 +46,7 @@ public class InputHandler
                     boolean hasRel = false;
                     //Checks if the class has any relationships existing.
                     //If so, it informs the user and asks them to remove them before removing the class.
-                    for (Relationship rel : myRelationship.getAllRelationships())
+                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
                     {
                         if(rel.getFromClass().equals(className))
                         {
@@ -91,13 +91,13 @@ public class InputHandler
                     String relFrom = userInput.nextLine();
                     System.out.println("Please type the name of the class it goes to.");
                     String relTo = userInput.nextLine();
-                    myRelationship.setRelationship(relName, relFrom, relTo);
+                    myRelationshipContainer.addRelationship(relName, relFrom, relTo);
                     System.out.println(relName + " relationship added.");
                     break;
                 case "remove relationship":
                     System.out.println("Please type the name of the relationship you wish to remove.");
                     String relDelete = userInput.nextLine();
-                    myRelationship.delRelation(relDelete);
+                    myRelationshipContainer.delRelation(relDelete);
                     System.out.println(relDelete + " relationship deleted.");
                     break;
                 case "add attribute":
