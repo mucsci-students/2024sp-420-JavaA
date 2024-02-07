@@ -27,8 +27,14 @@ public class ClassBase
     }
 
     //adds the attribute that called this method to the list
-    public void addAttribute(attributes myAtt){
+    public int addAttribute(attributes myAtt){
+        for(attributes att: classAttributes){
+            if(att.getName().equalsIgnoreCase(myAtt.getName())){
+                return 0;
+            }
+        }
         classAttributes.add(myAtt);
+        return 1;
     }
 
     //updates either the name or content of an attribute
