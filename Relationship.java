@@ -1,5 +1,5 @@
 public class Relationship {
-    
+
     private String name;
     private String fromClass;
     private String toClass;
@@ -27,5 +27,15 @@ public class Relationship {
 
         //returns the second class in the relationship
         return toClass;
+    }
+
+    @Override
+    public String toString() 
+    {
+        return "Relationship{" +
+            "name='" + name + '\'' +
+            ", fromClass='" + fromClass + '\'' +
+            ", toClass='" + toClass + '\'' +
+            '}';
     }
 }
