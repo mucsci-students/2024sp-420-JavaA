@@ -226,7 +226,6 @@ public class InputHandler
                     break;
                 case "exit":
                     ExitUML myExit = new ExitUML();
-                    userInput.close();
                     myExit.callExit();
                     break;
                 default:
