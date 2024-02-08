@@ -48,6 +48,7 @@ public class InputHandler
                     System.out.println("Please type the name of the class you wish to delete.");
                     className = userInput.nextLine();
                     boolean hasRel = false;
+                    boolean hasRel2 = false;
                     //Checks if the class has any relationships existing.
                     //If so, it informs the user and asks them to remove them before removing the class.
                     for (Relationship rel : myRelationshipContainer.getAllRelationships())
@@ -66,9 +67,11 @@ public class InputHandler
                         if(hasRel == true)
                         {
                             System.out.println(rel.getName() + " is an existing relationship.");
+                            hasRel2 = true;
+                            hasRel = false;
                         }
                     }
-                    if(hasRel == true)
+                    if(hasRel2 == true)
                     {
                         System.out.println("Please remove the existing relationship(s) before removing the class.");
                     }
@@ -84,6 +87,22 @@ public class InputHandler
                     className = userInput.nextLine();
                     System.out.println("Please type the new name of the class.");
                     String newName = userInput.nextLine();
+                    //Goes through every relationship, and if any used the class being renamed,
+                    //It changes the name from the oldname to the newname.
+                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
+                    {
+                        if(rel.getFromClass().equals(className))
+                        {
+                            rel.setFromClass(newName);
+                        }
+                        else
+                        {
+                            if(rel.getToClass().equals(className))
+                            {
+                                rel.setToClass(newName);
+                            }
+                        }
+                    }
                     //Prints the return of renameClass, so would say whether it works or not.
                     String rename = myClassContainer.renameClass(className, newName);
                     System.out.println(rename);
