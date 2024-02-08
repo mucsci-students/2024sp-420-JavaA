@@ -29,7 +29,7 @@ public class ExitUML {
 
             default:
 
-                //nothing return to editor
+                //anything else return to editor
                 System.out.println("Returning to editor.");
                 break;
         }
