@@ -20,10 +20,10 @@ public class RelationshipTests {
 
     //Test to set relationship and class names
     private void setUp() {
-        relationship1 = new Relationship();
-        relationship2 = new Relationship();
-        relationship1.setRelationship("Relationship1", "Class1", "Class2");
-        relationship2.setRelationship("Relationship2", "Class3", "Class4");
+        relationship1 = new Relationship("Relationship1", "Class1", "Class2");
+        relationship2 = new Relationship("Relationship2", "Class3", "Class4");
+        //relationship1.setRelationship();
+        //relationship2.setRelationship();
     }
 
     //Test to see if the recieved name is the same as the inputed name

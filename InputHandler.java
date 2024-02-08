@@ -6,7 +6,7 @@ public class InputHandler
     {
         ClassContainer myClassContainer = new ClassContainer();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
-        attributes myAttributes = new attributes();
+        // Moved to inside case "add attribute"
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         while (true)
         {
@@ -141,11 +141,13 @@ public class InputHandler
                         //Asks for a name of the new attribute.
                         System.out.println("Please type attribute name.");
                         attName = userInput.nextLine();
-                        myAttributes.setName(attName);
+                        //myAttributes.setName(attName);
                         //Asks for the content of the new attribute.
                         System.out.println("Please type attribute content.");
                         attContent = userInput.nextLine();
-                        myAttributes.setContent(attContent);
+                        //myAttributes.setContent(attContent);
+                        attributes myAttributes = new attributes(attName, attContent);
+
                         /* addAttribute will check if an attribute with the given name
                          * already exists or not.
                          */

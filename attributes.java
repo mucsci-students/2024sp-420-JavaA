@@ -5,13 +5,7 @@ public class attributes {
 
     //content of the attribute
     private String content;
-
-    public attributes()
-    {
-        this.name = "NullName";
-        this.name = "NullContent";
-    }
-
+    
     public attributes(String name, String content)
     {
         this.name = name;

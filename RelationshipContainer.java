@@ -19,8 +19,7 @@ public class RelationshipContainer {
         }
 
         //sets new relationship
-        Relationship rel = new Relationship();
-        rel.setRelationship(relName, fromClass, toClass);
+        Relationship rel = new Relationship(relName, fromClass, toClass);
         relationships.add(rel);
         return true;
     }

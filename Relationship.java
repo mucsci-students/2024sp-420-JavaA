@@ -5,13 +5,6 @@ public class Relationship {
     private String name;
     private String fromClass;
     private String toClass;
-
-    public Relationship()
-    {
-        this.name = "NullName";
-        this.fromClass = "NullFromClass";
-        this.toClass = "NullToClass";
-    }
     
     // Who will implement adding and deleting relationships?
 
