@@ -84,6 +84,20 @@ public class InputHandler
                     className = userInput.nextLine();
                     System.out.println("Please type the new name of the class.");
                     String newName = userInput.nextLine();
+                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
+                    {
+                        if(rel.getFromClass().equals(className))
+                        {
+                            rel.setFromClass(newName);
+                        }
+                        else
+                        {
+                            if(rel.getToClass().equals(className))
+                            {
+                                rel.setToClass(newName);
+                            }
+                        }
+                    }
                     //Prints the return of renameClass, so would say whether it works or not.
                     String rename = myClassContainer.renameClass(className, newName);
                     System.out.println(rename);
