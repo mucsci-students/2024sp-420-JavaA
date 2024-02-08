@@ -6,6 +6,12 @@ public class attributes {
     //content of the attribute
     private String content;
 
+    public attributes(String name, String content)
+    {
+        this.name = name;
+        this.content = content;
+    }
+
     //Used by other classes / users to change the name of this attribute
     public void setName(String newName){
         this.name = newName;

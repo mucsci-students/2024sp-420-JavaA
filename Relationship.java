@@ -1,8 +1,17 @@
+import javax.management.relation.Relation;
+
 public class Relationship {
 
     private String name;
     private String fromClass;
     private String toClass;
+    
+    public Relationship(String name, String fromClass, String toClass)
+    {
+        this.name = name;
+        this.fromClass = fromClass;
+        this.toClass = toClass;
+    }
 
     /*
      * setRelationship - public setter for naming a relationship

@@ -40,11 +40,10 @@ public class LoadUML
             {
                 JSONObject attributeJson = (JSONObject) attributeObj;
                 String attributeName = (String) attributeJson.get("name");
-                String attributeClassName = (String) attributeJson.get("className");
                 // Parse content according to its data type
                 // Assuming content is a String for now
                 String attributeContent = (String) attributeJson.get("content");
-                attributes attribute = new attributes(attributeName, attributeClassName, attributeContent);
+                attributes attribute = new attributes(attributeName, attributeContent);
                 classAttributes.add(attribute);
             }
 
