@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 public class ClassBase
 {
     //Name of the class.
@@ -63,6 +64,10 @@ public class ClassBase
         return null;
     }
     
+    //returns arrayList of attributes
+    public List<attributes> getClassAttributes(){
+        return classAttributes;
+    }
 
 
 }
