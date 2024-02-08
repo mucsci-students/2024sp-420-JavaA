@@ -5,7 +5,7 @@ public class InputHandler
     public static void main(String[] args)
     {
         ClassContainer myClassContainer = new ClassContainer();
-        Relationship myRelationship = new Relationship();
+        RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         attributes myAttributes = new attributes();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         while (true)
@@ -13,6 +13,7 @@ public class InputHandler
         Scanner userInput = new Scanner(System.in);
         while(true)
         {
+            System.out.print("> ");
             String userString = userInput.nextLine();
             switch(userString)
             {
@@ -27,6 +28,9 @@ public class InputHandler
                     System.out.println("'add attribute', asks you for the name of the attribute you wish to add, the content, and the class name.");
                     System.out.println("'edit attribute', asks you which class you want to edit an attribute from, which attribute you want to edit, how would you like to edit it, and the edit itself.");
                     System.out.println("'remove attribute', asks which class you would like to remove an attribute from, and which attribute you would like to remove. ");
+                    System.out.println("'list one class', will prompt you for a class name and list all of its attributes and their content.");
+                    System.out.println("'list all classes', will list all classes and all of their attributes and contents.");
+                    System.out.println("'list one class relationship', will prompt you for a class name and list all of the relationships it belongs to.");
                     System.out.println("'save', saves the class.");
                     System.out.println("'load', asks you for a file to load from, then loads said file.");
                     System.out.println("'exit', closes the program.");
@@ -46,7 +50,7 @@ public class InputHandler
                     boolean hasRel = false;
                     //Checks if the class has any relationships existing.
                     //If so, it informs the user and asks them to remove them before removing the class.
-                    for (Relationship rel : myRelationship.getAllRelationships())
+                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
                     {
                         if(rel.getFromClass().equals(className))
                         {
@@ -91,14 +95,37 @@ public class InputHandler
                     String relFrom = userInput.nextLine();
                     System.out.println("Please type the name of the class it goes to.");
                     String relTo = userInput.nextLine();
-                    myRelationship.setRelationship(relName, relFrom, relTo);
-                    System.out.println(relName + " relationship added.");
+                    int test = 0;
+                    if (myClassContainer.getClassBase(relFrom) == null){
+                        test = 1;
+                        if (myClassContainer.getClassBase(relTo) == null){
+                            test = 2;
+                        }
+                    }
+                    if (test == 1){
+                        System.out.println("Class with name " + relFrom + " does not exist.");
+                        break;
+                    }
+                    else if (test == 2){
+                        System.out.println("Class with name " + relTo + " does not exist.");
+                        break;
+                    }
+                    if (myRelationshipContainer.addRelationship(relName, relFrom, relTo) == true){
+                        System.out.println(relName + " relationship added.");
+                    }
+                    else{
+                        System.out.println("Relationship with name " + relName + " already exists.");
+                    }
                     break;
                 case "remove relationship":
                     System.out.println("Please type the name of the relationship you wish to remove.");
                     String relDelete = userInput.nextLine();
-                    myRelationship.delRelation(relDelete);
-                    System.out.println(relDelete + " relationship deleted.");
+                    if (myRelationshipContainer.removeRelationship(relDelete) == true){
+                        System.out.println(relDelete + " relationship deleted.");
+                    }
+                    else{
+                        System.out.println("No such relationship with name " + relDelete);
+                    }
                     break;
                 case "add attribute":
                     //Prompts user for a class name.
@@ -140,22 +167,26 @@ public class InputHandler
                     break;
                 case "edit attribute":
                     //Asks user for a class name.
-                    System.out.println("Please type which class it will belong to.");
+                    System.out.println("Please type which class the attribute belongs to.");
                     className = userInput.nextLine();
+
                     //Checks to see if that class exists or not.
                     tempClass = myClassContainer.getClassBase(className);
                     if(tempClass != null){
                         //Asks the user for a name for an existing attribute.
                         System.out.println("Please type the name of the attribute you wish to change.");
                         attName = userInput.nextLine();
+
                         //Checks to see whether that attribute exists or not.
                         attributes attCheck = tempClass.getAttribute(attName);
                         if(attCheck != null){
                             //Asks the user if they want to change the name or content.
-                            System.out.println("What edit would you like to make, name or content of an attribute.");
+                            System.out.println("Please type 'name' if you wish to edit the name or type 'content' if you wish to edit the content.");
                             String updateType = userInput.nextLine();
+
                             //Will be used to store the users desired content of the attribute.
                             String updatedContent;
+
                             /*
                              * If the user wanted to change the name, the if part will run.
                              * If the user wanted to change the content, the else part will run.
@@ -164,6 +195,7 @@ public class InputHandler
                                 //Asks the user for a new name for the attribute.
                                 System.out.println("Please type the new name.");
                                 updatedContent = userInput.nextLine();
+
                                 /*
                                  * Checks to see if an attribute with that name already exists,
                                  * If one does exist the error will be displayed and the case will break,
@@ -195,14 +227,15 @@ public class InputHandler
                     break;
                 case "remove attribute":
                     //Asks user for a class name.
-                    System.out.println("From which class.");
+                    System.out.println("Please type the name of the class you wish to remove an attribute from.");
                     className = userInput.nextLine();
                     //Checks to see if the class exists.
                     tempClass = myClassContainer.getClassBase(className);
                     if(tempClass != null){
                         //Asks the user for an attribute name.
-                        System.out.println("Which attribute would you like to remove.");
+                        System.out.println("Please type the name of the attribute you wish to remove.");
                         attName = userInput.nextLine();
+
                         //Checks to see if the attribute exists or not
                         attributes attCheck = tempClass.getAttribute(attName);
                         if(attCheck != null){
@@ -220,13 +253,18 @@ public class InputHandler
                         System.out.println("A class of the given name does not exist.");
                     }
                     break;
+                case "list one class":
+                    break;
+                case "list all classes":
+                    break;
+                case "list one class relationship":
+                    break;
                 case "save":
                     break;
                 case "load":
                     break;
                 case "exit":
                     ExitUML myExit = new ExitUML();
-                    userInput.close();
                     myExit.callExit();
                     break;
                 default:
