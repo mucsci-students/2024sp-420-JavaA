@@ -69,5 +69,4 @@ public class ClassBase
         return classAttributes;
     }
 
-
 }
