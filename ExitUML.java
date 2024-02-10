@@ -10,7 +10,6 @@ public class ExitUML {
 
         //reads from scanner
         String mySave = obj.nextLine();
-        obj.close();
 
         //if yes save and exit
         switch(mySave){
@@ -19,18 +18,20 @@ public class ExitUML {
                 //call save and exit
                 System.out.println("Saving and exiting.");
                 endProgramSave(status);
+                break;
 
             case "no":
 
                 //exit without save
                 System.out.println("Saving without exiting.");
                 endProgram(status);
+                break;
 
             default:
 
-                //nothing return to editor
+                //anything else return to editor
                 System.out.println("Returning to editor.");
-
+                break;
         }
     }
     
