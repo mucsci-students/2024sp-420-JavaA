@@ -1,4 +1,5 @@
-import org.json.simple.*;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 public class saveUML {
 
@@ -59,7 +60,7 @@ public class saveUML {
             saveClass.put("name", classes.getName());
 
             //loop for iterating through a classes attributes
-            for(attributes att: classes.getAttributeContainer()){
+            for(attributes att: classes.getClassAttributes()){
                 saveAtt = new JSONObject();
                 saveAtt.put("name", att.getName());
                 saveAtt.put("content", att.getContent());
