@@ -1,5 +1,6 @@
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+import java.io.*;
 
 public class saveUML {
 
@@ -7,7 +8,7 @@ public class saveUML {
      * All of the JSONObjects and JSONArrays that
      * are used throughout the save process
      */
-    private static JSONObject saveFile;
+    private static JSONObject saved;
     private static JSONArray saveClasses;
     private static JSONObject saveClass;
     private static JSONArray saveRelationships;
@@ -21,9 +22,27 @@ public class saveUML {
      * into the save procedure
      */
     public static void save(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer){
-        saveFile = new JSONObject();
+        saved = new JSONObject();
         saveProcedure(myClassContainer, myRelationshipContainer);
-        System.out.println( saveFile.toString());
+
+        //try to create the new file saveUML.Json and save data to that file
+        try{
+            //will create a file named saveUML.Json, if a file already exists, no error will occur
+            File saveFile = new File("saveUML.Json");
+            saveFile.createNewFile();
+
+            //writes the information to the file
+            FileOutputStream writeToFile = new FileOutputStream("saveUML.Json");
+            writeToFile.write(saved.toJSONString().getBytes());
+            writeToFile.close();
+        }
+        catch(IOException except){
+            System.out.println("An error occured while creating this file");
+            System.out.println(except.toString());
+        }
+        
+        
+        System.out.println(saved.toString());
 
     }
 
@@ -33,9 +52,25 @@ public class saveUML {
      * into the save procedure, it also takes a name for the save file
      */
     public static void save(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer, String fileName){
-        saveFile = new JSONObject();
+        saved = new JSONObject();
         saveProcedure(myClassContainer, myRelationshipContainer);
-        saveFile.toString();
+        try{
+            //will create a file named saveUML.Json, if a file already exists, no error will occur
+            File saveFile = new File(fileName +".Json");
+            saveFile.createNewFile();
+
+            //writes the information to the file
+            FileOutputStream writeToFile = new FileOutputStream(fileName + ".Json");
+            writeToFile.write(saved.toJSONString().getBytes());
+            writeToFile.close();
+        }
+        catch(IOException except){
+            System.out.println("An error occured while creating this file");
+            System.out.println(except.toString());
+        }
+        
+        
+        System.out.println(saved.toString());
     }
 
     /*
@@ -46,7 +81,7 @@ public class saveUML {
      * Classes are put into a JSONArray
      * Relationships are put into a JSONArray
      * 
-     * Classes and Relationships are put into the saveFile JSONObject
+     * Classes and Relationships are put into the saved JSONObject
      * that will be put into a file for storing
      */
     private static void saveProcedure(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer){
@@ -79,8 +114,8 @@ public class saveUML {
             saveRelationships.add(saveRelationship);
         }
 
-        saveFile.put("Classes", saveClasses);
-        saveFile.put("Relationships", saveRelationships);
+        saved.put("Classes", saveClasses);
+        saved.put("Relationships", saveRelationships);
     }
     
 }
