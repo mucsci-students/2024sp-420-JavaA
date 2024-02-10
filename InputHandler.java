@@ -6,7 +6,6 @@ public class InputHandler
     {
         ClassContainer myClassContainer = new ClassContainer();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
-        attributes myAttributes = new attributes();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         while (true)
         {
@@ -158,6 +157,7 @@ public class InputHandler
                     //Checks whether a class of the given name exists or not.
                     if(tempClass != null){
                         //Asks for a name of the new attribute.
+                        attributes myAttributes = new attributes();
                         System.out.println("Please type attribute name.");
                         attName = userInput.nextLine();
                         myAttributes.setName(attName);
