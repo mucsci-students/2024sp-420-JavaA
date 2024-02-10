@@ -63,6 +63,9 @@ public class ClassBase
         return null;
     }
     
-
+    //returns the container of attributes to help the saving process
+    public ArrayList<attributes> getAttributeContainer(){
+        return classAttributes;
+    }
 
 }

@@ -279,6 +279,7 @@ public class InputHandler
                 case "list one class relationship":
                     break;
                 case "save":
+                    saveUML.save(myClassContainer, myRelationshipContainer);
                     break;
                 case "load":
                     break;
