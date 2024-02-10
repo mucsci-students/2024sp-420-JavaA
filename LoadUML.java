@@ -22,6 +22,10 @@ import org.json.simple.parser.*;
 
 public class LoadUML 
 {
+    // Put all lists here as private globals.
+    private ArrayList<attributes> classAttributes;
+    private ArrayList<Relationship> relationships;
+
     public void loadUML() 
     {
         JSONParser parser = new JSONParser();
@@ -35,29 +39,33 @@ public class LoadUML
             String className = (String) classBase.get("className");
 
             JSONArray attributesArray = (JSONArray) classBase.get("attributes");
-            ArrayList<attributes> classAttributes = new ArrayList<>();
+            //ArrayList<attributes> classAttributes = new ArrayList<>();
+            classAttributes = new ArrayList<>();
             for (Object attributeObj : attributesArray) 
             {
                 JSONObject attributeJson = (JSONObject) attributeObj;
                 String attributeName = (String) attributeJson.get("name");
-                String attributeClassName = (String) attributeJson.get("className");
                 // Parse content according to its data type
                 // Assuming content is a String for now
                 String attributeContent = (String) attributeJson.get("content");
-                attributes attribute = new attributes(attributeName, attributeClassName, attributeContent);
+                attributes attribute = new attributes();
+                attribute.setName(attributeName);
+                attribute.setContent(attributeContent);
                 classAttributes.add(attribute);
             }
 
             // Load Relationships
             JSONArray relationshipsArray = (JSONArray) jsonObject.get("Relationships");
-            ArrayList<Relationship> relationships = new ArrayList<>();
+            //ArrayList<Relationship> relationships = new ArrayList<>();
+            relationships = new ArrayList<>();
             for (Object relationshipObj : relationshipsArray) 
             {
                 JSONObject relationshipJson = (JSONObject) relationshipObj;
                 String relationshipName = (String) relationshipJson.get("name");
                 String fromClass = (String) relationshipJson.get("fromClass");
                 String toClass = (String) relationshipJson.get("toClass");
-                Relationship relationship = new Relationship(relationshipName, fromClass, toClass);
+                Relationship relationship = new Relationship();
+                relationship.setRelationship(relationshipName, fromClass, toClass);
                 relationships.add(relationship);
             }
 
@@ -78,5 +86,37 @@ public class LoadUML
         {
             e.printStackTrace();
         }
+    }
+
+    public Relationship getRelation(String name)
+    {
+        loadUML();
+        Relationship result = null;
+        for (Relationship relationship : relationships)
+        {
+            if (relationship.getName() == name)
+                result = relationship;
+        }
+        return result;
+    }
+
+    public void delRelation(String name)
+    {
+        loadUML();
+        int i = 0;
+        for (Relationship relationship : relationships)
+        {
+            if (relationship.getName() == name)
+            {
+                relationships.remove(i);
+            }
+            ++i;
+        }
+    }
+
+    public List<Relationship> getAllRelationships()
+    {
+        loadUML();
+        return relationships;
     }
 }     
