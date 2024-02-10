@@ -279,7 +279,14 @@ public class InputHandler
                 case "list one class relationship":
                     break;
                 case "save":
-                    saveUML.save(myClassContainer, myRelationshipContainer);
+                    System.out.println("enter a name for the save file, or type nothing for default (saveUML) name");
+                    String fileName = userInput.nextLine();
+                    if(fileName.length() == 0){
+                        saveUML.save(myClassContainer, myRelationshipContainer);
+                    }
+                    else{
+                        saveUML.save(myClassContainer, myRelationshipContainer, fileName);
+                    }
                     break;
                 case "load":
                     break;
@@ -289,7 +296,14 @@ public class InputHandler
                     int status;
                     if (saveState.equals("yes")){
                         status = 0;
-                        saveUML.save(myClassContainer, myRelationshipContainer);
+                        System.out.println("enter a name for the save file, or type nothing for default (saveUML) name");
+                        fileName = userInput.nextLine();
+                        if(fileName.length() == 0){
+                            saveUML.save(myClassContainer, myRelationshipContainer);
+                        }
+                        else{
+                            saveUML.save(myClassContainer, myRelationshipContainer, fileName);
+                        }
                     }
                     else if (saveState.equals("no")){
                         status = 1;
