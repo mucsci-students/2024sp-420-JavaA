@@ -1,26 +1,17 @@
-import java.util.Scanner;
 
 public class ExitUML {
     private static void exitUML(int status){
-        //create popup once front end is available
-        System.out.println("You are exiting NAME UML editor, type yes to save and exit, type no to exit without saving, anything else will return to the editor");
-
-        //replace scanner with values from popups this is a place holder to show my idea
-        Scanner obj = new Scanner(System.in);
-
-        //reads from scanner
-        String mySave = obj.nextLine();
-
+        
         //if yes save and exit
-        switch(mySave){
-            case "yes":
+        switch(status){
+            case 0:
 
                 //call save and exit
                 System.out.println("Saving and exiting.");
                 endProgramSave(status);
                 break;
 
-            case "no":
+            case 1:
 
                 //exit without save
                 System.out.println("Saving without exiting.");
@@ -50,8 +41,8 @@ public class ExitUML {
     }
 
     //public call to exit for other files returns status of exit
-    public void callExit(){ 
+    public void callExit(int status){ 
         //calls exit function
-        exitUML(0);
+        exitUML(status);
     }
 }
