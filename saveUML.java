@@ -1,4 +1,5 @@
-import org.json.simple.*;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 public class saveUML {
 
