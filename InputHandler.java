@@ -291,8 +291,28 @@ public class InputHandler
                 case "load":
                     break;
                 case "exit":
+                    System.out.println("You are exiting NAME UML editor, type yes to save and exit, type no to exit without saving, anything else will return to the editor");
+                    String saveState = userInput.nextLine();
+                    int status;
+                    if (saveState.equals("yes")){
+                        status = 0;
+                        System.out.println("enter a name for the save file, or type nothing for default (saveUML) name");
+                        fileName = userInput.nextLine();
+                        if(fileName.length() == 0){
+                            saveUML.save(myClassContainer, myRelationshipContainer);
+                        }
+                        else{
+                            saveUML.save(myClassContainer, myRelationshipContainer, fileName);
+                        }
+                    }
+                    else if (saveState.equals("no")){
+                        status = 1;
+                    }
+                    else{
+                        status = -1;
+                    }
                     ExitUML myExit = new ExitUML();
-                    myExit.callExit();
+                    myExit.callExit(status);
                     break;
                 default:
                     System.out.println("Please enter a valid command, type 'help' without '' to see a list of available commands.");
