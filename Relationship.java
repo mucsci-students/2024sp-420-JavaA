@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Relationship {
 
     private String name;
@@ -49,6 +51,24 @@ public class Relationship {
 
     public void setToClass(String newToClass){
         this.toClass = newToClass;
+    }
+
+    public Relationship getRelation(String name)
+    {
+        LoadUML load = new LoadUML();
+        return load.getRelation(name);
+    }
+
+    public void delRelation(String name)
+    {
+        LoadUML load = new LoadUML();
+        load.delRelation(name);
+    }
+
+    public List<Relationship> getAllRelationships()
+    {
+        LoadUML load = new LoadUML();
+        return load.getAllRelationships();
     }
 
     /*
