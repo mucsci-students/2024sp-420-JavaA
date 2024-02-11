@@ -87,14 +87,16 @@ public class saveUML {
     private static void saveProcedure(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer){
         saveClasses = new JSONArray();
         saveRelationships = new JSONArray();
-        saveAtts = new JSONArray();
+        
 
         //loop for iterating through classes
         for (ClassBase classes: myClassContainer.getContainer()){
             saveClass = new JSONObject();
+            saveAtts = new JSONArray();
             saveClass.put("name", classes.getName());
 
             //loop for iterating through a classes attributes
+            
             for(attributes att: classes.getClassAttributes()){
                 saveAtt = new JSONObject();
                 saveAtt.put("name", att.getName());
