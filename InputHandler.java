@@ -312,9 +312,15 @@ public class InputHandler
                     }
                     break;
                 case "load":
+                //
                     LoadUML load = new LoadUML();
                     System.out.println("Please type the name of the json file you wish to load.");
                     String loadName = userInput.nextLine();
+                    for (ClassBase cls : myClassContainer.getContainer()){
+                        cls.getClassAttributes().clear();
+                    }
+                    myClassContainer.getContainer().clear();
+                    myRelationshipContainer.getAllRelationships().clear();
                     load.load(loadName + ".json",myClassContainer,myRelationshipContainer);
                     break;
                 case "exit":
