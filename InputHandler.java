@@ -312,6 +312,7 @@ public class InputHandler
                     }
                     break;
                 case "load":
+                //
                     LoadUML load = new LoadUML();
                     System.out.println("Please type the name of the json file you wish to load.");
                     String loadName = userInput.nextLine();
