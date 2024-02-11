@@ -25,14 +25,14 @@ public class saveUML {
         saved = new JSONObject();
         saveProcedure(myClassContainer, myRelationshipContainer);
 
-        //try to create the new file saveUML.Json and save data to that file
+        //try to create the new file saveUML.json and save data to that file
         try{
-            //will create a file named saveUML.Json, if a file already exists, no error will occur
-            File saveFile = new File("saveUML.Json");
+            //will create a file named saveUML.json, if a file already exists, no error will occur
+            File saveFile = new File("saveUML.json");
             saveFile.createNewFile();
 
             //writes the information to the file
-            FileOutputStream writeToFile = new FileOutputStream("saveUML.Json");
+            FileOutputStream writeToFile = new FileOutputStream("saveUML.json");
             writeToFile.write(saved.toJSONString().getBytes());
             writeToFile.close();
         }
@@ -55,12 +55,12 @@ public class saveUML {
         saved = new JSONObject();
         saveProcedure(myClassContainer, myRelationshipContainer);
         try{
-            //will create a file named saveUML.Json, if a file already exists, no error will occur
-            File saveFile = new File(fileName +".Json");
+            //will create a file named saveUML.json, if a file already exists, no error will occur
+            File saveFile = new File(fileName +".json");
             saveFile.createNewFile();
 
             //writes the information to the file
-            FileOutputStream writeToFile = new FileOutputStream(fileName + ".Json");
+            FileOutputStream writeToFile = new FileOutputStream(fileName + ".json");
             writeToFile.write(saved.toJSONString().getBytes());
             writeToFile.close();
         }
