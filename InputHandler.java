@@ -3,12 +3,11 @@ public class InputHandler
 {  
 
     public static void main(String[] args)
-    {
+    {   
+        //setup containers and print welcome message
         ClassContainer myClassContainer = new ClassContainer();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
-        while (true)
-        {
         Scanner userInput = new Scanner(System.in);
         while(true)
         {
@@ -17,7 +16,8 @@ public class InputHandler
             switch(userString)
             {
                 case "help":
-                //Prints a large amount of stuff, which hopefully would tell the user how to use the program.
+
+                    //Prints a large amount of stuff, which hopefully would tell the user how to use the program.
                     System.out.println("Here is a list of commands, please enter them without the '':");
                     System.out.println("'add class', will prompt you for a class name to add.");
                     System.out.println("'remove class', will prompt you for a class name to remove.");
@@ -39,6 +39,7 @@ public class InputHandler
                     System.out.println("Please type the name of the class you wish to add.");
                     String className = userInput.nextLine();
                     ClassBase myClass = new ClassBase(className);
+
                     //Prints the return of addClass, so would say whether it works or not.
                     String add = myClassContainer.addClass(myClass);
                     System.out.println(add);
@@ -48,6 +49,7 @@ public class InputHandler
                     className = userInput.nextLine();
                     boolean hasRel = false;
                     boolean hasRel2 = false;
+
                     //Checks if the class has any relationships existing.
                     //If so, it informs the user and asks them to remove them before removing the class.
                     for (Relationship rel : myRelationshipContainer.getAllRelationships())
@@ -76,6 +78,7 @@ public class InputHandler
                     }
                     else
                     {
+
                         //Prints the return of removeClass, so would say whether it works or not.
                         String removing = myClassContainer.removeClass(className);
                         System.out.println(removing);
@@ -86,6 +89,7 @@ public class InputHandler
                     className = userInput.nextLine();
                     System.out.println("Please type the new name of the class.");
                     String newName = userInput.nextLine();
+
                     //Goes through every relationship, and if any used the class being renamed,
                     //It changes the name from the oldname to the newname.
                     for (Relationship rel : myRelationshipContainer.getAllRelationships())
@@ -102,11 +106,13 @@ public class InputHandler
                             }
                         }
                     }
+
                     //Prints the return of renameClass, so would say whether it works or not.
                     String rename = myClassContainer.renameClass(className, newName);
                     System.out.println(rename);
                     break;
                 case "add relationship":
+                    //asks for relname, and the two classes it belongs to and stores it in relContainer.
                     System.out.println("Please type the name of the relationship.");
                     String relName = userInput.nextLine();
                     System.out.println("Please type the name of the class it comes from.");
@@ -114,6 +120,8 @@ public class InputHandler
                     System.out.println("Please type the name of the class it goes to.");
                     String relTo = userInput.nextLine();
                     int test = 0;
+
+                    //used to check if the classes are in the container and prints a message if they are not
                     if (myClassContainer.getClassBase(relFrom) == null){
                         test = 1;
                     }
@@ -124,7 +132,7 @@ public class InputHandler
                         System.out.println("Class with name " + relFrom + " does not exist.");
                         break;
                     }
-                    else if (test == 2){
+                    if (test == 2){
                         System.out.println("Class with name " + relTo + " does not exist.");
                         break;
                     }
@@ -136,8 +144,12 @@ public class InputHandler
                     }
                     break;
                 case "remove relationship":
+                    
+                    //gets relname and removes it from the container
                     System.out.println("Please type the name of the relationship you wish to remove.");
                     String relDelete = userInput.nextLine();
+
+                    //removeRelationship returns a boolean so if it is true then it was deleted and if not then the relationship doesnt exist
                     if (myRelationshipContainer.removeRelationship(relDelete) == true){
                         System.out.println(relDelete + " relationship deleted.");
                     }
@@ -151,6 +163,7 @@ public class InputHandler
                     ClassBase tempClass = myClassContainer.getClassBase(className);
                     String attName;
                     String attContent;
+
                     //Checks whether a class of the given name exists or not.
                     if(tempClass != null){
                         attributes myAttributes = new attributes();
@@ -162,15 +175,18 @@ public class InputHandler
                         myAttributes.setContent(attContent);
                         int success = tempClass.addAttribute(myAttributes);
                         if(success == 1){
+
                             //The attribute was added succesfully.
                             System.out.println(attName + " attribute was added.");
                         }
                         else{
+
                             //An attribute with this name is already in this class.
                             System.out.println("An attribute with this name already exists in this class.");
                         }
                     }
                     else{
+
                         //A class of the given name could not be found.
                         System.out.println("A class of the given name does not exist.");
                     }
@@ -180,6 +196,7 @@ public class InputHandler
                     System.out.println("Please type which class the attribute belongs to.");
                     className = userInput.nextLine();
                     tempClass = myClassContainer.getClassBase(className);
+
                     //checks to see if the class exists
                     if(tempClass != null){
                         System.out.println("Please type the name of the attribute you wish to change.");
@@ -192,6 +209,7 @@ public class InputHandler
                             String updateType = userInput.nextLine();
                             String updatedContent;
                             if(updateType.equalsIgnoreCase("Name")){
+
                                 //Asks the user for a new name for the attribute.
                                 System.out.println("Please type the new name.");
                                 updatedContent = userInput.nextLine();
@@ -202,21 +220,25 @@ public class InputHandler
                                     break;
                                 }
                             }
+
                             //asks for the new content
                             else{
                                 System.out.println("Please type the new content.");
                                 updatedContent = userInput.nextLine();
                             }
+
                             //Updates the attribute and tells that to the user.
                             tempClass.updateAttribute(attCheck, updateType, updatedContent);
                             System.out.println("The attributes " + updateType + " was changed.");
                         }
                         else{
+
                             //An attribute could not be found with the given name
                             System.out.println("An attribute with this name does not exist.");
                         }
                     }
                     else{
+
                         //A class of the given name could not be found.
                         System.out.println("A class of the given name does not exist.");
                     }
@@ -224,6 +246,7 @@ public class InputHandler
                 case "remove attribute":
                     System.out.println("Please type the name of the class you wish to remove an attribute from.");
                     className = userInput.nextLine();
+
                     //Checks to see if the class exists.
                     tempClass = myClassContainer.getClassBase(className);
                     if(tempClass != null){
@@ -233,50 +256,94 @@ public class InputHandler
                         //Checks to see if the attribute exists or not
                         attributes attCheck = tempClass.getAttribute(attName);
                         if(attCheck != null){
+
                             //An attribute with the name was found and deleted
                             tempClass.deleteAttribute(attCheck);
                             System.out.println("The attribute was deleted.");
                         }
                         else{
                             //An attribute could not be found with the given name
+
                             System.out.println("An attribute with this name does not exist.");
                         }
                     }
                     else{
+
                         //A class of the given name could not be found.
                         System.out.println("A class of the given name does not exist.");
                     }
                     break;
                 case "list one class":
+
+                    //used to tell of there is a class with that name and if not gives an output
+                    boolean isIn = false;
                     System.out.println("Please type the name of the class you wish to list.");
                     className = userInput.nextLine();
+
+                    //loop through classContainer and print out the name, and attributes
                     for(ClassBase temp : myClassContainer.getContainer()){
                         if (temp.getName().equals(className)){
+                            isIn = true;
                             System.out.println("Class Name: " + className);
                             for(attributes att : temp.getClassAttributes()){
                                 System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
                             }
                         }
                     }
+                    if(!isIn){
+                        System.out.println("Class with that name does not exist.");
+                    }
                     break;
                 case "list all classes":
+
+                    //useds to tell if there are any classes
+                    isIn = false;
+
+                    //loop through classContainer and prints class name and attributes of every class
                     for(ClassBase temp : myClassContainer.getContainer()){
                         System.out.println("Class Name: " + temp.getName());
+                        isIn = true;
                         for(attributes att : temp.getClassAttributes()){
                             System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
                         }
+                    }
+                    if (!isIn){
+                        System.out.println("There are no classes.");
                     }
                     break;
                 case "list one class relationship":
                     System.out.println("Please type the name of the class you wish to list all of the relationships of.");
                     className = userInput.nextLine();
+
+                    //used to tell if the class name exists and whether or not is has relationships
+                    isIn = false;
+                    boolean isRel = false;
+
+                    //loop through classContainer to check if the name exists
+                    for(ClassBase cls : myClassContainer.getContainer()){
+                        if(cls.getName().equals(className)){
+                            isIn = true;
+                        }
+                    }
+
+                    //loop thorugh relContainer and print name, fromClass, toClass
                     for(Relationship rel : myRelationshipContainer.getAllRelationships()){
                         if (rel.getFromClass().equals(className) || rel.getToClass().equals(className)){
                             System.out.println("Relationship Name: " + rel.getName() + "\nFrom Class: " + rel.getFromClass() + "\nTo Class: " + rel.getToClass());
+                            isRel = true;
                         }
+                    }
+                    if (!isIn){
+                        System.out.println("Class with that name does not exist.");
+                    }
+                    if (!isRel){
+                        System.out.println("There are no relationships connected to this class.");
                     }
                     break;
                 case "save":
+
+                    //takes in name of file without .json at the end and saves it to that file or creates it if it doesn't exist.
+                    //currently no override warning
                     System.out.println("Please enter a name for the save file, or type nothing for default (saveUML) name");
                     String fileName = userInput.nextLine();
                     if(fileName.length() == 0){
@@ -287,7 +354,9 @@ public class InputHandler
                     }
                     break;
                 case "load":
-                //
+
+                    //takes in name of file you wish to load without .json at the end
+                    //stores data from the json into the containers passed to it
                     LoadUML load = new LoadUML();
                     System.out.println("Please type the name of the json file you wish to load.");
                     String loadName = userInput.nextLine();
@@ -299,6 +368,8 @@ public class InputHandler
                     load.load(loadName + ".json",myClassContainer,myRelationshipContainer);
                     break;
                 case "exit":
+
+                    //exits program prompting if you wish to save, exit without saving, or return to the editor
                     System.out.println("You are exiting NAME UML editor, type yes to save and exit, type no to exit without saving, anything else will return to the editor");
                     String saveState = userInput.nextLine();
                     int status;
@@ -323,9 +394,10 @@ public class InputHandler
                     myExit.callExit(status);
                     break;
                 default:
+
+                    //if a command without a case was entered print this
                     System.out.println("Please enter a valid command, type 'help' without '' to see a list of available commands.");
-                }
             }
         }
-    }   
-}
+    }
+}   
