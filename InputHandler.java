@@ -273,10 +273,33 @@ public class InputHandler
                     }
                     break;
                 case "list one class":
+                    System.out.println("Please type the name of the class you wish to list.");
+                    className = userInput.nextLine();
+                    for(ClassBase temp : myClassContainer.getContainer()){
+                        if (temp.getName().equals(className)){
+                            System.out.println("Class Name: " + className);
+                            for(attributes att : temp.getClassAttributes()){
+                                System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
+                            }
+                        }
+                    }
                     break;
                 case "list all classes":
+                    for(ClassBase temp : myClassContainer.getContainer()){
+                        System.out.println("Class Name: " + temp.getName());
+                        for(attributes att : temp.getClassAttributes()){
+                            System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
+                        }
+                    }
                     break;
                 case "list one class relationship":
+                    System.out.println("Please type the name of the class you wish to list all of the relationships of.");
+                    className = userInput.nextLine();
+                    for(Relationship rel : myRelationshipContainer.getAllRelationships()){
+                        if (rel.getFromClass().equals(className) || rel.getToClass().equals(className)){
+                            System.out.println("Relationship Name: " + rel.getName() + "\nFrom Class: " + rel.getFromClass() + "\nTo Class: " + rel.getToClass());
+                        }
+                    }
                     break;
                 case "save":
                     System.out.println("Please enter a name for the save file, or type nothing for default (saveUML) name");
