@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class RelationshipTests {
 
     private Relationship relationship1;
@@ -12,9 +10,6 @@ public class RelationshipTests {
         test.testGetName();
         test.testGetFromClass();
         test.testGetToClass();
-        test.testGetAllRelationships();
-        test.testGetRelation();
-        test.testDelRelation();
         test.testSetRelation();
     }
 
@@ -47,31 +42,6 @@ public class RelationshipTests {
         System.out.println("TestGetToCLass Passed");
     }
 
-    //Test to see if the list actually contains the relationships
-    private void testGetAllRelationships() {
-        List<Relationship> relationships = relationship1.getAllRelationships();
-        assertTrue(relationships.contains(relationship1));
-        assertTrue(relationships.contains(relationship2));
-        System.out.println("TestGetAllRelationships Passed");
-    }
-
-    //Test to get the relationship names
-    private void testGetRelation() {
-        Relationship relationship = relationship1.getRelation("Relationship1");
-        assertEquals("Relationship1", relationship.getName());
-        assertEquals("Class1", relationship.getFromClass());
-        assertEquals("Class2", relationship.getToClass());
-        System.out.println("TestGetRelation Passed");
-    }
-
-    //Test to see if delete relationship actually removes the relationship from the list
-    private void testDelRelation() {
-        relationship1.delRelation("Relationship1");
-        List<Relationship> relationships = relationship1.getAllRelationships();
-        assertFalse(relationships.contains(relationship1));
-        System.out.println("TestDelRelation Passed");
-    }
-
     //Test to set relation names with a new relationship
     private void testSetRelation() {
         relationship1.setRelationship("NewRelationship", "NewClass1", "NewClass2");
@@ -85,20 +55,6 @@ public class RelationshipTests {
     private void assertEquals(Object expected, Object actual) {
         if (!expected.equals(actual)) {
             throw new AssertionError("Expected: " + expected + ", but was: " + actual);
-        }
-    }
-
-    //setup for assertTrue
-    private void assertTrue(boolean condition) {
-        if (!condition) {
-            throw new AssertionError("Expected: true, but was: false");
-        }
-    }
-
-    //setup for assertFalse
-    private void assertFalse(boolean condition) {
-        if (condition) {
-            throw new AssertionError("Expected: false, but was: true");
         }
     }
 }

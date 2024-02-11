@@ -1,5 +1,5 @@
 /**
- * Code by Vasilis Bougiamas
+ * Code by Vasilis Bougiamas and Eric Almonrode
  * This code needs json-simple-1.1.1.jar
  * Known objects to read from the JSON file:
  * ClassBase vars:
@@ -15,108 +15,76 @@
  *      toClass; (String name of toClass)
  *      List<Relationship> relationships (a static ArrayList of relationships)
  */
-import java.io.*;
-import java.util.*;
-import org.json.simple.*;
-import org.json.simple.parser.*;
 
-public class LoadUML 
-{
-    // Put all lists here as private globals.
-    private ArrayList<attributes> classAttributes;
-    private ArrayList<Relationship> relationships;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
-    public void loadUML() 
-    {
+public class LoadUML {
+
+    /*
+     * method to load UML data from a file
+     */
+    public void load(String fileName, ClassContainer classContainer, RelationshipContainer relationshipContainer) {
         JSONParser parser = new JSONParser();
-        try 
-        {
-            Object obj = parser.parse(new FileReader("UML.json"));
+        try (FileReader reader = new FileReader(fileName)) {
+            Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
-     
-            // Load ClassBase
-            JSONObject classBase = (JSONObject) jsonObject.get("ClassBase");
-            String className = (String) classBase.get("className");
+            loadProcedure(jsonObject, classContainer, relationshipContainer);
+            System.out.println("Loaded UML ");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
-            JSONArray attributesArray = (JSONArray) classBase.get("attributes");
-            //ArrayList<attributes> classAttributes = new ArrayList<>();
-            classAttributes = new ArrayList<>();
-            for (Object attributeObj : attributesArray) 
-            {
+    /*
+     * iterates through the JSONObject and JSONArrays to put them into the containers
+     * 
+     * Attributes are put into an ArrayList of attributes and added to their class
+     * 
+     * Classes are put into the ClassContainer
+     * Relationships are put into the RelationshipContainer
+     * 
+     */
+    private void loadProcedure(JSONObject jsonObject, ClassContainer classContainer, RelationshipContainer relationshipContainer) {
+        JSONArray classesArray = (JSONArray) jsonObject.get("Classes");
+        JSONArray relationshipsArray = (JSONArray) jsonObject.get("Relationships");
+    
+        //load relationships
+        for (Object relationshipObj : relationshipsArray) {
+            JSONObject relationshipJson = (JSONObject) relationshipObj;
+            String name = (String) relationshipJson.get("name");
+            String fromClass = (String) relationshipJson.get("from class");
+            String toClass = (String) relationshipJson.get("to class");
+            Relationship relationship = new Relationship();
+            relationship.setRelationship(name, fromClass, toClass);
+            relationshipContainer.addRelationship(name, fromClass, toClass);
+        }
+
+        //load classes
+        for (Object classObj : classesArray) {
+            JSONObject classJson = (JSONObject) classObj;
+            String className = (String) classJson.get("name");
+            ArrayList<attributes> classAttributes = new ArrayList<>();
+            JSONArray attributesArray = (JSONArray) classJson.get("attributes");
+            for (Object attributeObj : attributesArray) {
                 JSONObject attributeJson = (JSONObject) attributeObj;
                 String attributeName = (String) attributeJson.get("name");
-                // Parse content according to its data type
-                // Assuming content is a String for now
                 String attributeContent = (String) attributeJson.get("content");
                 attributes attribute = new attributes();
                 attribute.setName(attributeName);
                 attribute.setContent(attributeContent);
                 classAttributes.add(attribute);
             }
-
-            // Load Relationships
-            JSONArray relationshipsArray = (JSONArray) jsonObject.get("Relationships");
-            //ArrayList<Relationship> relationships = new ArrayList<>();
-            relationships = new ArrayList<>();
-            for (Object relationshipObj : relationshipsArray) 
-            {
-                JSONObject relationshipJson = (JSONObject) relationshipObj;
-                String relationshipName = (String) relationshipJson.get("name");
-                String fromClass = (String) relationshipJson.get("fromClass");
-                String toClass = (String) relationshipJson.get("toClass");
-                Relationship relationship = new Relationship();
-                relationship.setRelationship(relationshipName, fromClass, toClass);
-                relationships.add(relationship);
+            ClassBase classBase = new ClassBase(className);
+            for (attributes att : classAttributes) {
+                classBase.addAttribute(att);
             }
-
-            // Output loaded data
-            System.out.println("Class: " + className);
-            System.out.println("Attributes:");
-            for (attributes attribute : classAttributes) 
-            {
-                System.out.println(attribute);
-            }
-            System.out.println("Relationships:");
-            for (Relationship relationship : relationships) 
-            {
-                System.out.println(relationship);
-            }
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
+            classContainer.addClass(classBase); // Add the class to the ClassContainer
         }
     }
-
-    public Relationship getRelation(String name)
-    {
-        loadUML();
-        Relationship result = null;
-        for (Relationship relationship : relationships)
-        {
-            if (relationship.getName() == name)
-                result = relationship;
-        }
-        return result;
-    }
-
-    public void delRelation(String name)
-    {
-        loadUML();
-        int i = 0;
-        for (Relationship relationship : relationships)
-        {
-            if (relationship.getName() == name)
-            {
-                relationships.remove(i);
-            }
-            ++i;
-        }
-    }
-
-    public List<Relationship> getAllRelationships()
-    {
-        loadUML();
-        return relationships;
-    }
-}     
+}

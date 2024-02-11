@@ -279,7 +279,7 @@ public class InputHandler
                 case "list one class relationship":
                     break;
                 case "save":
-                    System.out.println("enter a name for the save file, or type nothing for default (saveUML) name");
+                    System.out.println("Please enter a name for the save file, or type nothing for default (saveUML) name");
                     String fileName = userInput.nextLine();
                     if(fileName.length() == 0){
                         saveUML.save(myClassContainer, myRelationshipContainer);
@@ -289,6 +289,10 @@ public class InputHandler
                     }
                     break;
                 case "load":
+                    LoadUML load = new LoadUML();
+                    System.out.println("Please type the name of the json file you wish to load.");
+                    String loadName = userInput.nextLine();
+                    load.load(loadName + ".json",myClassContainer,myRelationshipContainer);
                     break;
                 case "exit":
                     System.out.println("You are exiting NAME UML editor, type yes to save and exit, type no to exit without saving, anything else will return to the editor");
