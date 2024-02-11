@@ -116,9 +116,9 @@ public class InputHandler
                     int test = 0;
                     if (myClassContainer.getClassBase(relFrom) == null){
                         test = 1;
-                        if (myClassContainer.getClassBase(relTo) == null){
-                            test = 2;
-                        }
+                    }
+                    if (myClassContainer.getClassBase(relTo) == null){
+                        test = 2;
                     }
                     if (test == 1){
                         System.out.println("Class with name " + relFrom + " does not exist.");
