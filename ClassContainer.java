@@ -5,14 +5,18 @@ public class ClassContainer
     private ArrayList<ClassBase> classes;
     
 
-    //Basic constructor.
+    /**
+     * Basic class constructor.
+     */
     public ClassContainer()
     {
         classes = new ArrayList<ClassBase>();
     }
 
-    //Attempts to add a class to the ClassContainer.
-    //If a class with that name exists, it instead notifies the user.
+    /**Attempts to add a class to the ClassContainer.
+     *@param newClass The name of the new class.
+     *@return A string containing the result of the add.
+     */
     public String addClass(ClassBase newClass)
     {
         //If true, class with that name already exists!
@@ -31,8 +35,11 @@ public class ClassContainer
         return "Class " + newClass.getName() + " was added.";
     }
 
-    //Doesn't yet deal with classes with relationships!!!
-    //Going to wait until relationship stuff is made to do that.
+    /**
+     * Attempts to remove a class from the ClassContainer.
+     * @param remClass The name of the class being removed.
+     * @return A string containing the result of the remove.
+     */
     public String removeClass(String remClass)
     {
         for(ClassBase classList : classes)
@@ -48,7 +55,12 @@ public class ClassContainer
         return "No class matching that name was found.";
     }
 
-    //Renames a class, doesn't account for relationships yet.
+    /**
+     * Renames a class in the class container.
+     * @param renClass The class being renamed.
+     * @param newName The new name of the class. 
+     * @return A string containing the result of the rename.
+     */
     public String renameClass(String renClass, String newName)
     {
         int classInd = -1;
@@ -69,8 +81,11 @@ public class ClassContainer
         return "You can't rename a class that doesn't exist!";
     }
     
-    //Returns the ClassBase object of the given name.
-    //Note: Does not remove it from ClassContainer.
+    /**
+     * Returns the classbase object of a specific class in the container.
+     * @param className The name of the class being searched for.
+     * @return Returns the classbase of the class.
+     */
     public ClassBase getClassBase(String className)
     {
         for(ClassBase classList : classes)
@@ -85,8 +100,10 @@ public class ClassContainer
         return null;
     }
 
-    //Returns the ClassContainer object for purposes of using
-    //ArrayList methods.
+    /**
+     * Returns a class container for arraylist methods.
+     * @return Returns the container.
+     */
     public ArrayList<ClassBase> getContainer() 
     {
         return classes;
