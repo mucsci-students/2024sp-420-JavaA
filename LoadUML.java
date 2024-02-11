@@ -7,7 +7,6 @@
  *      attributes (ArrayList of attributes type)
  * Attributes vars:
  *      name (attributes String name)
- *      className (String name of class to which the attribute is associated with)
  *      content (Arbitrary data type represented as a generic)
  * Relationship vars:
  *      name (String)
@@ -24,38 +23,51 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class LoadUML {
+public class LoadUML 
+{
 
-    /*
-     * method to load UML data from a file
+    /**
+     *  Method to load UML data from a file
+     *  @param fileName The name of the JSON file to load.
+     *  @param classContainer An empty container of classes to be filled in from JSON file.
+     *  @param relationshipContainer An empty container of relationships to be filled in from JSON file.
      */
-    public void load(String fileName, ClassContainer classContainer, RelationshipContainer relationshipContainer) {
+    public void load(String fileName, ClassContainer classContainer, RelationshipContainer relationshipContainer) 
+    {
         JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(fileName)) {
+        try (FileReader reader = new FileReader(fileName)) 
+        {
             Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
             loadProcedure(jsonObject, classContainer, relationshipContainer);
             System.out.println("Loaded UML ");
-        } catch (IOException | ParseException e) {
+        } 
+        catch (IOException | ParseException e) 
+        {
             e.printStackTrace();
         }
     }
 
-    /*
-     * iterates through the JSONObject and JSONArrays to put them into the containers
+    /**
+     *  Iterates through the JSONObject and JSONArrays to put them into the containers
      * 
-     * Attributes are put into an ArrayList of attributes and added to their class
+     *  Attributes are put into an ArrayList of attributes and added to their class
      * 
-     * Classes are put into the ClassContainer
-     * Relationships are put into the RelationshipContainer
+     *  Classes are put into the ClassContainer
+     *  Relationships are put into the RelationshipContainer
      * 
+     *  @param jsonObject This local object that holds the collective JSON data.
+     *  @param classContainer An empty container of classes to be filled in from JSON file.
+     *  @param relationshipContainer An empty container of relationships to be filled in from JSON file.
      */
-    private void loadProcedure(JSONObject jsonObject, ClassContainer classContainer, RelationshipContainer relationshipContainer) {
+    private void loadProcedure(JSONObject jsonObject, ClassContainer classContainer, RelationshipContainer relationshipContainer) 
+    {
         JSONArray classesArray = (JSONArray) jsonObject.get("Classes");
         JSONArray relationshipsArray = (JSONArray) jsonObject.get("Relationships");
     
         //load relationships
-        for (Object relationshipObj : relationshipsArray) {
+        for (Object relationshipObj : relationshipsArray) 
+        {
             JSONObject relationshipJson = (JSONObject) relationshipObj;
             String name = (String) relationshipJson.get("name");
             String fromClass = (String) relationshipJson.get("from class");
@@ -66,12 +78,14 @@ public class LoadUML {
         }
 
         //load classes
-        for (Object classObj : classesArray) {
+        for (Object classObj : classesArray) 
+        {
             JSONObject classJson = (JSONObject) classObj;
             String className = (String) classJson.get("name");
             ArrayList<attributes> classAttributes = new ArrayList<>();
             JSONArray attributesArray = (JSONArray) classJson.get("attributes");
-            for (Object attributeObj : attributesArray) {
+            for (Object attributeObj : attributesArray) 
+            {
                 JSONObject attributeJson = (JSONObject) attributeObj;
                 String attributeName = (String) attributeJson.get("name");
                 String attributeContent = (String) attributeJson.get("content");
@@ -81,7 +95,8 @@ public class LoadUML {
                 classAttributes.add(attribute);
             }
             ClassBase classBase = new ClassBase(className);
-            for (attributes att : classAttributes) {
+            for (attributes att : classAttributes) 
+            {
                 classBase.addAttribute(att);
             }
             classContainer.addClass(classBase); // Add the class to the ClassContainer
