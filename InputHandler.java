@@ -277,6 +277,7 @@ public class InputHandler
 
                     //used to tell of there is a class with that name and if not gives an output
                     boolean isIn = false;
+                    boolean isCont = false;
                     System.out.println("Please type the name of the class you wish to list.");
                     className = userInput.nextLine();
 
@@ -287,17 +288,22 @@ public class InputHandler
                             System.out.println("Class Name: " + className);
                             for(attributes att : temp.getClassAttributes()){
                                 System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
+                                isCont = true;
                             }
                         }
                     }
                     if(!isIn){
                         System.out.println("Class with that name does not exist.");
                     }
+                    if(!isCont){
+                        System.out.println("Class has no attributes.");
+                    }
                     break;
                 case "list all classes":
 
                     //useds to tell if there are any classes
                     isIn = false;
+                    isCont = false;
 
                     //loop through classContainer and prints class name and attributes of every class
                     for(ClassBase temp : myClassContainer.getContainer()){
@@ -305,10 +311,14 @@ public class InputHandler
                         isIn = true;
                         for(attributes att : temp.getClassAttributes()){
                             System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
+                            isCont = true;
                         }
                     }
                     if (!isIn){
                         System.out.println("There are no classes.");
+                    }
+                    if(!isCont){
+                        System.out.println("There are no attributes is any classes.");
                     }
                     break;
                 case "list one class relationship":
