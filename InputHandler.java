@@ -146,28 +146,20 @@ public class InputHandler
                     }
                     break;
                 case "add attribute":
-                    //Prompts user for a class name.
                     System.out.println("Please type which class it will belong to.");
                     className = userInput.nextLine();
-                    //Searches for that class from the container of classes.
                     ClassBase tempClass = myClassContainer.getClassBase(className);
-                    //Variables that will be used if a class is found.
                     String attName;
                     String attContent;
                     //Checks whether a class of the given name exists or not.
                     if(tempClass != null){
-                        //Asks for a name of the new attribute.
                         attributes myAttributes = new attributes();
                         System.out.println("Please type attribute name.");
                         attName = userInput.nextLine();
                         myAttributes.setName(attName);
-                        //Asks for the content of the new attribute.
                         System.out.println("Please type attribute content.");
                         attContent = userInput.nextLine();
                         myAttributes.setContent(attContent);
-                        /* addAttribute will check if an attribute with the given name
-                         * already exists or not.
-                         */
                         int success = tempClass.addAttribute(myAttributes);
                         if(success == 1){
                             //The attribute was added succesfully.
@@ -185,48 +177,33 @@ public class InputHandler
                     
                     break;
                 case "edit attribute":
-                    //Asks user for a class name.
                     System.out.println("Please type which class the attribute belongs to.");
                     className = userInput.nextLine();
-
-                    //Checks to see if that class exists or not.
                     tempClass = myClassContainer.getClassBase(className);
+                    //checks to see if the class exists
                     if(tempClass != null){
-                        //Asks the user for a name for an existing attribute.
                         System.out.println("Please type the name of the attribute you wish to change.");
                         attName = userInput.nextLine();
 
                         //Checks to see whether that attribute exists or not.
                         attributes attCheck = tempClass.getAttribute(attName);
                         if(attCheck != null){
-                            //Asks the user if they want to change the name or content.
                             System.out.println("Please type 'name' if you wish to edit the name or type 'content' if you wish to edit the content.");
                             String updateType = userInput.nextLine();
-
-                            //Will be used to store the users desired content of the attribute.
                             String updatedContent;
-
-                            /*
-                             * If the user wanted to change the name, the if part will run.
-                             * If the user wanted to change the content, the else part will run.
-                             */
                             if(updateType.equalsIgnoreCase("Name")){
                                 //Asks the user for a new name for the attribute.
                                 System.out.println("Please type the new name.");
                                 updatedContent = userInput.nextLine();
 
-                                /*
-                                 * Checks to see if an attribute with that name already exists,
-                                 * If one does exist the error will be displayed and the case will break,
-                                 * If one does not exist, then the case will continue as normal
-                                 */
+                                //checks to see if an attribute with that name already exists
                                 if(attCheck.getName().equalsIgnoreCase(updatedContent)){
                                     System.out.println("An attribute with this name already exists");
                                     break;
                                 }
                             }
+                            //asks for the new content
                             else{
-                                //Asks the user for the desired updated content.
                                 System.out.println("Please type the new content.");
                                 updatedContent = userInput.nextLine();
                             }
@@ -245,13 +222,11 @@ public class InputHandler
                     }
                     break;
                 case "remove attribute":
-                    //Asks user for a class name.
                     System.out.println("Please type the name of the class you wish to remove an attribute from.");
                     className = userInput.nextLine();
                     //Checks to see if the class exists.
                     tempClass = myClassContainer.getClassBase(className);
                     if(tempClass != null){
-                        //Asks the user for an attribute name.
                         System.out.println("Please type the name of the attribute you wish to remove.");
                         attName = userInput.nextLine();
 

@@ -6,22 +6,58 @@ public class attributes {
     //content of the attribute
     private String content;
 
-    //Used by other classes / users to change the name of this attribute
+    /*
+     * sets a new name for this attribute
+     * 
+     * @Variables       newName - A string var to hold a new name
+     * 
+     * @Preconditions   
+     * @Postconditions  The attribute name will be changed
+     * 
+     * @Returns
+     */
     public void setName(String newName){
         this.name = newName;
     }
 
-    //will return the name of this attribute
+    /*
+     * Gets the name for this attribute
+     * 
+     * @Variables       
+     * 
+     * @Preconditions   
+     * @Postconditions  
+     * 
+     * @Returns         The name of this attribute
+     */
     public String getName(){
         return this.name;
     }
 
-    //Change the content of the attribute
+    /*
+     * Sets the content of the attribute
+     * 
+     * @Variables       newContent - Var that will hold the new content
+     * 
+     * @Preconditions   
+     * @Postconditions  The attribute Content will change
+     * 
+     * @Returns
+     */
     public void setContent(String newContent){
         this.content = newContent;
     }
 
-    //returns the content of the attribute
+    /*
+     * Gets the content of this attribute
+     * 
+     * @Variables       
+     * 
+     * @Preconditions   
+     * @Postconditions  
+     * 
+     * @Returns         The content of this attribute
+     */
     public String getContent(){
         return this.content;
     }

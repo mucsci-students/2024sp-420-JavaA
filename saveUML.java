@@ -17,9 +17,15 @@ public class saveUML {
     private static JSONObject saveAtt;
 
     /*
-     * the method to call that initiates saving, it takes
-     * the class and relationship containers to send them off
-     * into the save procedure
+     * Called to initiate the saving process
+     * 
+     * @Variables       myClassContainer - Contains all the classes in the UML editor
+     *                  myRelationshipContainer - Contains all the relationships in the UML editor
+     * 
+     * @Preconditions   
+     * @Postconditions  A save file is created with a Json object containing the contnent from the UML editor
+     * 
+     * @Returns         
      */
     public static void save(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer){
         saved = new JSONObject();
@@ -47,9 +53,16 @@ public class saveUML {
     }
 
     /*
-     * the method to call that initiates saving, it takes
-     * the class and relationship containers to send them off
-     * into the save procedure, it also takes a name for the save file
+     * Called to initiate the saving process
+     * 
+     * @Variables       myClassContainer - Contains all the classes in the UML editor
+     *                  myRelationshipContainer - Contains all the relationships in the UML editor
+     *                  fileName - The name of the save file
+     * 
+     * @Preconditions   
+     * @Postconditions  A save file is created with a Json object containing the contnent from the UML editor
+     * 
+     * @Returns         
      */
     public static void save(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer, String fileName){
         saved = new JSONObject();
@@ -74,15 +87,15 @@ public class saveUML {
     }
 
     /*
-     * iterates through the containers to put them into a JSONObject
+     * Used by save to convert all the Classes, Attributes, and Relationships to a Json Object
      * 
-     * Attributes are put into a JSONArray and added to their class
+     * @Variables       myClassContainer - Contains all the classes in the UML editor
+     *                  myRelationshipContainer - Contains all the relationships in the UML editor
      * 
-     * Classes are put into a JSONArray
-     * Relationships are put into a JSONArray
+     * @Preconditions   
+     * @Postconditions  Classes, Attrinutes, and Relationships are all in the Json Object
      * 
-     * Classes and Relationships are put into the saved JSONObject
-     * that will be put into a file for storing
+     * @Returns         
      */
     private static void saveProcedure(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer){
         saveClasses = new JSONArray();
