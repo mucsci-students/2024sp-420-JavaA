@@ -1,1 +1,0 @@
-{"Relationships":[{"from class":"a","name":"1","to class":"b"}],"Classes":[{"name":"a","attributes":[{"name":"att","content":"new"},{"name":"2","content":"2"}]},{"name":"b","attributes":[{"name":"at","content":"ne"}]}]}
