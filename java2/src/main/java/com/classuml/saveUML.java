@@ -1,3 +1,4 @@
+package com.classuml;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import java.io.*;

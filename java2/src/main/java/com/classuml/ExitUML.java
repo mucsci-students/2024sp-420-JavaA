@@ -1,4 +1,4 @@
-
+package com.classuml;
 public class ExitUML {
     private static void exitUML(int status){
         

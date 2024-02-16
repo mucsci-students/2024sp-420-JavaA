@@ -1,3 +1,4 @@
+package com.classuml;
 import java.util.Scanner;
 public class InputHandler
 {  

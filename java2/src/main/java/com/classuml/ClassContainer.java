@@ -1,3 +1,4 @@
+package com.classuml;
 import java.util.ArrayList;
 //Written by: Cullen Kurtz
 public class ClassContainer
