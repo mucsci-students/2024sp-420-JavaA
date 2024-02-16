@@ -1,4 +1,4 @@
-package com.classuml;
+package java2.src.main.java.com.classuml;
 import java.util.ArrayList;
 //Written by: Cullen Kurtz
 public class ClassContainer

@@ -1,4 +1,4 @@
-package com.classuml;
+package java2.src.main.java.com.classuml;
 public class RelationshipTests {
 
     private Relationship relationship1;

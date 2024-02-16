@@ -14,7 +14,7 @@
  *      toClass; (String name of toClass)
  *      List<Relationship> relationships (a static ArrayList of relationships)
  */
-package com.classuml;
+package java2.src.main.java.com.classuml;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
