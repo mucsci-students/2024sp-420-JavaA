@@ -1,4 +1,4 @@
-package java2.src.main.java.com.classuml;
+package com.classuml;
 public class attributesTests {
     
 }
