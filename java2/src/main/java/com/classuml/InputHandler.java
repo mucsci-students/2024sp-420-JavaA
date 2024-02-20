@@ -55,20 +55,20 @@ public class InputHandler
                     //If so, it informs the user and asks them to remove them before removing the class.
                     for (Relationship rel : myRelationshipContainer.getAllRelationships())
                     {
-                        if(rel.getFromClass().equals(className))
+                        if(rel.getSourceClass().equals(className))
                         {
                             hasRel = true;
                         }
                         else
                         {
-                            if(rel.getToClass().equals(className))
+                            if(rel.getDestClass().equals(className))
                             {
                                 hasRel = true;
                             }
                         }
                         if(hasRel == true)
                         {
-                            System.out.println(rel.getName() + " is an existing relationship.");
+                            System.out.println(rel.getSourceClass() + " -> " + rel.getDestClass() + " is an existing relationship.");
                             hasRel2 = true;
                             hasRel = false;
                         }
@@ -95,15 +95,15 @@ public class InputHandler
                     //It changes the name from the oldname to the newname.
                     for (Relationship rel : myRelationshipContainer.getAllRelationships())
                     {
-                        if(rel.getFromClass().equals(className))
+                        if(rel.getSourceClass().equals(className))
                         {
-                            rel.setFromClass(newName);
+                            rel.setSourceClass(newName);
                         }
                         else
                         {
-                            if(rel.getToClass().equals(className))
+                            if(rel.getDestClass().equals(className))
                             {
-                                rel.setToClass(newName);
+                                rel.setDestClass(newName);
                             }
                         }
                     }
@@ -114,48 +114,47 @@ public class InputHandler
                     break;
                 case "add relationship":
                     //asks for relname, and the two classes it belongs to and stores it in relContainer.
-                    System.out.println("Please type the name of the relationship.");
-                    String relName = userInput.nextLine();
-                    System.out.println("Please type the name of the class it comes from.");
-                    String relFrom = userInput.nextLine();
-                    System.out.println("Please type the name of the class it goes to.");
-                    String relTo = userInput.nextLine();
+                    System.out.println("Please type the name of the class you wish to be the source.");
+                    String relSource = userInput.nextLine();
+                    System.out.println("Please type the name of the class you wish to be the destination.");
+                    String relDest = userInput.nextLine();
                     int test = 0;
 
                     //used to check if the classes are in the container and prints a message if they are not
-                    if (myClassContainer.getClassBase(relFrom) == null){
+                    if (myClassContainer.getClassBase(relSource) == null){
                         test = 1;
                     }
-                    if (myClassContainer.getClassBase(relTo) == null){
+                    if (myClassContainer.getClassBase(relDest) == null){
                         test = 2;
                     }
                     if (test == 1){
-                        System.out.println("Class with name " + relFrom + " does not exist.");
+                        System.out.println("Class with name " + relSource + " does not exist.");
                         break;
                     }
                     if (test == 2){
-                        System.out.println("Class with name " + relTo + " does not exist.");
+                        System.out.println("Class with name " + relDest + " does not exist.");
                         break;
                     }
-                    if (myRelationshipContainer.addRelationship(relName, relFrom, relTo) == true){
-                        System.out.println(relName + " relationship added.");
+                    if (myRelationshipContainer.addRelationship(relSource, relDest) == true){
+                        System.out.println(relSource + " -> " + relDest + " relationship added.");
                     }
                     else{
-                        System.out.println("Relationship with name " + relName + " already exists.");
+                        System.out.println("Relationship with that source and destination already exists.");
                     }
                     break;
                 case "remove relationship":
                     
                     //gets relname and removes it from the container
-                    System.out.println("Please type the name of the relationship you wish to remove.");
-                    String relDelete = userInput.nextLine();
-
+                    System.out.println("Please type the name of the source class you wish to delet from.");
+                    relSource = userInput.nextLine();
+                    System.out.println("Please type the name of the destination class you wish to delete from");
+                    relDest = userInput.nextLine();
                     //removeRelationship returns a boolean so if it is true then it was deleted and if not then the relationship doesnt exist
-                    if (myRelationshipContainer.removeRelationship(relDelete) == true){
-                        System.out.println(relDelete + " relationship deleted.");
+                    if (myRelationshipContainer.removeRelationship(relSource, relDest) == true){
+                        System.out.println(relSource + " -> " + relDest + " relationship deleted.");
                     }
                     else{
-                        System.out.println("No such relationship with name " + relDelete);
+                        System.out.println("No such relationship with that source and destination");
                     }
                     break;
                 case "add attribute":
@@ -339,8 +338,8 @@ public class InputHandler
 
                     //loop thorugh relContainer and print name, fromClass, toClass
                     for(Relationship rel : myRelationshipContainer.getAllRelationships()){
-                        if (rel.getFromClass().equals(className) || rel.getToClass().equals(className)){
-                            System.out.println("Relationship Name: " + rel.getName() + "\nFrom Class: " + rel.getFromClass() + "\nTo Class: " + rel.getToClass());
+                        if (rel.getSourceClass().equals(className) || rel.getDestClass().equals(className)){
+                            System.out.println("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass());
                             isRel = true;
                         }
                     }

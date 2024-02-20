@@ -124,9 +124,8 @@ public class saveUML {
         //loop for iterating through relationships
         for(Relationship relate: myRelationshipContainer.getAllRelationships()){
             saveRelationship = new JSONObject();
-            saveRelationship.put("name", relate.getName());
-            saveRelationship.put("from class", relate.getFromClass());
-            saveRelationship.put("to class", relate.getToClass());
+            saveRelationship.put("dest class", relate.getDestClass());
+            saveRelationship.put("source class", relate.getSourceClass());
             saveRelationships.add(saveRelationship);
         }
 
