@@ -69,12 +69,9 @@ public class LoadUML
         for (Object relationshipObj : relationshipsArray) 
         {
             JSONObject relationshipJson = (JSONObject) relationshipObj;
-            String name = (String) relationshipJson.get("name");
-            String fromClass = (String) relationshipJson.get("from class");
-            String toClass = (String) relationshipJson.get("to class");
-            Relationship relationship = new Relationship();
-            relationship.setRelationship(name, fromClass, toClass);
-            relationshipContainer.addRelationship(name, fromClass, toClass);
+            String sourceClass = (String) relationshipJson.get("source class");
+            String destClass = (String) relationshipJson.get("dest class");
+            relationshipContainer.addRelationship(sourceClass, destClass);
         }
 
         //load classes
