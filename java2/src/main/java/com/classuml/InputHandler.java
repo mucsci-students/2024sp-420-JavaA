@@ -246,9 +246,7 @@ public class InputHandler
                         break;
                     }
                      //asks for relname, and the two classes it belongs to and stores it in relContainer.
-                     System.out.println("Please type the name of the class you wish to be the source.");
                      String relSource = userTwo[2];
-                     System.out.println("Please type the name of the class you wish to be the destination.");
                      String relDest = userTwo[3];
                      int test = 0;
  
@@ -287,9 +285,7 @@ public class InputHandler
                     break;
                 }
                     //gets relname and removes it from the container
-                    System.out.println("Please type the name of the source class you wish to delet from.");
                     relSource = userTwo[2];
-                    System.out.println("Please type the name of the destination class you wish to delete from");
                     relDest = userTwo[3];
                     //removeRelationship returns a boolean so if it is true then it was deleted and if not then the relationship doesnt exist
                     if (myRelationshipContainer.removeRelationship(relSource, relDest) == true){
@@ -380,7 +376,6 @@ public class InputHandler
 
                             //asks for the new content
                             else{
-                                System.out.println("Please type the new content.");
                                 updatedContent = userTwo[5];
                             }
 
