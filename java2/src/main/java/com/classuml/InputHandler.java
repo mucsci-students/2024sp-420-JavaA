@@ -438,7 +438,7 @@ public class InputHandler
                     break;
                 }
             }
-            if(userTwo.length > 2)
+            if(userTwo.length > 2 && userTwo.length < 5)
             {
                 switch(userTwo[0] + " " + userTwo[1] + " " + userTwo[2])
                 {
@@ -458,7 +458,6 @@ public class InputHandler
                     //used to tell of there is a class with that name and if not gives an output
                     boolean isIn = false;
                     boolean isCont = false;
-                    System.out.println("Please type the name of the class you wish to list.");
                     String className = userTwo[3];
 
                     //loop through classContainer and print out the name, and attributes
@@ -523,6 +522,11 @@ public class InputHandler
                     if(userTwo.length < 5)
                     {
                         tooSmall();
+                        break;
+                    }
+                    if(userTwo.length > 5)
+                    {
+                        tooManyArgs();
                         break;
                     }
                     String className = userTwo[4];
