@@ -273,12 +273,12 @@ public class InputHandler
                      break;
                 case "remove relationship":
                     valid = true;
-                if(userTwo.length < 3)
+                if(userTwo.length < 4)
                 {
                     tooSmall();
                     break;
                 }
-                if(userTwo.length > 3)
+                if(userTwo.length > 4)
                 {
                     tooManyArgs();
                     break;
