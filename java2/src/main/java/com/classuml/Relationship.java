@@ -1,67 +1,43 @@
 package com.classuml;
 public class Relationship {
 
-    private String name;
-    private String fromClass;
-    private String toClass;
+    private String sourceClass;
+    private String destClass;
 
     /*
      * setRelationship - public setter for naming a relationship
      */
-    public void setRelationship(String name, String fromClass, String toClass){
+    public void setRelationship(String sourceClass, String destClass){
 
         //sets names of variables in class
-        this.name = name;
-        this.fromClass = fromClass;
-        this.toClass = toClass;
+        this.sourceClass = sourceClass;
+        this.destClass = destClass;
 
     }
 
     /*
-     * getName - public getter for relationship name
+     * getSourceClass - public getter for sourceClass
      */
-    public String getName(){
-
-        //returns name of relationship
-        return name;
-    }
-
-    /*
-     * getFromClass - public getter for fromClass
-     */
-    public String getFromClass(){
+    public String getSourceClass(){
 
         //returns the first class in the relationship
-        return fromClass;
+        return sourceClass;
     }
 
     /*
-     * getToClass - public getter for toClass
+     * getDestClass - public getter for destClass
      */
-    public String getToClass(){
+    public String getDestClass(){
 
         //returns the second class in the relationship
-        return toClass;
+        return destClass;
     }
 
-    public void setFromClass(String newFromClass){
-        this.fromClass = newFromClass;
+    public void setSourceClass(String newSourceClass){
+        this.sourceClass = newSourceClass;
     }
 
-    public void setToClass(String newToClass){
-        this.toClass = newToClass;
-    }
-
-    /*
-     * toString - override for toString to fit JSON format
-     */
-    @Override
-    public String toString() 
-    {
-        return "Relationship{" +
-            "name='" + name + '\'' +
-            ", fromClass='" + fromClass + '\'' +
-            ", toClass='" + toClass + '\'' +
-            '}';
+    public void setDestClass(String newDestClass){
+        this.destClass = newDestClass;
     }
 }

@@ -11,17 +11,17 @@ public class RelationshipContainer {
      * and returns false. If there was no match then it will call the setter for relationship
      * and add a new relationship to the container
      */
-    public boolean addRelationship(String relName, String fromClass, String toClass){
+    public boolean addRelationship(String sourceClass, String destClass){
         //loops through relationship container
         for (Relationship rel : relationships){ 
-            if (rel.getName().equals(relName)){
+            if (rel.getSourceClass().equals(sourceClass) && rel.getDestClass().equals(destClass)){
                 return false;
             }
         }
 
         //sets new relationship
         Relationship rel = new Relationship();
-        rel.setRelationship(relName, fromClass, toClass);
+        rel.setRelationship(sourceClass, destClass);
         relationships.add(rel);
         return true;
     }
@@ -40,10 +40,10 @@ public class RelationshipContainer {
      * whether or not there was a match found for the given relationship name
      * if there was it returns true if not it returns false
      */
-    public boolean removeRelationship(String relationship){
+    public boolean removeRelationship(String sourceClass, String destClass){
         //loops through relationship container searching for a name match
         for (Relationship rel : relationships){
-            if (rel.getName().equals(relationship)){
+            if (rel.getSourceClass().equals(sourceClass) && rel.getDestClass().equals(destClass)){
                 deleteRelation(rel);
                 return true;
             }
