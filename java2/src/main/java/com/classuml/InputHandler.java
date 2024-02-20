@@ -47,13 +47,12 @@ public class InputHandler
                     valid = true;
                     //takes in name of file without .json at the end and saves it to that file or creates it if it doesn't exist.
                     //currently no override warning
-                    System.out.println("Please enter a name for the save file, or type nothing for default (saveUML) name");
 
                     if(userTwo.length == 1){
                         saveUML.save(myClassContainer, myRelationshipContainer);
                     }
                     else{
-                        String fileName = userTwo[2];
+                        String fileName = userTwo[1];
                         int counter = 0;
                         for(String input : userTwo)
                         {
@@ -78,7 +77,7 @@ public class InputHandler
                     //takes in name of file you wish to load without .json at the end
                     //stores data from the json into the containers passed to it
                     LoadUML load = new LoadUML();
-                    String fileNameLoad = userTwo[2];
+                    String fileNameLoad = userTwo[1];
                     int counter = 0;
                     for(String input : userTwo)
                     {
