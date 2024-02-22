@@ -436,31 +436,38 @@ public class InputHandler
                     break;
                 }
             }
-            if(userTwo.length > 2)
+            if(userTwo.length > 2 && userTwo.length < 7)
             {
                 switch(userTwo[0] + " " + userTwo[1] + " " + userTwo[2])
                 {
                 case "rename relationship type":
                     valid = true;
-                    if(userTwo.length < 6){
+                    if(userTwo.length < 6)
+                    {
                         tooSmall();
                         break;
                     }
-                    if(userTwo.length > 6){
+                    if(userTwo.length > 6)
+                    {
                         tooManyArgs();
                         break;
                     }
                     String relSource = userTwo[3];
                     String relDest = userTwo[4];
                     String relType = userTwo[5];
+                    String tempType;
                     for (Relationship rel : myRelationshipContainer.getAllRelationships()){
                         if (rel.getSourceClass().equals(relSource) && rel.getDestClass().equals(relDest)){
+                            tempType = rel.getType();
                             boolean temp = rel.setType(relType);
                             if (!temp){
-                                System.out.println("Invalid relationship type.");
+                                System.out.println("Invalid relationship type");
+                                break;
                             }
+                            System.out.println("Relationship type of " + relSource + " -> " + relDest + " with type " + tempType + " changed to " + relType);
                         }
                     }
+                    break;
                 case "list one class":
                     valid = true;
                     if(userTwo.length < 4)
