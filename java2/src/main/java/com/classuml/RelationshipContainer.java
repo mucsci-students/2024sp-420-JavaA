@@ -11,7 +11,10 @@ public class RelationshipContainer {
      * and returns false. If there was no match then it will call the setter for relationship
      * and add a new relationship to the container
      */
-    public boolean addRelationship(String sourceClass, String destClass){
+    public boolean addRelationship(String sourceClass, String destClass, String relType){
+        if (!relType.toLowerCase().equals("composition") && !relType.toLowerCase().equals("aggregation") && !relType.toLowerCase().equals("inheritence") && !relType.toLowerCase().equals("realization")){
+            return false;
+        }
         //loops through relationship container
         for (Relationship rel : relationships){ 
             if (rel.getSourceClass().equals(sourceClass) && rel.getDestClass().equals(destClass)){
@@ -21,7 +24,7 @@ public class RelationshipContainer {
 
         //sets new relationship
         Relationship rel = new Relationship();
-        rel.setRelationship(sourceClass, destClass);
+        rel.setRelationship(sourceClass, destClass, relType);
         relationships.add(rel);
         return true;
     }
