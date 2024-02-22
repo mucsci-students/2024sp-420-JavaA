@@ -234,12 +234,12 @@ public class InputHandler
                     break;
                 case "add relationship":
                     valid = true;
-                if(userTwo.length < 4 )
+                if(userTwo.length < 5 )
                     {
                         tooSmall();
                         break;
                     }
-                    if(userTwo.length > 4)
+                    if(userTwo.length > 5)
                     {
                         tooManyArgs();
                         break;
@@ -247,6 +247,7 @@ public class InputHandler
                      //asks for relname, and the two classes it belongs to and stores it in relContainer.
                      String relSource = userTwo[2];
                      String relDest = userTwo[3];
+                     String relType = userTwo[4];
                      int test = 0;
  
                      //used to check if the classes are in the container and prints a message if they are not
@@ -264,11 +265,11 @@ public class InputHandler
                          System.out.println("Class with name " + relDest + " does not exist.");
                          break;
                      }
-                     if (myRelationshipContainer.addRelationship(relSource, relDest) == true){
+                     if (myRelationshipContainer.addRelationship(relSource, relDest, relType) == true){
                          System.out.println(relSource + " -> " + relDest + " relationship added.");
                      }
                      else{
-                         System.out.println("Relationship with that source and destination already exists.");
+                         System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
                      }
                      break;
                 case "remove relationship":
@@ -435,10 +436,31 @@ public class InputHandler
                     break;
                 }
             }
-            if(userTwo.length > 2 && userTwo.length < 5)
+            if(userTwo.length > 2)
             {
                 switch(userTwo[0] + " " + userTwo[1] + " " + userTwo[2])
                 {
+                case "rename relationship type":
+                    valid = true;
+                    if(userTwo.length < 6){
+                        tooSmall();
+                        break;
+                    }
+                    if(userTwo.length > 6){
+                        tooManyArgs();
+                        break;
+                    }
+                    String relSource = userTwo[3];
+                    String relDest = userTwo[4];
+                    String relType = userTwo[5];
+                    for (Relationship rel : myRelationshipContainer.getAllRelationships()){
+                        if (rel.getSourceClass().equals(relSource) && rel.getDestClass().equals(relDest)){
+                            boolean temp = rel.setType(relType);
+                            if (!temp){
+                                System.out.println("Invalid relationship type.");
+                            }
+                        }
+                    }
                 case "list one class":
                     valid = true;
                     if(userTwo.length < 4)

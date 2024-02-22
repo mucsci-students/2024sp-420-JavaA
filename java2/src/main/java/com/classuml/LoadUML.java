@@ -71,7 +71,8 @@ public class LoadUML
             JSONObject relationshipJson = (JSONObject) relationshipObj;
             String sourceClass = (String) relationshipJson.get("source class");
             String destClass = (String) relationshipJson.get("dest class");
-            relationshipContainer.addRelationship(sourceClass, destClass);
+            String relType = (String) relationshipJson.get("relationship type");
+            relationshipContainer.addRelationship(sourceClass, destClass, relType);
         }
 
         //load classes
