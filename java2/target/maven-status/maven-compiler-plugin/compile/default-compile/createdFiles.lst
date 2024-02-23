@@ -1,0 +1,17 @@
+com\classuml\LoadUML.class
+com\classuml\App.class
+com\classuml\ExitUML.class
+com\classuml\Relationship$Type.class
+com\classuml\saveUMLTests.class
+com\classuml\InputHandler.class
+com\classuml\attributes.class
+com\classuml\ExitUMLTests.class
+com\classuml\ClassBase.class
+com\classuml\Relationship.class
+com\classuml\InputHandler$1.class
+com\classuml\RelationshipContainer.class
+com\classuml\App$1.class
+com\classuml\attributesTests.class
+com\classuml\saveUML.class
+com\classuml\ClassContainer.class
+com\classuml\ClassTesting.class

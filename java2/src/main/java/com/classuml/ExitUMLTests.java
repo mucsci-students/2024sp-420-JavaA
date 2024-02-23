@@ -1,3 +1,4 @@
+package com.classuml;
 import java.util.Scanner;
 public class ExitUMLTests {
     
@@ -12,7 +13,7 @@ public class ExitUMLTests {
          */
         case 1:
             ExitUML Test1 = new ExitUML();
-            Test1.callExit();
+            Test1.callExit(0);
             break;
         //Test if JSON was updated properly
         //Test if exit was successful
@@ -23,7 +24,7 @@ public class ExitUMLTests {
          */
         case 2:
             ExitUML Test2 = new ExitUML();
-            Test2.callExit();
+            Test2.callExit(1);
             break;
         //Test if it exited and JSON was not updated
 
@@ -33,7 +34,7 @@ public class ExitUMLTests {
          */
         case 3:
             ExitUML Test3 = new ExitUML();
-            Test3.callExit();
+            Test3.callExit(-1);
             break;
         //Test if new updates can me made and program was not exited
         
