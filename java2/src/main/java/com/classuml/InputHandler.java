@@ -1,7 +1,33 @@
 package com.classuml;
 import java.util.Scanner;
-public class InputHandler
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+public class InputHandler extends Application
 {  
+    @Override
+    public void start(Stage primaryStage)
+    {
+        primaryStage.setTitle("Hello World!");
+        Button btn = new Button();
+        btn.setText("Say 'Hello World'");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+ 
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Hello World!");
+            }
+        });
+        
+        StackPane root = new StackPane();
+        root.getChildren().add(btn);
+        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.show();
+    }
 
     public static void main(String[] args)
     {   
@@ -10,6 +36,13 @@ public class InputHandler
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         Scanner userInput = new Scanner(System.in);
+        
+        //userInput.nextLine();
+        System.out.println("To start GUI, type gui (else, press enter): ");
+        String guiResult = userInput.nextLine();
+        if (guiResult.contains("gui")) {
+            launch(args);
+        }
         while(true)
         {
             //Used for printing the "No valid command!" message.
