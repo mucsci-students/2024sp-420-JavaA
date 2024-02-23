@@ -36,12 +36,12 @@ public class InputHandler extends Application
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         Scanner userInput = new Scanner(System.in);
-        
-        //userInput.nextLine();
         System.out.println("To start GUI, type gui (else, press enter): ");
         String guiResult = userInput.nextLine();
         if (guiResult.contains("gui")) {
             launch(args);
+            userInput.close();
+            return;
         }
         while(true)
         {
@@ -151,6 +151,7 @@ public class InputHandler extends Application
                     else{
                         status = -1;
                     }
+                    userInput.close();
                     ExitUML myExit = new ExitUML();
                     myExit.callExit(status);
                     break;
