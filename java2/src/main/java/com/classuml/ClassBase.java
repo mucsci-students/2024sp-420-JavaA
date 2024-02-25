@@ -8,6 +8,7 @@ public class ClassBase
     private String className;
     //ArrayList of attributes for this class.
     private ArrayList<attributes> classAttributes;
+    //private ArrayList<methods> classMethods;
     
     /**
      * Class constructor.
@@ -67,13 +68,13 @@ public class ClassBase
     }
 
     /** 
-     * Updates either the name or content of an attribute
+     * Updates either the name or type of an attribute
      * @param myAtt The attribute to modify
-     * @param updateType Are we modifying the name or content of the attribute
+     * @param updateType Are we modifying the name or type of the attribute
      *      (This probably should instead be two separate methods called
-     *       updateAttributeName and updateAttributeContent)
+     *       updateAttributeName and updateAttributeType)
      * @param update The new string representing the new name 
-     *      or content for the attribute.
+     *      or type for the attribute.
      */ 
     public void updateAttribute(attributes myAtt, String updateType, String update)
     {
@@ -83,7 +84,7 @@ public class ClassBase
         }
         else
         {
-            myAtt.setContent(update);
+            myAtt.setType(update);
         }
         
     }

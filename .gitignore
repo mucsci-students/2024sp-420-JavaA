@@ -12,3 +12,7 @@ RelationshipContainer.class
 RelationshipTests.class
 saveUML.class
 saveUMLTests.class
+App.class
+App$1.class
+InputHandler$1.class
+Relationship$Type.class

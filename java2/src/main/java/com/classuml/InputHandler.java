@@ -65,11 +65,11 @@ public class InputHandler extends Application
                     System.out.println("'rename class', will prompt you for a class you wish to rename, and then the name you wish to rename it to. ");
                     System.out.println("'add relationship', will prompt you for the name of the relationship you wish to add, as well as the class it goes from/to.");
                     System.out.println("'remove relationship', asks you for the name of the relationship you wish to remove.");
-                    System.out.println("'add attribute', asks you for the name of the attribute you wish to add, the content, and the class name.");
+                    System.out.println("'add attribute', asks you for the name of the attribute you wish to add, the type, and the class name.");
                     System.out.println("'edit attribute', asks you which class you want to edit an attribute from, which attribute you want to edit, how would you like to edit it, and the edit itself.");
                     System.out.println("'remove attribute', asks which class you would like to remove an attribute from, and which attribute you would like to remove. ");
-                    System.out.println("'list one class', will prompt you for a class name and list all of its attributes and their content.");
-                    System.out.println("'list all classes', will list all classes and all of their attributes and contents.");
+                    System.out.println("'list one class', will prompt you for a class name and list all of its attributes and their type.");
+                    System.out.println("'list all classes', will list all classes and all of their attributes and type.");
                     System.out.println("'list one class relationship', will prompt you for a class name and list all of the relationships it belongs to.");
                     System.out.println("'save', saves the class.");
                     System.out.println("'load', asks you for a file to load from, then loads said file.");
@@ -344,15 +344,15 @@ public class InputHandler extends Application
                     className = userTwo[2];
                     ClassBase tempClass = myClassContainer.getClassBase(className);
                     String attName;
-                    String attContent;
+                    String attType;
 
                     //Checks whether a class of the given name exists or not.
                     if(tempClass != null){
                         attributes myAttributes = new attributes();
                         attName = userTwo[3];
                         myAttributes.setName(attName);
-                        attContent = userTwo[4];
-                        myAttributes.setContent(attContent);
+                        attType = userTwo[4];
+                        myAttributes.setType(attType);
                         int success = tempClass.addAttribute(myAttributes);
                         if(success == 1){
 
@@ -526,7 +526,7 @@ public class InputHandler extends Application
                             isIn = true;
                             System.out.println("Class Name: " + className);
                             for(attributes att : temp.getClassAttributes()){
-                                System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
+                                System.out.println("Attribute Name: " + att.getName() + "\nType: " + att.getType());
                                 isCont = true;
                             }
                         }
@@ -560,7 +560,7 @@ public class InputHandler extends Application
                         System.out.println("Class Name: " + temp.getName());
                         isIn = true;
                         for(attributes att : temp.getClassAttributes()){
-                            System.out.println("Attribute Name: " + att.getName() + "\nContent: " + att.getContent());
+                            System.out.println("Attribute Name: " + att.getName() + "\nType: " + att.getType());
                             isCont = true;
                         }
                     }

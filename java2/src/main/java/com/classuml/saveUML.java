@@ -114,7 +114,7 @@ public class saveUML {
             for(attributes att: classes.getClassAttributes()){
                 saveAtt = new JSONObject();
                 saveAtt.put("name", att.getName());
-                saveAtt.put("content", att.getContent());
+                saveAtt.put("type", att.getType());
                 saveAtts.add(saveAtt);
             }
             saveClass.put("attributes", saveAtts);
