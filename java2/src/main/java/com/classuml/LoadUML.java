@@ -86,10 +86,10 @@ public class LoadUML
             {
                 JSONObject attributeJson = (JSONObject) attributeObj;
                 String attributeName = (String) attributeJson.get("name");
-                String attributeContent = (String) attributeJson.get("content");
+                String attributeType = (String) attributeJson.get("type");
                 attributes attribute = new attributes();
                 attribute.setName(attributeName);
-                attribute.setContent(attributeContent);
+                attribute.setType(attributeType);
                 classAttributes.add(attribute);
             }
             ClassBase classBase = new ClassBase(className);
