@@ -1,7 +1,11 @@
 package com.classuml;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
+import javax.json.*;
+import java.util.*;
 import java.io.*;
+import java.nio.file.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.schema.*;
 
 public class saveUML {
 
@@ -9,13 +13,13 @@ public class saveUML {
      * All of the JSONObjects and JSONArrays that
      * are used throughout the save process
      */
-    private static JSONObject saved;
-    private static JSONArray saveClasses;
-    private static JSONObject saveClass;
-    private static JSONArray saveRelationships;
-    private static JSONObject saveRelationship;
-    private static JSONArray saveAtts;
-    private static JSONObject saveAtt;
+    private static Map<String,String> map;
+    private static JsonBuilderFactory jsonBuilder;
+    private static JsonObject saveData;
+    private static JsonArrayBuilder cArray;
+    private static JsonArrayBuilder rArray;
+
+    
 
     /*
      * Called to initiate the saving process
@@ -29,7 +33,6 @@ public class saveUML {
      * @Returns         
      */
     public static void save(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer){
-        saved = new JSONObject();
         saveProcedure(myClassContainer, myRelationshipContainer);
 
         //try to create the new file saveUML.json and save data to that file
@@ -39,18 +42,14 @@ public class saveUML {
             saveFile.createNewFile();
 
             //writes the information to the file
-            FileOutputStream writeToFile = new FileOutputStream("saveUML.json");
-            writeToFile.write(saved.toJSONString().getBytes());
+            FileWriter writeToFile = new FileWriter("saveUML.json");
+            writeToFile.write(saveData.toString());
             writeToFile.close();
+            schemaValidator(Paths.get("").toAbsolutePath().toString() + "\\saveUML.json"); 
         }
         catch(IOException except){
             System.out.println("An error occured while creating this file");
-            System.out.println(except.toString());
         }
-        
-        
-        System.out.println(saved.toString());
-
     }
 
     /*
@@ -66,25 +65,23 @@ public class saveUML {
      * @Returns         
      */
     public static void save(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer, String fileName){
-        saved = new JSONObject();
         saveProcedure(myClassContainer, myRelationshipContainer);
+
         try{
             //will create a file named saveUML.json, if a file already exists, no error will occur
             File saveFile = new File(fileName +".json");
             saveFile.createNewFile();
 
             //writes the information to the file
-            FileOutputStream writeToFile = new FileOutputStream(fileName + ".json");
-            writeToFile.write(saved.toJSONString().getBytes());
+            FileWriter writeToFile = new FileWriter(fileName + ".json");
+            writeToFile.write(saveData.toString());
             writeToFile.close();
+            schemaValidator(Paths.get("").toAbsolutePath().toString() + "\\" + fileName + ".json");
+            
         }
         catch(IOException except){
             System.out.println("An error occured while creating this file");
-            System.out.println(except.toString());
         }
-        
-        
-        System.out.println(saved.toString());
     }
 
     /*
@@ -99,38 +96,63 @@ public class saveUML {
      * @Returns         
      */
     private static void saveProcedure(ClassContainer myClassContainer, RelationshipContainer myRelationshipContainer){
-        saveClasses = new JSONArray();
-        saveRelationships = new JSONArray();
-        
+        jsonBuilder = Json.createBuilderFactory(map);
+        cArray = jsonBuilder.createArrayBuilder();
+        rArray = jsonBuilder.createArrayBuilder();
 
         //loop for iterating through classes
         for (ClassBase classes: myClassContainer.getContainer()){
-            saveClass = new JSONObject();
-            saveAtts = new JSONArray();
-            saveClass.put("name", classes.getName());
+            cArray.add(jsonBuilder.createObjectBuilder().add("name", classes.getName()));
 
-            //loop for iterating through a classes attributes
-            
-            for(attributes att: classes.getClassAttributes()){
-                saveAtt = new JSONObject();
-                saveAtt.put("name", att.getName());
-                saveAtt.put("content", att.getContent());
-                saveAtts.add(saveAtt);
-            }
-            saveClass.put("attributes", saveAtts);
-            saveClasses.add(saveClass);
         }
 
         //loop for iterating through relationships
         for(Relationship relate: myRelationshipContainer.getAllRelationships()){
-            saveRelationship = new JSONObject();
-            saveRelationship.put("dest class", relate.getDestClass());
-            saveRelationship.put("source class", relate.getSourceClass());
-            saveRelationships.add(saveRelationship);
+            rArray.add(
+                jsonBuilder.createObjectBuilder()
+                .add("Type", relate.getType())
+                .add("Source Class", relate.getSourceClass())
+                .add("Destination Class", relate.getDestClass()));
         }
 
-        saved.put("Classes", saveClasses);
-        saved.put("Relationships", saveRelationships);
+        saveData = jsonBuilder.createObjectBuilder().add("Classes", cArray).add("Relationships", rArray).build();
     }
     
+
+
+
+
+
+
+
+
+public static void schemaValidator(String saveFileName){
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7);
+
+    try(  
+            InputStream jsonStream = new FileInputStream(saveFileName); 
+            InputStream schemaStream = new FileInputStream(Paths.get("").toAbsolutePath().toString() + "\\src\\main\\java\\com\\classuml\\SaveSchema.Json");   
+        ){
+            JsonNode json = objectMapper.readTree(jsonStream);
+            JsonSchema schema = schemaFactory.getSchema(schemaStream);
+
+            Set<ValidationMessage> validationResult = schema.validate(json);
+            if (validationResult.isEmpty()){
+
+            }
+            else{
+                validationResult.forEach(vm -> System.out.println(vm.getMessage()));
+            }
+        }
+        catch(IOException except){
+            System.out.println("io exception");
+        }
+         
+    }
+    
+
+
 }
