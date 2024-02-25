@@ -4,9 +4,8 @@ public class attributes
 
     //Name for the attribute
     private String name;
-
-    //content of the attribute
-    private String content;
+    //type of the attribute
+    private String type;
 
     /*
      * sets a new name for this attribute
@@ -37,42 +36,30 @@ public class attributes
     }
 
     /*
-     * Sets the content of the attribute
+     * Sets the Type of the attribute
      * 
-     * @Variables       newContent - Var that will hold the new content
+     * @Variables       newType - Var that will hold the new type
      * 
      * @Preconditions   
-     * @Postconditions  The attribute Content will change
+     * @Postconditions  The attribute type will change
      * 
      * @Returns
      */
-    public void setContent(String newContent){
-        this.content = newContent;
+    public void setType(String newType){
+        this.type = newType;
     }
 
     /*
-     * Gets the content of this attribute
+     * Gets the type of this attribute
      * 
      * @Variables       
      * 
      * @Preconditions   
      * @Postconditions  
      * 
-     * @Returns         The content of this attribute
+     * @Returns         The type of this attribute
      */
-    public String getContent(){
-        return this.content;
-    }
-    
-    /**
-     * @return The attributes and its contents in readable form.
-     */
-    @Override
-    public String toString() 
-    {
-        return "Attribute{" +
-            "name='" + name + '\'' +
-            ", content='" + content + '\'' +
-            '}';
+    public String getType(){
+        return this.type;
     }
 }

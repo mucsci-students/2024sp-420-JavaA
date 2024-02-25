@@ -8,6 +8,7 @@ public class ClassBase
     private String className;
     //ArrayList of attributes for this class.
     private ArrayList<attributes> classAttributes;
+    private ArrayList<methods> classMethods;
     
     /**
      * Class constructor.
@@ -26,7 +27,7 @@ public class ClassBase
     {
         return className;
     }
-
+    
     /**
      * Renames the class.
      * @param newName The new name for the class.
@@ -66,14 +67,24 @@ public class ClassBase
         return 1;
     }
 
+    public int addMethod(methods myMethod){
+        for(methods meth : classMethods){
+            if(meth.getName().equalsIgnoreCase(myMethod.getName())){
+                return 0;
+            }
+        }
+        classMethods.add(myMethod);
+        return 1;
+    }
+
     /** 
-     * Updates either the name or content of an attribute
+     * Updates either the name or type of an attribute
      * @param myAtt The attribute to modify
-     * @param updateType Are we modifying the name or content of the attribute
+     * @param updateType Are we modifying the name or type of the attribute
      *      (This probably should instead be two separate methods called
-     *       updateAttributeName and updateAttributeContent)
+     *       updateAttributeName and updateAttributeType)
      * @param update The new string representing the new name 
-     *      or content for the attribute.
+     *      or type for the attribute.
      */ 
     public void updateAttribute(attributes myAtt, String updateType, String update)
     {
@@ -83,9 +94,18 @@ public class ClassBase
         }
         else
         {
-            myAtt.setContent(update);
+            myAtt.setType(update);
         }
         
+    }
+
+    public void updateMethod(methods myMethod, String update, String updateType){
+        if(updateType.equalsIgnoreCase("Name")){
+            myMethod.setName(update);
+        }
+        else{
+            myMethod.setType(update);
+        }
     }
 
     /** 
@@ -95,6 +115,10 @@ public class ClassBase
     public void deleteAttribute(attributes myAtt)
     {
         classAttributes.remove(myAtt);
+    }
+
+    public void deletMethod(methods myMethod){
+        classMethods.remove(myMethod);
     }
 
     /** 
