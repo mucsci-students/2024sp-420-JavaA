@@ -146,4 +146,12 @@ public class ClassBase
         return classAttributes;
     }
 
+    /** 
+     * @return An arrayList of method objects
+     */
+    public List<methods> getClassMethods()
+    {
+        return classMethods;
+    }
+
 }
