@@ -18,6 +18,9 @@ public class saveUML {
     private static JsonObject saveData;
     private static JsonArrayBuilder cArray;
     private static JsonArrayBuilder rArray;
+    private static JsonArrayBuilder fArray;
+    private static JsonArrayBuilder mArray;
+    private static JsonArrayBuilder pArray;
 
     
 
@@ -100,19 +103,45 @@ public class saveUML {
         cArray = jsonBuilder.createArrayBuilder();
         rArray = jsonBuilder.createArrayBuilder();
 
-        //loop for iterating through classes
+        //loop for iterating through classes, and there fields and methods
         for (ClassBase classes: myClassContainer.getContainer()){
-            cArray.add(jsonBuilder.createObjectBuilder().add("name", classes.getName()));
+            fArray = jsonBuilder.createArrayBuilder();
+            mArray = jsonBuilder.createArrayBuilder();
 
+            for(attributes fields: classes.getClassAttributes()){
+                fArray.add(jsonBuilder.createObjectBuilder()
+                    .add("Name", fields.getName())
+                    .add("Type", fields.getType()));
+            }
+
+            for(methods meth: classes.getClassMethods()){
+
+                pArray = jsonBuilder.createArrayBuilder();
+                for(attributes params: meth.getParams()){
+                    pArray.add(jsonBuilder.createObjectBuilder()
+                    .add("Name", params.getName())
+                    .add("Type", params.getType()));
+                }
+
+                mArray.add(jsonBuilder.createObjectBuilder()
+                    .add("Name", meth.getName())
+                    .add("Return type", meth.getType())
+                    .add("Paramaters", pArray));
+            }
+
+            cArray.add(jsonBuilder.createObjectBuilder()
+            .add("Name", classes.getName())
+            .add("Fields", fArray)
+            .add("Methods", mArray));
         }
 
         //loop for iterating through relationships
         for(Relationship relate: myRelationshipContainer.getAllRelationships()){
             rArray.add(
                 jsonBuilder.createObjectBuilder()
-                .add("Type", relate.getType())
                 .add("Source Class", relate.getSourceClass())
-                .add("Destination Class", relate.getDestClass()));
+                .add("Destination Class", relate.getDestClass())
+                .add("Type", relate.getType()));
         }
 
         saveData = jsonBuilder.createObjectBuilder().add("Classes", cArray).add("Relationships", rArray).build();
@@ -124,7 +153,16 @@ public class saveUML {
 
 
 
-
+/*
+ * Validates that the saveData Json format is correct with the schema, if it doesn't it will display what the problem is
+ * 
+ *  @Variables   saveFileName, gives the name of the file used for saving
+ * 
+ *  @Preconditions
+ *  @Postconditions
+ * 
+ *  @Returns
+ */
 
 public static void schemaValidator(String saveFileName){
 
