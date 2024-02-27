@@ -16,6 +16,7 @@ public class methods {
      * 
      * @Variables       methodName - A string to set method name.
      *                  methodRetType - A string to set method return type.
+     *                  paramList - A list of params.
      * 
      * @Preconditions   
      * @Postconditions  Method will be created.
