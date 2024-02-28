@@ -54,17 +54,57 @@ public class Model
             return myClassContainer.removeClass(className);
         }
     }
-    public boolean renameClass (String oldName, String newName)
+
+    public String renameClass (String oldName, String newName)
     {
+        //Goes through every relationship, and if any used the class being renamed,
+        //It changes the name from the oldname to the newname.
+        for (Relationship rel : myRelationshipContainer.getAllRelationships())
+        {
+            if(rel.getSourceClass().equals(oldName))                        
+            {
+                rel.setSourceClass(newName);
+            }
+            else
+            {
+                if(rel.getDestClass().equals(oldName))
+                {
+                    rel.setDestClass(newName);
+                }
+            }
+        }
+        return myClassContainer.renameClass(oldName, newName);
 
     }
-    public boolean addRelationship (String fromRel, String toRel)
+    
+    public int addRelationship (String fromRel, String toRel, String relType)
     {
-        
+ 
+        //used to check if the classes are in the container and prints a message if they are not
+        if (myClassContainer.getClassBase(fromRel) == null){
+            return 1;
+        }
+        if (myClassContainer.getClassBase(toRel) == null){
+            return 2;
+        }
+        if (myRelationshipContainer.addRelationship(fromRel, toRel, relType) == true){
+            return 3;
+        }
+        else{
+            return 4;
+        }
     }
-    public boolean removeRelationship (String fromRel, String toRel)
+    public int removeRelationship (String fromRel, String toRel)
     {
-
+        //gets relname and removes it from the container
+ 
+        //removeRelationship returns a boolean so if it is true then it was deleted and if not then the relationship doesnt exist
+        if (myRelationshipContainer.removeRelationship(fromRel, toRel) == true){
+            return 1
+        }
+        else{
+            return 2;
+        }
     }
     public boolean addMethod (String name, String type, String[] paramNames, String[] paramTypes)
     {

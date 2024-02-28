@@ -191,10 +191,9 @@ public class InputHandler extends Application
                         break;
                     }
                     System.out.println(mainModel.removeClass(userTwo[2]));
-
                     break; 
                 case "rename class":
-                    valid = true;
+                valid = true;
                 if(userTwo.length < 4)
                     {
                         tooSmall();
@@ -205,29 +204,9 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-                    String newName = userTwo[3];
-
-                    //Goes through every relationship, and if any used the class being renamed,
-                    //It changes the name from the oldname to the newname.
-                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
-                    {
-                        if(rel.getSourceClass().equals(className))
-                        {
-                            rel.setSourceClass(newName);
-                        }
-                        else
-                        {
-                            if(rel.getDestClass().equals(className))
-                            {
-                                rel.setDestClass(newName);
-                            }
-                        }
-                    }
-
+                    
                     //Prints the return of renameClass, so would say whether it works or not.
-                    String rename = myClassContainer.renameClass(className, newName);
-                    System.out.println(rename);
+                    System.out.println(mainModel.renameClass(userTwo[2], userTwo[3]));
                     break;
                 case "add relationship":
                     valid = true;
@@ -242,32 +221,20 @@ public class InputHandler extends Application
                         break;
                     }
                      //asks for relname, and the two classes it belongs to and stores it in relContainer.
-                     String relSource = userTwo[2];
-                     String relDest = userTwo[3];
-                     String relType = userTwo[4];
-                     int test = 0;
- 
-                     //used to check if the classes are in the container and prints a message if they are not
-                     if (myClassContainer.getClassBase(relSource) == null){
-                         test = 1;
-                     }
-                     if (myClassContainer.getClassBase(relDest) == null){
-                         test = 2;
-                     }
+                     int test = mainModel.addRelationship(userTwo[2], userTwo[3], userTwo[4]);
                      if (test == 1){
-                         System.out.println("Class with name " + relSource + " does not exist.");
-                         break;
-                     }
-                     if (test == 2){
-                         System.out.println("Class with name " + relDest + " does not exist.");
-                         break;
-                     }
-                     if (myRelationshipContainer.addRelationship(relSource, relDest, relType) == true){
-                         System.out.println(relSource + " -> " + relDest + " relationship added.");
-                     }
-                     else{
-                         System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
-                     }
+                        System.out.println("Class with name " + userTwo[2] + " does not exist.");
+                    }
+                    if (test == 2){
+                        System.out.println("Class with name " + userTwo[3] + " does not exist.");
+                    }
+                    if (test == 3){
+                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship added.");
+                    }
+                    else{
+                        System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
+                    }
+                     
                      break;
                 case "remove relationship":
                     valid = true;
@@ -281,16 +248,13 @@ public class InputHandler extends Application
                     tooManyArgs();
                     break;
                 }
-                    //gets relname and removes it from the container
-                    relSource = userTwo[2];
-                    relDest = userTwo[3];
-                    //removeRelationship returns a boolean so if it is true then it was deleted and if not then the relationship doesnt exist
-                    if (myRelationshipContainer.removeRelationship(relSource, relDest) == true){
-                        System.out.println(relSource + " -> " + relDest + " relationship deleted.");
+                    int ret = mainModel.removeRelationship(userTwo[2], userTwo[3]);
+                    if(ret == 1)
+                    {
+                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship deleted.");
                     }
-                    else{
+                    else
                         System.out.println("No such relationship with that source and destination");
-                    }
                     break;
                 case "add attribute":
                     valid = true;
