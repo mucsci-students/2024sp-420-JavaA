@@ -91,7 +91,7 @@ public class Model
             return 3;
         }
         else{
-            return 4;
+            return 0;
         }
     }
     public int removeRelationship (String fromRel, String toRel)
@@ -100,44 +100,74 @@ public class Model
  
         //removeRelationship returns a boolean so if it is true then it was deleted and if not then the relationship doesnt exist
         if (myRelationshipContainer.removeRelationship(fromRel, toRel) == true){
-            return 1
+            return 1;
         }
         else{
             return 2;
         }
     }
-    public boolean addMethod (String name, String type, String[] paramNames, String[] paramTypes)
+    public int addField (String className, String name, String type)
+    {
+        ClassBase tempClass = myClassContainer.getClassBase(className);
+        int success = 0;
+        if(tempClass != null){
+            attributes myAttributes = new attributes();
+            myAttributes.setName(name);
+            myAttributes.setType(type);
+            success = tempClass.addAttribute(myAttributes);
+        }
+        return success;
+
+    }
+    public int removeField (String className, String name)
+    {
+        //Checks to see if the class exists.
+        ClassBase tempClassRem = myClassContainer.getClassBase(className);
+        if(tempClassRem != null){
+
+            //Checks to see if the attribute exists or not
+            attributes attCheck = tempClassRem.getAttribute(name);
+            if(attCheck != null){
+
+                //An attribute with the name was found and deleted
+                tempClassRem.deleteAttribute(attCheck);
+                return 1;
+            }
+            else{
+                //An attribute could not be found with the given name
+                return 2;
+            }
+        }
+        else{
+            //A class of the given name could not be found.
+            return 0;
+        }
+    }
+    public boolean renameField (String className, String oldName, String newName)
     {
 
     }
-    public boolean removeMethod (String name)
+    public boolean changeFieldType (String className, String name, String type)
     {
 
     }
-    public boolean renameMethod (String oldName, String newName)
+    public boolean addMethod (String className, String name, String type, String[] paramNames, String[] paramTypes)
     {
 
     }
-    public boolean changeMethodType (String name, String newType)
+    public boolean removeMethod (String className, String name)
     {
 
     }
-    public boolean addField (String name, String type)
+    public boolean renameMethod (String className, String oldName, String newName)
     {
 
     }
-    public boolean removeField (String name)
+    public boolean changeMethodType (String className, String name, String newType)
     {
 
     }
-    public boolean renameField (String oldName, String newName)
-    {
 
-    }
-    public boolean changeFieldType (String name, String type)
-    {
-
-    }
     public boolean listOneClass (String name)
     {
 
