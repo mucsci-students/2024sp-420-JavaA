@@ -32,6 +32,7 @@ public class InputHandler extends Application
     public static void main(String[] args)
     {   
         //setup containers and print welcome message
+        Model mainModel = new Model();
         ClassContainer myClassContainer = new ClassContainer();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
@@ -59,12 +60,13 @@ public class InputHandler extends Application
                     valid = true;
 
                     //Prints a large amount of stuff, which hopefully would tell the user how to use the program.
-                    System.out.println("Here is a list of commands, please enter them without the '':");
-                    System.out.println("'add class', will prompt you for a class name to add.");
-                    System.out.println("'remove class', will prompt you for a class name to remove.");
-                    System.out.println("'rename class', will prompt you for a class you wish to rename, and then the name you wish to rename it to. ");
-                    System.out.println("'add relationship', will prompt you for the name of the relationship you wish to add, as well as the class it goes from/to.");
-                    System.out.println("'remove relationship', asks you for the name of the relationship you wish to remove.");
+                    System.out.println("Here is a list of commands, please enter them without the '', or <>, replacing what's inside the <>:");
+                    System.out.println("'add class <name> ' adds a class with given name");
+                    System.out.println("'remove class <name>', will remove a class with given name");
+                    System.out.println("'rename class <oldName> <newName>', will rename a class with oldName to newName");
+                    System.out.println("'add relationship <fromClass> <toClass>', will add a relationship between two classes.");
+                    System.out.println("'remove relationship <fromClass> <toClass>', will remove a relationship between two classes.");
+                    //Got to replace attribute stuff with method/field specific ones.
                     System.out.println("'add attribute', asks you for the name of the attribute you wish to add, the type, and the class name.");
                     System.out.println("'edit attribute', asks you which class you want to edit an attribute from, which attribute you want to edit, how would you like to edit it, and the edit itself.");
                     System.out.println("'remove attribute', asks which class you would like to remove an attribute from, and which attribute you would like to remove. ");
@@ -173,12 +175,8 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    String className = userTwo[2];
-                    ClassBase myClass = new ClassBase(className);
-
                     //Prints the return of addClass, so would say whether it works or not.
-                    String add = myClassContainer.addClass(myClass);
-                    System.out.println(add);
+                    System.out.println(mainModel.addClass(userTwo[2]));
                     break;
                 case "remove class":
                     valid = true;
@@ -192,43 +190,8 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-                    boolean hasRel = false;
-                    boolean hasRel2 = false;    
+                    System.out.println(mainModel.removeClass(userTwo[2]));
 
-                    //Checks if the class has any relationships existing.
-                    //If so, it informs the user and asks them to remove them before removing the class.
-                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
-                    {
-                        if(rel.getSourceClass().equals(className))
-                        {
-                            hasRel = true;
-                        }
-                        else
-                        {
-                            if(rel.getDestClass().equals(className))
-                            {
-                                hasRel = true;
-                            }
-                        }
-                        if(hasRel == true)
-                        {
-                            System.out.println(rel.getSourceClass() + " -> " + rel.getDestClass() + " is an existing relationship.");
-                            hasRel2 = true;
-                            hasRel = false;
-                        }
-                    }
-                    if(hasRel2 == true)
-                    {
-                        System.out.println("Please remove the existing relationship(s) before removing the class.");
-                    }
-                    else
-                    {
-
-                        //Prints the return of removeClass, so would say whether it works or not.
-                        String removing = myClassContainer.removeClass(className);
-                        System.out.println(removing);
-                    }
                     break; 
                 case "rename class":
                     valid = true;
@@ -469,8 +432,14 @@ public class InputHandler extends Application
                     }
                     break;
                 }
+                case "add method":
+                break;
+                case "remove method":
+                break;
+                case "rename method":
+                break;
             }
-            if(userTwo.length > 2 && userTwo.length < 7)
+            if(userTwo.length > 2)
             {
                 switch(userTwo[0] + " " + userTwo[1] + " " + userTwo[2])
                 {
