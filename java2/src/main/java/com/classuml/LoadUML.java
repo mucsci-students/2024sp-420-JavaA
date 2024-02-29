@@ -69,9 +69,9 @@ public class LoadUML
         for (Object relationshipObj : relationshipsArray) 
         {
             JSONObject relationshipJson = (JSONObject) relationshipObj;
-            String sourceClass = (String) relationshipJson.get("source class");
-            String destClass = (String) relationshipJson.get("dest class");
-            String relType = (String) relationshipJson.get("relationship type");
+            String sourceClass = (String) relationshipJson.get("Source Class");
+            String destClass = (String) relationshipJson.get("Destination Class");
+            String relType = (String) relationshipJson.get("Type");
             relationshipContainer.addRelationship(sourceClass, destClass, relType);
         }
 
@@ -79,23 +79,45 @@ public class LoadUML
         for (Object classObj : classesArray) 
         {
             JSONObject classJson = (JSONObject) classObj;
-            String className = (String) classJson.get("name");
             ArrayList<attributes> classAttributes = new ArrayList<>();
-            JSONArray attributesArray = (JSONArray) classJson.get("attributes");
+            ArrayList<methods> classMethods = new ArrayList<>();
+            String className = (String) classJson.get("Name");
+            JSONArray attributesArray = (JSONArray) classJson.get("Fields");
+            JSONArray methodsArray = (JSONArray) classJson.get("Methods");
             for (Object attributeObj : attributesArray) 
             {
                 JSONObject attributeJson = (JSONObject) attributeObj;
-                String attributeName = (String) attributeJson.get("name");
-                String attributeType = (String) attributeJson.get("type");
+                String attributeName = (String) attributeJson.get("Name");
+                String attributeType = (String) attributeJson.get("Type");
                 attributes attribute = new attributes();
                 attribute.setName(attributeName);
                 attribute.setType(attributeType);
                 classAttributes.add(attribute);
             }
+            for (Object methodObj : methodsArray){
+                JSONObject methodJson = (JSONObject) methodObj;
+                String methodName = (String) methodJson.get("Name");
+                String methodType = (String) methodJson.get("Return type");
+                ArrayList<attributes> methodParams = new ArrayList<>();
+                for (Object parameterObj : methodParams) {
+                    JSONObject parameterJson = (JSONObject) parameterObj;
+                    String paramName = (String) parameterJson.get("Name");
+                    String paramType = (String) parameterJson.get("Type");
+                    attributes methodParameter = new attributes();
+                    methodParameter.setName(paramName);
+                    methodParameter.setType(paramType);
+                    methodParams.add(methodParameter);
+                }
+                methods newMethod = new methods(methodName, methodType, methodParams);
+                classMethods.add(newMethod);
+            }
             ClassBase classBase = new ClassBase(className);
             for (attributes att : classAttributes) 
             {
                 classBase.addAttribute(att);
+            }
+            for (methods meth : classMethods){
+                classBase.addMethod(meth);
             }
             classContainer.addClass(classBase); // Add the class to the ClassContainer
         }

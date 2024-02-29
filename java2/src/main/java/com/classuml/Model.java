@@ -376,6 +376,7 @@ public class Model
         LoadUML load = new LoadUML();
         for (ClassBase cls : myClassContainer.getContainer()){
             cls.getClassAttributes().clear();
+            cls.getClassMethods().clear();
         }
         myClassContainer.getContainer().clear();
         myRelationshipContainer.getAllRelationships().clear();
