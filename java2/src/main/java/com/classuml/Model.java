@@ -361,20 +361,25 @@ public class Model
         }
         return retStringAll;
     }
-    public boolean save (String name)
+    public void save (String name)
     {
-        return false;
+        saveUML.save(myClassContainer, myRelationshipContainer, name);
+        return;
     }
-    public boolean load (String name)
+    public void save()
     {
-        return false;
+        saveUML.save(myClassContainer, myRelationshipContainer);
+        return;
     }
-    public boolean exit (boolean save)
+    public void load (String name)
     {
-        return false;  
-    }
-    public boolean help ()
-    {
-        return false;
+        LoadUML load = new LoadUML();
+        for (ClassBase cls : myClassContainer.getContainer()){
+            cls.getClassAttributes().clear();
+        }
+        myClassContainer.getContainer().clear();
+        myRelationshipContainer.getAllRelationships().clear();
+        load.load(name + ".json",myClassContainer,myRelationshipContainer);
+        return;
     }
 }

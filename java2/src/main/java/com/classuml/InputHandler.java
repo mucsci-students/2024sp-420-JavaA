@@ -84,7 +84,7 @@ public class InputHandler extends Application
                     //currently no override warning
 
                     if(userTwo.length == 1){
-                        saveUML.save(myClassContainer, myRelationshipContainer);
+                        mainModel.save();
                     }
                     else{
                         String fileName = userTwo[1];
@@ -97,7 +97,7 @@ public class InputHandler extends Application
                                 counter++;
                         }
                         
-                        saveUML.save(myClassContainer, myRelationshipContainer, fileName);
+                        mainModel.save(fileName);
                     }
                     break;
                 case "load":
@@ -111,7 +111,7 @@ public class InputHandler extends Application
 
                     //takes in name of file you wish to load without .json at the end
                     //stores data from the json into the containers passed to it
-                    LoadUML load = new LoadUML();
+                    
                     String fileNameLoad = userTwo[1];
                     int counter = 0;
                     for(String input : userTwo)
@@ -121,12 +121,7 @@ public class InputHandler extends Application
                         else
                             counter++;
                     }
-                    for (ClassBase cls : myClassContainer.getContainer()){
-                        cls.getClassAttributes().clear();
-                    }
-                    myClassContainer.getContainer().clear();
-                    myRelationshipContainer.getAllRelationships().clear();
-                    load.load(fileNameLoad + ".json",myClassContainer,myRelationshipContainer);
+                    mainModel.load(fileNameLoad);
                     break;
                 case "exit":
                     valid = true;
@@ -140,11 +135,11 @@ public class InputHandler extends Application
                         System.out.println("enter a name for the save file, or type nothing for default (saveUML) name");
                         String fileNameExit = userInput.nextLine();
                         if(fileNameExit.length() == 0){
-                            saveUML.save(myClassContainer, myRelationshipContainer);
+                            mainModel.save();
                         }
                         else{
                             
-                            saveUML.save(myClassContainer, myRelationshipContainer, fileNameExit);
+                            mainModel.save(fileNameExit);
                         }
                     }
                     else if (saveState.equals("no")){
