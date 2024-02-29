@@ -143,12 +143,50 @@ public class Model
             return 0;
         }
     }
-    public boolean renameField (String className, String oldName, String newName)
+    public int renameField (String className, String oldName, String newName)
     {
-
+        ClassBase tempClassRename = myClassContainer.getClassBase(className);
+        if(tempClassRename != null)
+        {
+            attributes attCheck = tempClassRename.getAttribute(oldName);
+            if(attCheck != null)
+            {
+                if(attCheck.getName().equalsIgnoreCase(newName))
+                    return 2;
+                tempClassRename.updateAttribute(attCheck, "name", newName);
+                return 3;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return 0;
+        }
     }
-    public boolean changeFieldType (String className, String name, String type)
+    public int changeFieldType (String className, String name, String type)
     {
+        ClassBase tempClassEdit = myClassContainer.getClassBase(className);
+        if(tempClassEdit != null)
+        {
+            attributes attCheck = tempClassEdit.getAttribute(name);
+            if(attCheck != null)
+            {
+                tempClassEdit.updateAttribute(attCheck, "type", type);
+                return 3;
+                
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return 0;
+        }
 
     }
     public boolean addMethod (String className, String name, String type, String[] paramNames, String[] paramTypes)

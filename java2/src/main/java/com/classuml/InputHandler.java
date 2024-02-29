@@ -302,50 +302,37 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-                    tempClass = myClassContainer.getClassBase(className);
-
-                    //checks to see if the class exists
-                    if(tempClass != null){
-                        attName = userTwo[3];
-
-                        //Checks to see whether that attribute exists or not.
-                        attributes attCheck = tempClass.getAttribute(attName);
-                        if(attCheck != null){
-                            String updateType = userTwo[4];
-                            String updatedContent;
-                            if(updateType.equalsIgnoreCase("Name")){
-
-                                //Asks the user for a new name for the attribute.
-                                updatedContent = userTwo[5];
-
-                                //checks to see if an attribute with that name already exists
-                                if(attCheck.getName().equalsIgnoreCase(updatedContent)){
-                                    System.out.println("An attribute with this name already exists");
-                                    break;
-                                }
-                            }
-
-                            //asks for the new content
-                            else{
-                                updatedContent = userTwo[5];
-                            }
-
-                            //Updates the attribute and tells that to the user.
-                            tempClass.updateAttribute(attCheck, updateType, updatedContent);
-                            System.out.println("The attributes " + updateType + " was changed.");
+                    int retVal = 0;
+                    if(userTwo[4].equalsIgnoreCase("Name"))
+                    {
+                        retVal = mainModel.renameField(userTwo[2], userTwo[3], userTwo[5]);
+                    }
+                    else
+                    {
+                        if(userTwo[4].equalsIgnoreCase("Type"))
+                        {
+                            retVal = mainModel.changeFieldType(userTwo[2], userTwo[3], userTwo[5]);
                         }
-                        else{
-
-                            //An attribute could not be found with the given name
-                            System.out.println("An attribute with this name does not exist.");
+                        else
+                        {
+                            System.out.println("Please type a valid edit type.");
                         }
                     }
-                    else{
-
-                        //A class of the given name could not be found.
-                        System.out.println("A class of the given name does not exist.");
-                    }
+                switch(retVal)
+                {
+                case 0:
+                    System.out.println("A class of the given name does not exist.");
+                break;
+                case 1:
+                    System.out.println("An attribute with this name does not exist.");
+                break;
+                case 2:
+                    System.out.println("An attribute with your new name already exists");
+                break;
+                case 3:
+                    System.out.println("The attributes " + userTwo[4] + " was changed.");
+                break;
+                }
                     break;
                 case "remove field":
                     valid = true;
