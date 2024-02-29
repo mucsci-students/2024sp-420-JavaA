@@ -533,7 +533,7 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-
+                        System.out.println(mainModel.listAllClasses());
                     
                     break;
                 }
