@@ -210,12 +210,12 @@ public class InputHandler extends Application
                     break;
                 case "add relationship":
                     valid = true;
-                if(userTwo.length < 5 )
+                if(userTwo.length < 4 )
                     {
                         tooSmall();
                         break;
                     }
-                    if(userTwo.length > 5)
+                    if(userTwo.length > 4)
                     {
                         tooManyArgs();
                         break;

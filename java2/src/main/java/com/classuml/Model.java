@@ -239,7 +239,6 @@ public class Model
         {
             return 0;
         }
-        boolean found = false;
         methods editMethod;
         ArrayList<methods> methods = tempClassRenameMethod.getClassMethods();
         for(methods method : methods)
@@ -254,13 +253,9 @@ public class Model
             if(method.getName().equals(oldName))
             {
                 editMethod = method;
-                found = true;
+                tempClassRenameMethod.updateMethod(editMethod, newName, "name");
+                return 3;
             }
-        }
-        if(found==true)
-        {
-            tempClassRenameMethod.updateMethod(editMethod, newName, "name");
-            return 3;
         }
         return 2;
     }
@@ -354,7 +349,7 @@ public class Model
             retStringAll.concat("Class Name: " + temp.getName() + "\n");
             isInAll = true;
             for(attributes att : temp.getClassAttributes()){
-                retStringAll("Attribute Name: " + att.getName() + "\nType: " + att.getType() + "\n");
+                retStringAll.concat("Attribute Name: " + att.getName() + "\nType: " + att.getType() + "\n");
                 isContAll = true;
             }
         }
@@ -368,18 +363,18 @@ public class Model
     }
     public boolean save (String name)
     {
-
+        return false;
     }
     public boolean load (String name)
     {
-
+        return false;
     }
     public boolean exit (boolean save)
     {
-
+        return false;  
     }
     public boolean help ()
     {
-
+        return false;
     }
 }

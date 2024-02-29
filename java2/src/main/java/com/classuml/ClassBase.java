@@ -18,6 +18,7 @@ public class ClassBase
     {
         className = name;
         classAttributes = new ArrayList<attributes>();
+        classMethods = new ArrayList<methods>();
     }
 
     /**
