@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 public class InputHandler extends Application
 {  
-    @Override
+    /*@Override
     public void start(Stage primaryStage)
     {
         primaryStage.setTitle("Hello World!");
@@ -27,7 +27,7 @@ public class InputHandler extends Application
         root.getChildren().add(btn);
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
-    }
+    }*/
 
     public static void main(String[] args)
     {   
@@ -40,7 +40,8 @@ public class InputHandler extends Application
         System.out.println("To start GUI, type gui (else, press enter): ");
         String guiResult = userInput.nextLine();
         if (guiResult.contains("gui")) {
-            launch(args);
+            //launch(args);
+            Application.launch(MainWindow.class, args);
             userInput.close();
             return;
         }
@@ -568,5 +569,10 @@ public class InputHandler extends Application
     public static void tooManyArgs()
     {
         System.out.println("Too many arguments, type 'help' for help.");
+    }
+    @Override
+    public void start(Stage arg0) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'start'");
     }
 }   
