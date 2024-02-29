@@ -362,8 +362,9 @@ public class InputHandler extends Application
 
                     
                     break;
-                }
+                
                 case "add method":
+                    valid = true;
                 if(userTwo.length < 7)
                 {
                     tooSmall();
@@ -472,6 +473,7 @@ public class InputHandler extends Application
                     }
                 break;
             }
+        }
             if(userTwo.length > 2)
             {
                 switch(userTwo[0] + " " + userTwo[1] + " " + userTwo[2])
@@ -516,29 +518,8 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-
                     //used to tell of there is a class with that name and if not gives an output
-                    boolean isIn = false;
-                    boolean isCont = false;
-                    String className = userTwo[3];
-
-                    //loop through classContainer and print out the name, and attributes
-                    for(ClassBase temp : myClassContainer.getContainer()){
-                        if (temp.getName().equals(className)){
-                            isIn = true;
-                            System.out.println("Class Name: " + className);
-                            for(attributes att : temp.getClassAttributes()){
-                                System.out.println("Attribute Name: " + att.getName() + "\nType: " + att.getType());
-                                isCont = true;
-                            }
-                        }
-                    }
-                    if(!isIn){
-                        System.out.println("Class with that name does not exist.");
-                    }
-                    if(!isCont){
-                        System.out.println("Class has no attributes.");
-                    }
+                    System.out.println(mainModel.listOneClass(userTwo[3]));
                     break;
                 case "list all classes":
                     valid = true;
@@ -553,25 +534,7 @@ public class InputHandler extends Application
                         break;
                     }
 
-                    //useds to tell if there are any classes
-                    isIn = false;
-                    isCont = false;
-
-                    //loop through classContainer and prints class name and attributes of every class
-                    for(ClassBase temp : myClassContainer.getContainer()){
-                        System.out.println("Class Name: " + temp.getName());
-                        isIn = true;
-                        for(attributes att : temp.getClassAttributes()){
-                            System.out.println("Attribute Name: " + att.getName() + "\nType: " + att.getType());
-                            isCont = true;
-                        }
-                    }
-                    if (!isIn){
-                        System.out.println("There are no classes.");
-                    }
-                    if(!isCont){
-                        System.out.println("There are no attributes is any classes.");
-                    }
+                    
                     break;
                 }
             }
@@ -591,32 +554,7 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    String className = userTwo[4];
-
-                    //used to tell if the class name exists and whether or not is has relationships
-                    boolean isIn = false;
-                    boolean isRel = false;
-
-                    //loop through classContainer to check if the name exists
-                    for(ClassBase cls : myClassContainer.getContainer()){
-                        if(cls.getName().equals(className)){
-                            isIn = true;
-                        }
-                    }
-
-                    //loop thorugh relContainer and print name, fromClass, toClass
-                    for(Relationship rel : myRelationshipContainer.getAllRelationships()){
-                        if (rel.getSourceClass().equals(className) || rel.getDestClass().equals(className)){
-                            System.out.println("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass());
-                            isRel = true;
-                        }
-                    }
-                    if (!isIn){
-                        System.out.println("Class with that name does not exist.");
-                    }
-                    if (!isRel){
-                        System.out.println("There are no relationships connected to this class.");
-                    }
+                    System.out.println(mainModel.listOneClassRelationship(userTwo[4]));
                     break;
                 }
                 }

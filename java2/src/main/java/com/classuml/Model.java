@@ -284,19 +284,87 @@ public class Model
         }
         return 2;
     }
-    }
 
-    public boolean listOneClass (String name)
+    public String listOneClass (String name)
     {
-
+        //loop through classContainer and print out the name, and attributes
+        boolean isIn = false;
+        boolean isCont = false;
+        for(ClassBase temp : myClassContainer.getContainer())
+        {
+            String retValListOne = "";
+            if (temp.getName().equals(name))
+            {
+                isIn = true;
+                retValListOne.concat("Class Name: " + name +"\n");
+                for(attributes att : temp.getClassAttributes())
+                {
+                    retValListOne.concat("Attribute Name: " + att.getName() + "\nType: " + att.getType() + "\n");
+                    isCont = true;
+                }
+            }
+        }
+        if(!isIn)
+        {
+            return ("Class with that name does not exist.");
+        }
+        if(!isCont)
+        {
+           return ("Class has no attributes.");
+        }
+        return ("If this is printed, please inform us.");
     }
-    public boolean listOneClassRelationship (String name)
+    public String listOneClassRelationship (String name)
     {
+        //used to tell if the class name exists and whether or not is has relationships
+        boolean isIn = false;
+        boolean isRel = false;
+        String retStringRel = "";
+        //loop through classContainer to check if the name exists
+        for(ClassBase cls : myClassContainer.getContainer()){
+            if(cls.getName().equals(name)){
+                isIn = true;
+            }
+        }
 
+        //loop thorugh relContainer and print name, fromClass, toClass
+        for(Relationship rel : myRelationshipContainer.getAllRelationships()){
+            if (rel.getSourceClass().equals(name) || rel.getDestClass().equals(name)){
+                retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n");
+                isRel = true;
+            }
+        }
+        if (!isIn){
+            return ("Class with that name does not exist.");
+        }
+        if (!isRel){
+            return ("There are no relationships connected to this class.");
+        }
+        return retStringRel;
     }
-    public boolean listAllClasses ()
+    public String listAllClasses ()
     {
+        //useds to tell if there are any classes
+        boolean isInAll = false;
+        boolean isContAll = false;
+        String retStringAll = "";
 
+        //loop through classContainer and prints class name and attributes of every class
+        for(ClassBase temp : myClassContainer.getContainer()){
+            retStringAll.concat("Class Name: " + temp.getName() + "\n");
+            isInAll = true;
+            for(attributes att : temp.getClassAttributes()){
+                retStringAll("Attribute Name: " + att.getName() + "\nType: " + att.getType() + "\n");
+                isContAll = true;
+            }
+        }
+        if (!isInAll){
+            return ("There are no classes.");
+        }
+        if(!isContAll){
+            retStringAll.concat("There are no attributes in any classes.\n");
+        }
+        return retStringAll;
     }
     public boolean save (String name)
     {
