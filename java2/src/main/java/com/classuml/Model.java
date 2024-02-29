@@ -1,4 +1,5 @@
 package com.classuml;
+import java.util.ArrayList;
 
 public class Model
 {
@@ -109,14 +110,13 @@ public class Model
     public int addField (String className, String name, String type)
     {
         ClassBase tempClass = myClassContainer.getClassBase(className);
-        int success = 0;
         if(tempClass != null){
             attributes myAttributes = new attributes();
             myAttributes.setName(name);
             myAttributes.setType(type);
-            success = tempClass.addAttribute(myAttributes);
+            return tempClass.addAttribute(myAttributes);
         }
-        return success;
+        return 0;
 
     }
     public int removeField (String className, String name)
@@ -189,21 +189,101 @@ public class Model
         }
 
     }
-    public boolean addMethod (String className, String name, String type, String[] paramNames, String[] paramTypes)
+    public boolean addMethod (String className, String name, String type, String paramNames, String paramTypes)
     {
+        String[] paramNameArray = paramNames.split(" ");
+        String[] paramTypeArray = paramTypes.split(" ");
+        ClassBase tempClassAddMethod = myClassContainer.getClassBase(className);
+        if(tempClassAddMethod == null)
+        {
+            return false;
+        }
+        ArrayList<attributes> params = new ArrayList<attributes>();
+        for(int i = 0; i < paramNameArray.length; i++)
+        {
+            attributes attTemp = new attributes();
+            attTemp.setName(paramNameArray[i]);
+            attTemp.setType(paramTypeArray[i]);
+            params.add(attTemp);
+
+        }
+        methods newMethod = new methods(name, type, params);
+        tempClassAddMethod.addMethod(newMethod);
+        return true;
+    }
+    public int removeMethod (String className, String name)
+    {
+        ClassBase tempClassRemoveMethod = myClassContainer.getClassBase(className);
+        if(tempClassRemoveMethod == null)
+        {
+            return 0;
+        }
+        ArrayList<methods> methods = tempClassRemoveMethod.getClassMethods();
+        for(methods method : methods)
+        {
+
+            if(method.getName().equals(name))
+            {
+                tempClassRemoveMethod.deleteMethod(method);
+                //Method was successfully removed.
+                return 1;
+            }
+        }
+        return 2;
 
     }
-    public boolean removeMethod (String className, String name)
+    public int renameMethod (String className, String oldName, String newName)
     {
+        ClassBase tempClassRenameMethod = myClassContainer.getClassBase(className);
+        if(tempClassRenameMethod == null)
+        {
+            return 0;
+        }
+        boolean found = false;
+        methods editMethod;
+        ArrayList<methods> methods = tempClassRenameMethod.getClassMethods();
+        for(methods method : methods)
+        {
 
+            if(method.getName().equals(newName))
+            {
+                
+                //Method already exists.
+                return 1;
+            }
+            if(method.getName().equals(oldName))
+            {
+                editMethod = method;
+                found = true;
+            }
+        }
+        if(found==true)
+        {
+            tempClassRenameMethod.updateMethod(editMethod, newName, "name");
+            return 3;
+        }
+        return 2;
     }
-    public boolean renameMethod (String className, String oldName, String newName)
+    public int changeMethodType (String className, String name, String newType)
     {
+        ClassBase tempClassRetypeMethod = myClassContainer.getClassBase(className);
+        if(tempClassRetypeMethod == null)
+        {
+            return 0;
+        }
+        ArrayList<methods> methods = tempClassRetypeMethod.getClassMethods();
+        for(methods method : methods)
+        {
 
+            if(method.getName().equals(name))
+            {
+                tempClassRetypeMethod.updateMethod(method, newType, "type");
+                //Method was successfully changed.
+                return 3;
+            }
+        }
+        return 2;
     }
-    public boolean changeMethodType (String className, String name, String newType)
-    {
-
     }
 
     public boolean listOneClass (String name)

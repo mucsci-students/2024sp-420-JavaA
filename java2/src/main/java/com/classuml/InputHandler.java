@@ -364,10 +364,112 @@ public class InputHandler extends Application
                     break;
                 }
                 case "add method":
+                if(userTwo.length < 7)
+                {
+                    tooSmall();
+                    break;
+                }
+                if(userTwo.length % 2 == 0)
+                {
+                    System.out.println("Please enter an equal amount of parameter names and types.");
+                    break;
+                }
+                String paramNames = "";
+                String paramTypes = "";
+                for(int i = 5; i < userTwo.length; i++)
+                {
+                    if(i%2==1)
+                    {
+                        paramNames.concat(" ");
+                        paramNames.concat(userTwo[i]);
+                    }
+                    else
+                    {
+                        paramNames.concat(" ");
+                        paramNames.concat(userTwo[i]);
+                    }
+                }
+                boolean check = mainModel.addMethod(userTwo[2], userTwo[3], userTwo[4], paramNames, paramTypes);
+                if (check == false)
+                {
+                    System.out.println("A class of your given name doesn't exist.");
+                }
+                else
+                {  
+                    System.out.println("Method " + userTwo[3] + " of type " + userTwo[4] + " was successfully created in class " + userTwo[2]);
+                }
+
                 break;
                 case "remove method":
+                valid = true;
+                    if(userTwo.length < 4)
+                    {
+                        tooSmall();
+                        break;
+                    }
+                    if(userTwo.length > 4)
+                    {
+                        tooManyArgs();
+                        break;
+                    }
+                    int retValRem = mainModel.removeMethod(userTwo[2], userTwo[3]);
+                    switch(retValRem)
+                    {
+                        case 0:
+                            System.out.println("Class of given name doesn't exist!");
+                        break;
+                        case 1:
+                            System.out.println("Method " + userTwo[5] + " was removed from class " + userTwo[4]);
+                        break;
+                        case 2:
+                            System.out.println("Method of given name doesn't exist!");
+                        break;
+                    }
                 break;
                 case "edit method":
+                valid = true;
+                    if(userTwo.length < 6)
+                    {
+                        tooSmall();
+                        break;
+                    }
+                    if(userTwo.length > 6)
+                    {
+                        tooManyArgs();
+                        break;
+                    }
+                    int retValEdit = 0;
+                    if(userTwo[2].equalsIgnoreCase("name"))
+                    {
+                        retValEdit = mainModel.renameMethod(userTwo[3], userTwo[4], userTwo[5]);
+
+                    }
+                    else
+                    {
+                        if(userTwo[2].equalsIgnoreCase("type"))
+                        {
+                            retValEdit = mainModel.changeMethodType(userTwo[3], userTwo[4], userTwo[5]);
+                        }
+                        else
+                        {
+                            System.out.println("Please type a valid edit type!");
+                        }
+                    }
+                    switch(retValEdit)
+                    {
+                        case 0:
+                            System.out.println("Class of given name doesn't exist!");
+                        break;
+                        case 1:
+                            System.out.println("A method with the new name already exists.");
+                        break;
+                        case 2:
+                            System.out.println("The method looking to be edited doesn't exist!");
+                        break;
+                        case 3:
+                            System.out.println("The method was successfully changed.");
+                        break;
+                    }
                 break;
             }
             if(userTwo.length > 2)
