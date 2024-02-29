@@ -32,6 +32,7 @@ public class InputHandler extends Application
     public static void main(String[] args)
     {   
         //setup containers and print welcome message
+        Model mainModel = new Model();
         ClassContainer myClassContainer = new ClassContainer();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
@@ -59,12 +60,13 @@ public class InputHandler extends Application
                     valid = true;
 
                     //Prints a large amount of stuff, which hopefully would tell the user how to use the program.
-                    System.out.println("Here is a list of commands, please enter them without the '':");
-                    System.out.println("'add class', will prompt you for a class name to add.");
-                    System.out.println("'remove class', will prompt you for a class name to remove.");
-                    System.out.println("'rename class', will prompt you for a class you wish to rename, and then the name you wish to rename it to. ");
-                    System.out.println("'add relationship', will prompt you for the name of the relationship you wish to add, as well as the class it goes from/to.");
-                    System.out.println("'remove relationship', asks you for the name of the relationship you wish to remove.");
+                    System.out.println("Here is a list of commands, please enter them without the '', or <>, replacing what's inside the <>:");
+                    System.out.println("'add class <name> ' adds a class with given name");
+                    System.out.println("'remove class <name>', will remove a class with given name");
+                    System.out.println("'rename class <oldName> <newName>', will rename a class with oldName to newName");
+                    System.out.println("'add relationship <fromClass> <toClass>', will add a relationship between two classes.");
+                    System.out.println("'remove relationship <fromClass> <toClass>', will remove a relationship between two classes.");
+                    //Got to replace attribute stuff with method/field specific ones.
                     System.out.println("'add attribute', asks you for the name of the attribute you wish to add, the type, and the class name.");
                     System.out.println("'edit attribute', asks you which class you want to edit an attribute from, which attribute you want to edit, how would you like to edit it, and the edit itself.");
                     System.out.println("'remove attribute', asks which class you would like to remove an attribute from, and which attribute you would like to remove. ");
@@ -82,7 +84,7 @@ public class InputHandler extends Application
                     //currently no override warning
 
                     if(userTwo.length == 1){
-                        saveUML.save(myClassContainer, myRelationshipContainer);
+                        mainModel.save();
                     }
                     else{
                         String fileName = userTwo[1];
@@ -95,7 +97,7 @@ public class InputHandler extends Application
                                 counter++;
                         }
                         
-                        saveUML.save(myClassContainer, myRelationshipContainer, fileName);
+                        mainModel.save(fileName);
                     }
                     break;
                 case "load":
@@ -109,7 +111,7 @@ public class InputHandler extends Application
 
                     //takes in name of file you wish to load without .json at the end
                     //stores data from the json into the containers passed to it
-                    LoadUML load = new LoadUML();
+                    
                     String fileNameLoad = userTwo[1];
                     int counter = 0;
                     for(String input : userTwo)
@@ -119,12 +121,7 @@ public class InputHandler extends Application
                         else
                             counter++;
                     }
-                    for (ClassBase cls : myClassContainer.getContainer()){
-                        cls.getClassAttributes().clear();
-                    }
-                    myClassContainer.getContainer().clear();
-                    myRelationshipContainer.getAllRelationships().clear();
-                    load.load(fileNameLoad + ".json",myClassContainer,myRelationshipContainer);
+                    mainModel.load(fileNameLoad);
                     break;
                 case "exit":
                     valid = true;
@@ -138,11 +135,11 @@ public class InputHandler extends Application
                         System.out.println("enter a name for the save file, or type nothing for default (saveUML) name");
                         String fileNameExit = userInput.nextLine();
                         if(fileNameExit.length() == 0){
-                            saveUML.save(myClassContainer, myRelationshipContainer);
+                            mainModel.save();
                         }
                         else{
                             
-                            saveUML.save(myClassContainer, myRelationshipContainer, fileNameExit);
+                            mainModel.save(fileNameExit);
                         }
                     }
                     else if (saveState.equals("no")){
@@ -173,12 +170,8 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    String className = userTwo[2];
-                    ClassBase myClass = new ClassBase(className);
-
                     //Prints the return of addClass, so would say whether it works or not.
-                    String add = myClassContainer.addClass(myClass);
-                    System.out.println(add);
+                    System.out.println(mainModel.addClass(userTwo[2]));
                     break;
                 case "remove class":
                     valid = true;
@@ -192,46 +185,10 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-                    boolean hasRel = false;
-                    boolean hasRel2 = false;    
-
-                    //Checks if the class has any relationships existing.
-                    //If so, it informs the user and asks them to remove them before removing the class.
-                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
-                    {
-                        if(rel.getSourceClass().equals(className))
-                        {
-                            hasRel = true;
-                        }
-                        else
-                        {
-                            if(rel.getDestClass().equals(className))
-                            {
-                                hasRel = true;
-                            }
-                        }
-                        if(hasRel == true)
-                        {
-                            System.out.println(rel.getSourceClass() + " -> " + rel.getDestClass() + " is an existing relationship.");
-                            hasRel2 = true;
-                            hasRel = false;
-                        }
-                    }
-                    if(hasRel2 == true)
-                    {
-                        System.out.println("Please remove the existing relationship(s) before removing the class.");
-                    }
-                    else
-                    {
-
-                        //Prints the return of removeClass, so would say whether it works or not.
-                        String removing = myClassContainer.removeClass(className);
-                        System.out.println(removing);
-                    }
+                    System.out.println(mainModel.removeClass(userTwo[2]));
                     break; 
                 case "rename class":
-                    valid = true;
+                valid = true;
                 if(userTwo.length < 4)
                     {
                         tooSmall();
@@ -242,29 +199,9 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-                    String newName = userTwo[3];
-
-                    //Goes through every relationship, and if any used the class being renamed,
-                    //It changes the name from the oldname to the newname.
-                    for (Relationship rel : myRelationshipContainer.getAllRelationships())
-                    {
-                        if(rel.getSourceClass().equals(className))
-                        {
-                            rel.setSourceClass(newName);
-                        }
-                        else
-                        {
-                            if(rel.getDestClass().equals(className))
-                            {
-                                rel.setDestClass(newName);
-                            }
-                        }
-                    }
-
+                    
                     //Prints the return of renameClass, so would say whether it works or not.
-                    String rename = myClassContainer.renameClass(className, newName);
-                    System.out.println(rename);
+                    System.out.println(mainModel.renameClass(userTwo[2], userTwo[3]));
                     break;
                 case "add relationship":
                     valid = true;
@@ -279,32 +216,23 @@ public class InputHandler extends Application
                         break;
                     }
                      //asks for relname, and the two classes it belongs to and stores it in relContainer.
-                     String relSource = userTwo[2];
-                     String relDest = userTwo[3];
-                     String relType = userTwo[4];
-                     int test = 0;
- 
-                     //used to check if the classes are in the container and prints a message if they are not
-                     if (myClassContainer.getClassBase(relSource) == null){
-                         test = 1;
-                     }
-                     if (myClassContainer.getClassBase(relDest) == null){
-                         test = 2;
-                     }
-                     if (test == 1){
-                         System.out.println("Class with name " + relSource + " does not exist.");
-                         break;
-                     }
-                     if (test == 2){
-                         System.out.println("Class with name " + relDest + " does not exist.");
-                         break;
-                     }
-                     if (myRelationshipContainer.addRelationship(relSource, relDest, relType) == true){
-                         System.out.println(relSource + " -> " + relDest + " relationship added.");
-                     }
-                     else{
-                         System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
-                     }
+                     int retAdd = mainModel.addRelationship(userTwo[2], userTwo[3], userTwo[4]);
+                     switch(retAdd)
+                     {
+                     case 1:
+                        System.out.println("Class with name " + userTwo[2] + " does not exist.");
+                        break;
+                    case 2:
+                        System.out.println("Class with name " + userTwo[3] + " does not exist.");
+                        break;
+                    case 3:
+                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship added.");
+                        break;
+                    case 0:
+                        System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
+                        break;
+                    }
+                     
                      break;
                 case "remove relationship":
                     valid = true;
@@ -318,18 +246,15 @@ public class InputHandler extends Application
                     tooManyArgs();
                     break;
                 }
-                    //gets relname and removes it from the container
-                    relSource = userTwo[2];
-                    relDest = userTwo[3];
-                    //removeRelationship returns a boolean so if it is true then it was deleted and if not then the relationship doesnt exist
-                    if (myRelationshipContainer.removeRelationship(relSource, relDest) == true){
-                        System.out.println(relSource + " -> " + relDest + " relationship deleted.");
+                    int retRemove = mainModel.removeRelationship(userTwo[2], userTwo[3]);
+                    if(retRemove == 1)
+                    {
+                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship deleted.");
                     }
-                    else{
+                    else
                         System.out.println("No such relationship with that source and destination");
-                    }
                     break;
-                case "add attribute":
+                case "add field":
                     valid = true;
                 if(userTwo.length < 5)
                     {
@@ -341,38 +266,26 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-                    ClassBase tempClass = myClassContainer.getClassBase(className);
-                    String attName;
-                    String attType;
-
-                    //Checks whether a class of the given name exists or not.
-                    if(tempClass != null){
-                        attributes myAttributes = new attributes();
-                        attName = userTwo[3];
-                        myAttributes.setName(attName);
-                        attType = userTwo[4];
-                        myAttributes.setType(attType);
-                        int success = tempClass.addAttribute(myAttributes);
-                        if(success == 1){
-
-                            //The attribute was added succesfully.
-                            System.out.println(attName + " attribute was added.");
-                        }
-                        else{
-
-                            //An attribute with this name is already in this class.
-                            System.out.println("An attribute with this name already exists in this class.");
-                        }
-                    }
-                    else{
-
-                        //A class of the given name could not be found.
-                        System.out.println("A class of the given name does not exist.");
-                    }
+                    int success = mainModel.addField(userTwo[2], userTwo[3], userTwo[4]);
+                    switch(success)
+                    {
+                        case 0:
+                            System.out.println("A class of the given name does not exist.");
+                            break;
                     
+                        case 1:
+                        
+                            //The attribute was added successfully.
+                            System.out.println(userTwo[3] + " attribute was added.");
+                            break;
+                        
+                        case 2:
+                        
+                            System.out.println("An attribute with this name already exists in this class.");
+                            break;
+                    }   
                     break;
-                case "edit attribute":
+                case "edit field":
                     valid = true;
                     if(userTwo.length < 6)
                     {
@@ -384,52 +297,39 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-                    tempClass = myClassContainer.getClassBase(className);
-
-                    //checks to see if the class exists
-                    if(tempClass != null){
-                        attName = userTwo[3];
-
-                        //Checks to see whether that attribute exists or not.
-                        attributes attCheck = tempClass.getAttribute(attName);
-                        if(attCheck != null){
-                            String updateType = userTwo[4];
-                            String updatedContent;
-                            if(updateType.equalsIgnoreCase("Name")){
-
-                                //Asks the user for a new name for the attribute.
-                                updatedContent = userTwo[5];
-
-                                //checks to see if an attribute with that name already exists
-                                if(attCheck.getName().equalsIgnoreCase(updatedContent)){
-                                    System.out.println("An attribute with this name already exists");
-                                    break;
-                                }
-                            }
-
-                            //asks for the new content
-                            else{
-                                updatedContent = userTwo[5];
-                            }
-
-                            //Updates the attribute and tells that to the user.
-                            tempClass.updateAttribute(attCheck, updateType, updatedContent);
-                            System.out.println("The attributes " + updateType + " was changed.");
+                    int retVal = 0;
+                    if(userTwo[4].equalsIgnoreCase("Name"))
+                    {
+                        retVal = mainModel.renameField(userTwo[2], userTwo[3], userTwo[5]);
+                    }
+                    else
+                    {
+                        if(userTwo[4].equalsIgnoreCase("Type"))
+                        {
+                            retVal = mainModel.changeFieldType(userTwo[2], userTwo[3], userTwo[5]);
                         }
-                        else{
-
-                            //An attribute could not be found with the given name
-                            System.out.println("An attribute with this name does not exist.");
+                        else
+                        {
+                            System.out.println("Please type a valid edit type.");
                         }
                     }
-                    else{
-
-                        //A class of the given name could not be found.
-                        System.out.println("A class of the given name does not exist.");
-                    }
+                switch(retVal)
+                {
+                case 0:
+                    System.out.println("A class of the given name does not exist.");
+                break;
+                case 1:
+                    System.out.println("An attribute with this name does not exist.");
+                break;
+                case 2:
+                    System.out.println("An attribute with your new name already exists");
+                break;
+                case 3:
+                    System.out.println("The attributes " + userTwo[4] + " was changed.");
+                break;
+                }
                     break;
-                case "remove attribute":
+                case "remove field":
                     valid = true;
                     if(userTwo.length < 4)
                     {
@@ -441,36 +341,135 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    className = userTwo[2];
-
-                    //Checks to see if the class exists.
-                    tempClass = myClassContainer.getClassBase(className);
-                    if(tempClass != null){
-                        attName = userTwo[3];
-
-                        //Checks to see if the attribute exists or not
-                        attributes attCheck = tempClass.getAttribute(attName);
-                        if(attCheck != null){
-
-                            //An attribute with the name was found and deleted
-                            tempClass.deleteAttribute(attCheck);
+                    int remField = mainModel.removeField(userTwo[2], userTwo[3]);
+                    switch(remField)
+                    {
+                        case 0:
+                            System.out.println("A class of the given name does not exist.");
+                            break;
+                        case 1:
                             System.out.println("The attribute was deleted.");
-                        }
-                        else{
-                            //An attribute could not be found with the given name
-
+                            break;
+                        case 2:
                             System.out.println("An attribute with this name does not exist.");
-                        }
+                            break;
                     }
-                    else{
 
-                        //A class of the given name could not be found.
-                        System.out.println("A class of the given name does not exist.");
-                    }
+                    
+                    break;
+                
+                case "add method":
+                    valid = true;
+                if(userTwo.length < 7)
+                {
+                    tooSmall();
                     break;
                 }
+                if(userTwo.length % 2 == 0)
+                {
+                    System.out.println("Please enter an equal amount of parameter names and types.");
+                    break;
+                }
+                String paramNames = "";
+                String paramTypes = "";
+                for(int i = 5; i < userTwo.length; i++)
+                {
+                    if(i%2==1)
+                    {
+                        paramNames.concat(" ");
+                        paramNames.concat(userTwo[i]);
+                    }
+                    else
+                    {
+                        paramNames.concat(" ");
+                        paramNames.concat(userTwo[i]);
+                    }
+                }
+                boolean check = mainModel.addMethod(userTwo[2], userTwo[3], userTwo[4], paramNames, paramTypes);
+                if (check == false)
+                {
+                    System.out.println("A class of your given name doesn't exist.");
+                }
+                else
+                {  
+                    System.out.println("Method " + userTwo[3] + " of type " + userTwo[4] + " was successfully created in class " + userTwo[2]);
+                }
+
+                break;
+                case "remove method":
+                valid = true;
+                    if(userTwo.length < 4)
+                    {
+                        tooSmall();
+                        break;
+                    }
+                    if(userTwo.length > 4)
+                    {
+                        tooManyArgs();
+                        break;
+                    }
+                    int retValRem = mainModel.removeMethod(userTwo[2], userTwo[3]);
+                    switch(retValRem)
+                    {
+                        case 0:
+                            System.out.println("Class of given name doesn't exist!");
+                        break;
+                        case 1:
+                            System.out.println("Method " + userTwo[5] + " was removed from class " + userTwo[4]);
+                        break;
+                        case 2:
+                            System.out.println("Method of given name doesn't exist!");
+                        break;
+                    }
+                break;
+                case "edit method":
+                valid = true;
+                    if(userTwo.length < 6)
+                    {
+                        tooSmall();
+                        break;
+                    }
+                    if(userTwo.length > 6)
+                    {
+                        tooManyArgs();
+                        break;
+                    }
+                    int retValEdit = 0;
+                    if(userTwo[2].equalsIgnoreCase("name"))
+                    {
+                        retValEdit = mainModel.renameMethod(userTwo[3], userTwo[4], userTwo[5]);
+
+                    }
+                    else
+                    {
+                        if(userTwo[2].equalsIgnoreCase("type"))
+                        {
+                            retValEdit = mainModel.changeMethodType(userTwo[3], userTwo[4], userTwo[5]);
+                        }
+                        else
+                        {
+                            System.out.println("Please type a valid edit type!");
+                        }
+                    }
+                    switch(retValEdit)
+                    {
+                        case 0:
+                            System.out.println("Class of given name doesn't exist!");
+                        break;
+                        case 1:
+                            System.out.println("A method with the new name already exists.");
+                        break;
+                        case 2:
+                            System.out.println("The method looking to be edited doesn't exist!");
+                        break;
+                        case 3:
+                            System.out.println("The method was successfully changed.");
+                        break;
+                    }
+                break;
             }
-            if(userTwo.length > 2 && userTwo.length < 7)
+        }
+            if(userTwo.length > 2)
             {
                 switch(userTwo[0] + " " + userTwo[1] + " " + userTwo[2])
                 {
@@ -514,29 +513,8 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-
                     //used to tell of there is a class with that name and if not gives an output
-                    boolean isIn = false;
-                    boolean isCont = false;
-                    String className = userTwo[3];
-
-                    //loop through classContainer and print out the name, and attributes
-                    for(ClassBase temp : myClassContainer.getContainer()){
-                        if (temp.getName().equals(className)){
-                            isIn = true;
-                            System.out.println("Class Name: " + className);
-                            for(attributes att : temp.getClassAttributes()){
-                                System.out.println("Attribute Name: " + att.getName() + "\nType: " + att.getType());
-                                isCont = true;
-                            }
-                        }
-                    }
-                    if(!isIn){
-                        System.out.println("Class with that name does not exist.");
-                    }
-                    if(!isCont){
-                        System.out.println("Class has no attributes.");
-                    }
+                    System.out.println(mainModel.listOneClass(userTwo[3]));
                     break;
                 case "list all classes":
                     valid = true;
@@ -550,26 +528,8 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-
-                    //useds to tell if there are any classes
-                    isIn = false;
-                    isCont = false;
-
-                    //loop through classContainer and prints class name and attributes of every class
-                    for(ClassBase temp : myClassContainer.getContainer()){
-                        System.out.println("Class Name: " + temp.getName());
-                        isIn = true;
-                        for(attributes att : temp.getClassAttributes()){
-                            System.out.println("Attribute Name: " + att.getName() + "\nType: " + att.getType());
-                            isCont = true;
-                        }
-                    }
-                    if (!isIn){
-                        System.out.println("There are no classes.");
-                    }
-                    if(!isCont){
-                        System.out.println("There are no attributes is any classes.");
-                    }
+                        System.out.println(mainModel.listAllClasses());
+                    
                     break;
                 }
             }
@@ -589,32 +549,7 @@ public class InputHandler extends Application
                         tooManyArgs();
                         break;
                     }
-                    String className = userTwo[4];
-
-                    //used to tell if the class name exists and whether or not is has relationships
-                    boolean isIn = false;
-                    boolean isRel = false;
-
-                    //loop through classContainer to check if the name exists
-                    for(ClassBase cls : myClassContainer.getContainer()){
-                        if(cls.getName().equals(className)){
-                            isIn = true;
-                        }
-                    }
-
-                    //loop thorugh relContainer and print name, fromClass, toClass
-                    for(Relationship rel : myRelationshipContainer.getAllRelationships()){
-                        if (rel.getSourceClass().equals(className) || rel.getDestClass().equals(className)){
-                            System.out.println("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass());
-                            isRel = true;
-                        }
-                    }
-                    if (!isIn){
-                        System.out.println("Class with that name does not exist.");
-                    }
-                    if (!isRel){
-                        System.out.println("There are no relationships connected to this class.");
-                    }
+                    System.out.println(mainModel.listOneClassRelationship(userTwo[4]));
                     break;
                 }
                 }

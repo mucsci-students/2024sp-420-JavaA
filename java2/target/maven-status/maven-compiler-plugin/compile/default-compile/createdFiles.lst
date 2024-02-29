@@ -4,7 +4,6 @@ com\classuml\ExitUML.class
 com\classuml\Relationship$Type.class
 com\classuml\saveUMLTests.class
 com\classuml\InputHandler.class
-com\classuml\SaveSchema.Json
 com\classuml\attributes.class
 com\classuml\ExitUMLTests.class
 com\classuml\ClassBase.class
