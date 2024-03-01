@@ -31,6 +31,8 @@ import java.util.stream.Stream;
 
 public class Controller {
 
+    private Model guiModel = new Model();
+
     @FXML
     private MenuItem MIAbout;
 
@@ -244,22 +246,57 @@ public class Controller {
 
     @FXML
     void clickMISetClassRel(ActionEvent event) {
+        String srcClass = null;
+        String destClass = null;
+        String relType = null;
+
+        //Source Input
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Set Class Relationship");
         dialog.setHeaderText("Enter the source class name:");
         dialog.setContentText("Class name:");
 
         // Display the dialog and wait for the user to enter a value
-        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
-            String sourceClass = result.get();
+            srcClass = result.get();
             // Save the source class name
-            // ...
         }
+
+
+        //Dest Input
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Set Class Relationship");
+        dialog2.setHeaderText("Enter the destination class name:");
+        dialog2.setContentText("Class name:");
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            destClass = result2.get();
+        }
+
+        //Type Input
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Set Class Relationship");
+        dialog3.setHeaderText("Enter the source class name:");
+        dialog3.setContentText("Class name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            relType = result3.get();
+            // Save the source class name
+        }
+        guiModel.addRelationship(destClass, srcClass, relType);
     }
 
     @FXML
