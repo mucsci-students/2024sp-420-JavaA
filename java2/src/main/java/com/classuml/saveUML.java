@@ -186,7 +186,7 @@ public static void schemaValidator(String saveFileName){
             }
         }
         catch(IOException except){
-            System.out.println("io exception");
+            System.out.println("The Schema did not like your save file, please contact the manufacturer");
         }
          
     }
