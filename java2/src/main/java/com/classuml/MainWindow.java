@@ -14,6 +14,7 @@ public class MainWindow extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("UML Reader");
         primaryStage.show();
     }
     // Optional: You can add methods to this class to show the window from other classes.
