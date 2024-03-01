@@ -18,6 +18,7 @@ public class ClassBase
     {
         className = name;
         classAttributes = new ArrayList<attributes>();
+        classMethods = new ArrayList<methods>();
     }
 
     /**
@@ -117,7 +118,7 @@ public class ClassBase
         classAttributes.remove(myAtt);
     }
 
-    public void deletMethod(methods myMethod){
+    public void deleteMethod(methods myMethod){
         classMethods.remove(myMethod);
     }
 
@@ -149,7 +150,7 @@ public class ClassBase
     /** 
      * @return An arrayList of method objects
      */
-    public List<methods> getClassMethods()
+    public ArrayList<methods> getClassMethods()
     {
         return classMethods;
     }

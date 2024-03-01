@@ -4,11 +4,16 @@ com\classuml\ExitUML.class
 com\classuml\Relationship$Type.class
 com\classuml\saveUMLTests.class
 com\classuml\InputHandler.class
+<<<<<<< HEAD
+=======
+com\classuml\Model.class
+com\classuml\MainWindow.class
+com\classuml\Controller.class
+>>>>>>> 6377a4a35df479bb1d4de774513b8a1964331535
 com\classuml\attributes.class
 com\classuml\ExitUMLTests.class
 com\classuml\ClassBase.class
 com\classuml\Relationship.class
-com\classuml\InputHandler$1.class
 com\classuml\RelationshipContainer.class
 com\classuml\App$1.class
 com\classuml\attributesTests.class
