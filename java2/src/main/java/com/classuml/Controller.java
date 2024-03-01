@@ -2,6 +2,8 @@ package com.classuml;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.application.Application;
@@ -14,8 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,12 +26,10 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class Controller {
-
-    @FXML
-    private HBox textAreaContainer;
 
     @FXML
     private MenuItem MIAbout;
@@ -150,8 +149,7 @@ public class Controller {
 
     @FXML
     void clickMIAddClass(ActionEvent event) {
-        GLIUMLClassBox gucb = new GLIUMLClassBox("Sample");
-        
+
     }
 
     @FXML
@@ -246,7 +244,22 @@ public class Controller {
 
     @FXML
     void clickMISetClassRel(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Set Class Relationship");
+        dialog.setHeaderText("Enter the source class name:");
+        dialog.setContentText("Class name:");
 
+        // Display the dialog and wait for the user to enter a value
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            String sourceClass = result.get();
+            // Save the source class name
+            // ...
+        }
     }
 
     @FXML
