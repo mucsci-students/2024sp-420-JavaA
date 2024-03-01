@@ -5,17 +5,46 @@
     "description": "Saves the data about classes, attributes, and relationships from the UML Editor",
     "type": "object",
     "properties": {
-        "Classes": {
+        "classes": {
             "description": "",
+
+            "type": "object",
             "properties": {
                 "name": {
                     "description": "",
                     "type": "string"
+                },
+                "feilds":{
+                    "description": "",
+
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "type":["array", "boolean", "integer", "null", "number", "object", "string"]
+                },
+                "methods":{
+                    "description": "",
+
+                    "name":{
+                        "description": "",
+                        "type": "string"
+                    },
+                    "return type": {
+                        "description": "",
+                        "type":["array", "boolean", "integer", "null", "number", "object", "string"]
+                    },
+                    "parameters": {
+                        "description": "",
+                        "type": "array"
+                    }
                 }
             }
         },
-        "Relationships": {
+        "relationships": {
             "description": "",
+
+            "type": "object",
             "properties": {
                 "name":{
                     "description": "",
