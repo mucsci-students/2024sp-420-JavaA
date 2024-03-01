@@ -116,7 +116,11 @@ public class Controller {
         // from "/java2" directory with mvn clean javafx:run
         // and NOT by clicking the play button, which assumes you are in
         // the "/" (github root) directory.
-        String filePath = "../README.md";
+        String filePath = "README.md";
+        File currentDirectoryFile = new File(filePath);
+        if (!currentDirectoryFile.exists()) {
+            filePath = "../" + filePath;
+        }
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             StringBuilder sb = new StringBuilder();
@@ -125,14 +129,11 @@ public class Controller {
                 sb.append("\n");
             }
             dialogVbox.getChildren().add(new Text(sb.toString()));
-        }
-        catch (InvalidPathException e) {
+        } catch (InvalidPathException e) {
             e.printStackTrace();
             Platform.exit();
-        }
-        catch (IOException e) {
-            String currentDirectory = Paths.get("").toAbsolutePath().toString();
-            System.out.println("You must put readme file in this directory: " + currentDirectory);
+        } catch (IOException e) {
+            System.out.println("You must put the readme file in this directory: " + Paths.get("").toAbsolutePath().toString());
             e.printStackTrace();
             Platform.exit();
         }
