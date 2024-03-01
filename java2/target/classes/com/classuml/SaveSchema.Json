@@ -16,27 +16,32 @@
                 },
                 "feilds":{
                     "description": "",
-
-                    "name": {
-                        "description": "",
-                        "type": "string"
+                    "properties":{
+                        "name": {
+                            "description": "",
+                            "type": "string"
+                        }
                     },
                     "type":["array", "boolean", "integer", "null", "number", "object", "string"]
+                
                 },
                 "methods":{
                     "description": "",
 
-                    "name":{
-                        "description": "",
-                        "type": "string"
-                    },
-                    "return type": {
-                        "description": "",
-                        "type":["array", "boolean", "integer", "null", "number", "object", "string"]
-                    },
-                    "parameters": {
-                        "description": "",
-                        "type": "array"
+                    "type":"object",
+                    "properties":{
+                        "name":{
+                            "description": "",
+                            "type": "string"
+                        },
+                        "return type": {
+                            "description": "",
+                            "type":["array", "boolean", "integer", "null", "number", "object", "string"]
+                        },
+                        "parameters": {
+                            "description": "",
+                            "type": "array"
+                        }
                     }
                 }
             }
