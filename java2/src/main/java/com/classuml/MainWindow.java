@@ -10,7 +10,16 @@ import javafx.stage.Stage;
 public class MainWindow extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/mainwindow.fxml"));
+        String currentDirectory = System.getProperty("user.dir");
+        String fxmlPath;
+
+        if (currentDirectory.equals("/path/to/java2")) {
+            fxmlPath = "/com/classuml/mainwindow.fxml";
+        } else {
+            fxmlPath = "fxml/mainwindow.fxml";
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
