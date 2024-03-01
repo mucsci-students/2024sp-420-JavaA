@@ -14,7 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,6 +28,9 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class Controller {
+
+    @FXML
+    private HBox textAreaContainer;
 
     @FXML
     private MenuItem MIAbout;
@@ -146,7 +150,8 @@ public class Controller {
 
     @FXML
     void clickMIAddClass(ActionEvent event) {
-
+        GLIUMLClassBox gucb = new GLIUMLClassBox("Sample");
+        
     }
 
     @FXML

@@ -11,7 +11,7 @@ public class methods {
     //list of parameters
     private ArrayList<attributes> params;
 
-    /*
+    /**
      * Constructor for methods
      * 
      * @Variables       methodName - A string to set method name.
@@ -30,7 +30,7 @@ public class methods {
         params = paramList;
     }
 
-    /*
+    /**
      * Returns the params.
      * 
      * @Variables
@@ -43,7 +43,8 @@ public class methods {
     public ArrayList<attributes> getParams(){
         return params;
     }
-    /*
+    
+    /**
      * Adds a new parameter to the param arraylist.
      * 
      * @Variables       name - The name of the new parameter.
@@ -60,7 +61,8 @@ public class methods {
         newParam.setType(type);
         params.add(newParam);
     }
-    /*
+    
+    /**
      * Removes a parameter from the params arraylist.
      * 
      * @Variables       remParam - The name of the parameter to be removed.
@@ -87,7 +89,7 @@ public class methods {
 
     }
 
-    /*
+    /**
      * Completely clears the param arraylist.
      * 
      * @Variables       
@@ -102,7 +104,7 @@ public class methods {
         params.clear();
     }
 
-    /*
+    /**
      * Changes a param, replacing it with a new one.
      * 
      * @Variables       newParam - The new param to replace the old one,
@@ -130,7 +132,7 @@ public class methods {
         return false;
     }
 
-    /*
+    /**
      * Removes the old params arraylist and replaces it with a new one.
      *
      * 
@@ -148,8 +150,7 @@ public class methods {
 
     }
 
-    
-    /*
+    /**
      * sets a new name for this method
      * 
      * @Variables       newName - A string var to hold a new name
@@ -163,7 +164,7 @@ public class methods {
         this.name = newName;
     }
 
-    /*
+    /**
      * Gets the name for this method
      * 
      * @Variables       
@@ -177,7 +178,7 @@ public class methods {
         return this.name;
     }
 
-    /*
+    /**
      * Sets the return Type of the method
      * 
      * @Variables       newType - Var that will hold the new return type
@@ -191,7 +192,7 @@ public class methods {
         this.retType = newType;
     }
 
-    /*
+    /**
      * Gets the type of this method
      * 
      * @Variables       
