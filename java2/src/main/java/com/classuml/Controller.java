@@ -2,13 +2,29 @@ package com.classuml;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class Controller {
 
@@ -92,7 +108,39 @@ public class Controller {
 
     @FXML
     void clickMIAbout(ActionEvent event) {
-
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(mainWindow);
+        VBox dialogVbox = new VBox(20);
+        // The following operation assumes you are running this program
+        // from "/java2" directory with mvn clean javafx:run
+        // and NOT by clicking the play button, which assumes you are in
+        // the "/" (github root) directory.
+        String filePath = "../README.md";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+                sb.append("\n");
+            }
+            dialogVbox.getChildren().add(new Text(sb.toString()));
+        }
+        catch (InvalidPathException e) {
+            e.printStackTrace();
+            Platform.exit();
+        }
+        catch (IOException e) {
+            String currentDirectory = Paths.get("").toAbsolutePath().toString();
+            System.out.println("You must put readme file in this directory: " + currentDirectory);
+            e.printStackTrace();
+            Platform.exit();
+        }
+        
+        //dialogVbox.getChildren().add(new Text("This is a Dialog"));
+        Scene dialogScene = new Scene(dialogVbox, 400, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 
     @FXML
@@ -167,7 +215,7 @@ public class Controller {
 
     @FXML
     void clickMIQuit(ActionEvent event) {
-
+        Platform.exit();
     }
 
     @FXML
