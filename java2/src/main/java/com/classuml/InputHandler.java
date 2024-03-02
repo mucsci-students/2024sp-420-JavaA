@@ -41,7 +41,7 @@ public class InputHandler extends Application
         String guiResult = userInput.nextLine();
         if (guiResult.contains("gui")) {
             //launch(args);
-            Application.launch(MainWindow.class, args);
+            Application.launch(Controller.class, args);
             userInput.close();
             return;
         }
