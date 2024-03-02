@@ -29,9 +29,19 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class Controller {
+public class Controller extends Application {
 
     private Model guiModel = new Model();
+    StackPane stackPane = new StackPane();
+    FXMLLoader loader;
+    Parent root;
+    Scene scene;
+
+    private Stage mainWindow; // Define mainWindow as a variable of type Stage
+
+    public void setMainWindow(Stage mainWindow) {
+        this.mainWindow = mainWindow;
+    }
 
     @FXML
     private MenuItem MIAbout;
@@ -105,10 +115,14 @@ public class Controller {
     @FXML
     private MenuItem MIUnselectAll;
 
-    private Stage mainWindow; // Define mainWindow as a variable of type Stage
-
-    public void setMainWindow(Stage mainWindow) {
-        this.mainWindow = mainWindow;
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        loader = new FXMLLoader(getClass().getResource("fxml/mainwindow.fxml"));
+        root = loader.load();
+        scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("UML Reader");
+        primaryStage.show();
     }
 
     @FXML
@@ -151,7 +165,36 @@ public class Controller {
 
     @FXML
     void clickMIAddClass(ActionEvent event) {
+        String className = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add new class");
+        dialog.setHeaderText("Enter the class name:");
+        dialog.setContentText("Class name:");
 
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            className = result.get();
+        }
+        else {
+            return;
+        }
+        System.out.println("Is className empty?:" + className.isEmpty());
+
+        GLIUMLClassBox gucb = new GLIUMLClassBox(guiModel, className);
+        System.out.println("Is gucb null: " + (gucb == null));
+        stackPane.getChildren().add(gucb.getTextArea());
+        System.out.println("Is stackPane null: " + (stackPane == null));
+        System.out.println("Here is what children have to say:");
+        System.out.println(stackPane.getChildren().toString());
+        stackPane.setPrefSize(100, 100);
+        Scene scene = new Scene(stackPane, 100,100);
+        System.out.println("Is scene empty: " + (scene == null));
+        if (mainWindow == null) {
+            mainWindow = new Stage();
+        }
+        mainWindow.setScene(scene);
+        System.out.println("Is mainWindow null: " + (mainWindow == null));
+        mainWindow.show();
     }
 
     @FXML
@@ -301,7 +344,40 @@ public class Controller {
 
     @FXML
     void clickMIShowHelp(ActionEvent event) {
-
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(mainWindow);
+        VBox dialogVbox = new VBox(20);
+        // The following operation assumes you are running this program
+        // from "/java2" directory with mvn clean javafx:run
+        // and NOT by clicking the play button, which assumes you are in
+        // the "/" (github root) directory.
+        String filePath = "HELP.md";
+        File currentDirectoryFile = new File(filePath);
+        if (!currentDirectoryFile.exists()) {
+            filePath = "../" + filePath;
+        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+                sb.append("\n");
+            }
+            dialogVbox.getChildren().add(new Text(sb.toString()));
+        } catch (InvalidPathException e) {
+            e.printStackTrace();
+            Platform.exit();
+        } catch (IOException e) {
+            System.out.println("You must put the readme file in this directory: " + Paths.get("").toAbsolutePath().toString());
+            e.printStackTrace();
+            Platform.exit();
+        }
+        
+        //dialogVbox.getChildren().add(new Text("This is a Dialog"));
+        Scene dialogScene = new Scene(dialogVbox, 800, 400);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 
     @FXML
