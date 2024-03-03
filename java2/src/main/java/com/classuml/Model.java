@@ -285,18 +285,30 @@ public class Model
         //loop through classContainer and print out the name, and attributes
         boolean isIn = false;
         boolean isCont = false;
+        boolean hasMethod = false;
+        String retValListOne = "";
         for(ClassBase temp : myClassContainer.getContainer())
         {
-            String retValListOne = "";
+            
             if (temp.getName().equals(name))
             {
                 isIn = true;
                 retValListOne.concat("Class Name: " + name +"\n");
                 for(attributes att : temp.getClassAttributes())
                 {
-                    retValListOne.concat("Attribute Name: " + att.getName() + "\nType: " + att.getType() + "\n");
+                    retValListOne.concat("Field Name: " + att.getName() + "\nType: " + att.getType() + "\n");
                     isCont = true;
                 }
+                for(methods method : temp.getClassMethods())
+                {
+                    retValListOne.concat("Method Name: " + method.getName() + "\nReturn Type: " + method.getType() + "\n");
+                    hasMethod = true;
+                    for(attributes params : method.getParams())
+                    {
+                        retValListOne.concat("Parameter name: " + params.getName() + "\nParameter type: " + params.getType() + "\n");
+                    }
+                }
+
             }
         }
         if(!isIn)
@@ -305,9 +317,15 @@ public class Model
         }
         if(!isCont)
         {
-           return ("Class has no attributes.");
+           retValListOne.concat("Class has no fields.\n");
+           return retValListOne;
         }
-        return ("If this is printed, please inform us.");
+        if(!hasMethod)
+        {
+            retValListOne.concat("Class has no methods.\n");
+            return retValListOne;
+        }
+        return retValListOne;
     }
     public String listOneClassRelationship (String name)
     {
@@ -349,7 +367,7 @@ public class Model
             retStringAll.concat("Class Name: " + temp.getName() + "\n");
             isInAll = true;
             for(attributes att : temp.getClassAttributes()){
-                retStringAll.concat("Attribute Name: " + att.getName() + "\nType: " + att.getType() + "\n");
+                retStringAll.concat("Field Name: " + att.getName() + "\nType: " + att.getType() + "\n");
                 isContAll = true;
             }
         }
@@ -357,7 +375,7 @@ public class Model
             return ("There are no classes.");
         }
         if(!isContAll){
-            retStringAll.concat("There are no attributes in any classes.\n");
+            retStringAll.concat("There are no fields in any classes.\n");
         }
         return retStringAll;
     }
