@@ -460,19 +460,19 @@ public class Model
             if (temp.getName().equals(name))
             {
                 isIn = true;
-                retValListOne.concat("Class Name: " + name +"\n");
+                retValListOne = retValListOne.concat("Class Name: " + name +"\n");
                 for(attributes att : temp.getClassAttributes())
                 {
-                    retValListOne.concat("Field Name: " + att.getName() + "\nType: " + att.getType() + "\n");
+                    retValListOne = retValListOne.concat("Field Name: " + att.getName() + "\nType: " + att.getType() + "\n");
                     isCont = true;
                 }
                 for(methods method : temp.getClassMethods())
                 {
-                    retValListOne.concat("Method Name: " + method.getName() + "\nReturn Type: " + method.getType() + "\n");
+                    retValListOne = retValListOne.concat("Method Name: " + method.getName() + "\nReturn Type: " + method.getType() + "\n");
                     hasMethod = true;
                     for(attributes params : method.getParams())
                     {
-                        retValListOne.concat("Parameter name: " + params.getName() + "\nParameter type: " + params.getType() + "\n");
+                        retValListOne = retValListOne.concat("Parameter name: " + params.getName() + "\nParameter type: " + params.getType() + "\n");
                     }
                 }
 
@@ -484,12 +484,12 @@ public class Model
         }
         if(!isCont)
         {
-           retValListOne.concat("Class has no fields.\n");
+           retValListOne = retValListOne.concat("Class has no fields.\n");
            return retValListOne;
         }
         if(!hasMethod)
         {
-            retValListOne.concat("Class has no methods.\n");
+            retValListOne = retValListOne.concat("Class has no methods.\n");
             return retValListOne;
         }
         return retValListOne;
@@ -520,7 +520,7 @@ public class Model
         //loop thorugh relContainer and print name, fromClass, toClass
         for(Relationship rel : myRelationshipContainer.getAllRelationships()){
             if (rel.getSourceClass().equals(name) || rel.getDestClass().equals(name)){
-                retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n");
+                retStringRel = retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n");
                 isRel = true;
             }
         }
@@ -553,30 +553,30 @@ public class Model
         //loop through classContainer and prints class name and attributes of every class
         for(ClassBase temp : myClassContainer.getContainer()){
             hasMethod = false;
-            retStringAll.concat("Class Name: " + temp.getName() + "\n");
+            retStringAll = retStringAll.concat("Class Name: " + temp.getName() + "\n");
             isInAll = true;
             for(attributes att : temp.getClassAttributes()){
-                retStringAll.concat("Field Name: " + att.getName() + "\nType: " + att.getType() + "\n");
+                retStringAll = retStringAll.concat("Field Name: " + att.getName() + "\nType: " + att.getType() + "\n");
                 isContAll = true;
             }
             for(methods method : temp.getClassMethods())
                 {
-                    retStringAll.concat("Method Name: " + method.getName() + "\nReturn Type: " + method.getType() + "\n");
+                    retStringAll = retStringAll.concat("Method Name: " + method.getName() + "\nReturn Type: " + method.getType() + "\n");
                     hasMethod = true;
                     for(attributes params : method.getParams())
                     {
-                        retStringAll.concat("Parameter name: " + params.getName() + "\nParameter type: " + params.getType() + "\n");
+                        retStringAll = retStringAll.concat("Parameter name: " + params.getName() + "\nParameter type: " + params.getType() + "\n");
                     }
                     hasMethod = true;
                 }
                 if(!hasMethod)
-                retStringAll.concat("Class has no methods.\n");
+                retStringAll = retStringAll.concat("Class has no methods.\n");
         }
         if (!isInAll){
             return ("There are no classes.");
         }
         if(!isContAll){
-            retStringAll.concat("There are no fields in any classes.\n");
+            retStringAll = retStringAll.concat("There are no fields in any classes.\n");
         }
         return retStringAll;
     }
