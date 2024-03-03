@@ -277,12 +277,12 @@ public class InputHandler extends Application
                         case 1:
                         
                             //The attribute was added successfully.
-                            System.out.println(userTwo[3] + " attribute was added.");
+                            System.out.println(userTwo[3] + " field was added.");
                             break;
                         
                         case 2:
                         
-                            System.out.println("An attribute with this name already exists in this class.");
+                            System.out.println("A field with this name already exists in this class.");
                             break;
                     }   
                     break;
@@ -320,13 +320,13 @@ public class InputHandler extends Application
                     System.out.println("A class of the given name does not exist.");
                 break;
                 case 1:
-                    System.out.println("An attribute with this name does not exist.");
+                    System.out.println("A field with this name does not exist.");
                 break;
                 case 2:
-                    System.out.println("An attribute with your new name already exists");
+                    System.out.println("A field with your new name already exists");
                 break;
                 case 3:
-                    System.out.println("The attributes " + userTwo[4] + " was changed.");
+                    System.out.println("The fields " + userTwo[4] + " were changed.");
                 break;
                 }
                     break;
@@ -349,10 +349,10 @@ public class InputHandler extends Application
                             System.out.println("A class of the given name does not exist.");
                             break;
                         case 1:
-                            System.out.println("The attribute was deleted.");
+                            System.out.println("The field was deleted.");
                             break;
                         case 2:
-                            System.out.println("An attribute with this name does not exist.");
+                            System.out.println("A field with this name does not exist.");
                             break;
                     }
 
