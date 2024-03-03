@@ -274,7 +274,23 @@ public class Controller extends Application {
 
     @FXML
     void clickMISave(ActionEvent event) {
+        String name = "saveUml";
+        TextInputDialog saveDialog = new TextInputDialog();
+        saveDialog.setTitle("Saving Class UML");
+        saveDialog.setHeaderText("Enter the Save File Name:");
+        saveDialog.setContentText("Save File Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = saveDialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            name = result.get();
+            // Save the source class name
+        }
+        //saveUML.save(guiModel.getMyClassContainer(), guiModel.getMyRelationshipContainer(), name);
     }
 
     @FXML
