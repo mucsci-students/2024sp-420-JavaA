@@ -38,6 +38,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -142,6 +143,8 @@
           </font>
         </Label>
             <ScrollBar layoutX="886.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="575.0" prefWidth="14.0" />
+            <TextArea fx:id="MIListAll" layoutX="14.0" layoutY="27.0" prefHeight="539.0" prefWidth="427.0" />
+            <TextArea fx:id="MIRelText" layoutX="441.0" layoutY="27.0" prefHeight="539.0" prefWidth="427.0" />
       </children>
     </AnchorPane>
   </children>
