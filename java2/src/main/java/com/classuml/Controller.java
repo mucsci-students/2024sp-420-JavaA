@@ -389,7 +389,7 @@ public class Controller extends Application {
         }
     }
 
-    public String modelListOneClassRelationship (String name)
+    public String listOneClassRelationship (String name)
     {
         //used to tell if the class name exists and whether or not is has relationships
         boolean isIn = false;
@@ -404,7 +404,8 @@ public class Controller extends Application {
 
         //loop thorugh relContainer and print name, fromClass, toClass
         for(Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
-            if (rel.getSourceClass().equals(name)){
+            if (rel.getSourceClass().equals(name) || rel.getDestClass().equals(name)){
+                if (rel.getSourceClass().equals(name))
                 retStringRel = retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n" + "Relationship Type: " + rel.getType() + "\n");
                 isRel = true;
             }
@@ -413,7 +414,7 @@ public class Controller extends Application {
             return ("Class with that name does not exist.");
         }
         if (!isRel){
-            return ("There are no relationships with this class as the source.");
+            return ("There are no relationships connected to this class.");
         }
         return retStringRel;
     }
