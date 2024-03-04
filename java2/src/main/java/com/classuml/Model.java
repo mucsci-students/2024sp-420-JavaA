@@ -21,6 +21,12 @@ public class Model
         myClassContainer = new ClassContainer();
         myRelationshipContainer = new RelationshipContainer();
     }
+    public ClassContainer getClassContainer(){
+        return myClassContainer;
+    }
+    public RelationshipContainer getRelationshipContainer(){
+        return myRelationshipContainer;
+    }
     /**
      * Adds a class to the model.
      * 
