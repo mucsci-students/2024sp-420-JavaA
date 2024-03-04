@@ -385,8 +385,15 @@ public class Controller extends Application {
         guiModel.addRelationship(srcClass, destClass, relType);
         MIRelText.setText(new String());
         for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
-            MIRelText.appendText(modelListOneClassRelationship(rel.getSourceClass()));
+            if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+            }
         }
+    }
+
+    public boolean textAreaContainsString(TextArea textArea, String searchString) {
+        String text = textArea.getText();
+        return text.contains(searchString);
     }
 
     public String modelListOneClassRelationship (String name)
@@ -404,8 +411,7 @@ public class Controller extends Application {
 
         //loop thorugh relContainer and print name, fromClass, toClass
         for(Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
-            if (rel.getSourceClass().equals(name) || rel.getDestClass().equals(name)){
-                if (rel.getSourceClass().equals(name))
+            if (rel.getSourceClass().equals(name)){
                 retStringRel = retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n" + "Relationship Type: " + rel.getType() + "\n");
                 isRel = true;
             }
