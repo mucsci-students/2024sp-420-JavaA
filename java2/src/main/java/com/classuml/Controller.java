@@ -389,7 +389,7 @@ public class Controller extends Application {
         }
     }
 
-    public String listOneClassRelationship (String name)
+    public String modelListOneClassRelationship (String name)
     {
         //used to tell if the class name exists and whether or not is has relationships
         boolean isIn = false;
