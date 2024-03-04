@@ -526,7 +526,7 @@ public class Model
         //loop thorugh relContainer and print name, fromClass, toClass
         for(Relationship rel : myRelationshipContainer.getAllRelationships()){
             if (rel.getSourceClass().equals(name) || rel.getDestClass().equals(name)){
-                retStringRel = retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n");
+                retStringRel = retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n" + "Relationship Type: " + rel.getType() + "\n");
                 isRel = true;
             }
         }

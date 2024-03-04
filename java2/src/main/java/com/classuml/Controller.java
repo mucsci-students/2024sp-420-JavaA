@@ -2,6 +2,7 @@ package com.classuml;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -63,6 +64,12 @@ public class Controller extends Application {
 
     @FXML
     private MenuItem MICloseDiagram;
+
+    @FXML
+    private TextArea MIListAll;
+
+    @FXML
+    private TextArea MIRelText;
 
     @FXML
     private MenuItem MIDeleteClass;
@@ -181,27 +188,30 @@ public class Controller extends Application {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             className = result.get();
+            guiModel.addClass(className);
         }
         else {
             return;
         }
         System.out.println("Is className empty?:" + className.isEmpty());
 
-        GLIUMLClassBox gucb = new GLIUMLClassBox(guiModel, className);
-        System.out.println("Is gucb null: " + (gucb == null));
-        stackPane.getChildren().add(gucb.getTextArea());
-        System.out.println("Is stackPane null: " + (stackPane == null));
-        System.out.println("Here is what children have to say:");
-        System.out.println(stackPane.getChildren().toString());
-        stackPane.setPrefSize(100, 100);
-        Scene scene = new Scene(stackPane, 100,100);
-        System.out.println("Is scene empty: " + (scene == null));
-        if (mainWindow == null) {
-            mainWindow = new Stage();
-        }
-        mainWindow.setScene(scene);
-        System.out.println("Is mainWindow null: " + (mainWindow == null));
-        mainWindow.show();
+        //GLIUMLClassBox gucb = new GLIUMLClassBox(guiModel, className);
+        //System.out.println("Is gucb null: " + (gucb == null));
+        //stackPane.getChildren().add(gucb.getTextArea());
+        //System.out.println("Is stackPane null: " + (stackPane == null));
+        //System.out.println("Here is what children have to say:");
+        //System.out.println(stackPane.getChildren().toString());
+        //stackPane.setPrefSize(100, 100);
+        //Scene scene = new Scene(stackPane, 100,100);
+        //System.out.println("Is scene empty: " + (scene == null));
+        //if (mainWindow == null) {
+        //    mainWindow = new Stage();
+        //}
+        //mainWindow.setScene(scene);
+        //System.out.println("Is mainWindow null: " + (mainWindow == null));
+        //mainWindow.show();
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
@@ -312,7 +322,7 @@ public class Controller extends Application {
             name = result.get();
             // Save the source class name
         }
-        //saveUML.save(guiModel.getMyClassContainer(), guiModel.getMyRelationshipContainer(), name);
+        saveUML.save(guiModel.getClassContainer(), guiModel.getRelationshipContainer(), name);
     }
 
     @FXML
@@ -329,7 +339,7 @@ public class Controller extends Application {
         //Source Input
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Set Class Relationship");
-        dialog.setHeaderText("Enter the source class name:");
+        dialog.setHeaderText("Enter the Source Class Name:");
         dialog.setContentText("Class name:");
 
         // Display the dialog and wait for the user to enter a value
@@ -347,8 +357,8 @@ public class Controller extends Application {
         //Dest Input
         TextInputDialog dialog2 = new TextInputDialog();
         dialog2.setTitle("Set Class Relationship");
-        dialog2.setHeaderText("Enter the destination class name:");
-        dialog2.setContentText("Class name:");
+        dialog2.setHeaderText("Enter the Destination Class Name:");
+        dialog2.setContentText("Class Name:");
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
@@ -358,9 +368,9 @@ public class Controller extends Application {
 
         //Type Input
         TextInputDialog dialog3 = new TextInputDialog();
-        dialog3.setTitle("Set Class Relationship");
-        dialog3.setHeaderText("Enter the source class name:");
-        dialog3.setContentText("Class name:");
+        dialog3.setTitle("Set Class Relationship Type");
+        dialog3.setHeaderText("Enter the relationship type:");
+        dialog3.setContentText("Type name:");
 
         // Display the dialog and wait for the user to enter a value
         //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
@@ -372,7 +382,41 @@ public class Controller extends Application {
             relType = result3.get();
             // Save the source class name
         }
-        guiModel.addRelationship(destClass, srcClass, relType);
+        guiModel.addRelationship(srcClass, destClass, relType);
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
+            MIRelText.appendText(modelListOneClassRelationship(rel.getSourceClass()));
+        }
+    }
+
+    public String modelListOneClassRelationship (String name)
+    {
+        //used to tell if the class name exists and whether or not is has relationships
+        boolean isIn = false;
+        boolean isRel = false;
+        String retStringRel = "";
+        //loop through classContainer to check if the name exists
+        for(ClassBase cls : guiModel.getClassContainer().getContainer()){
+            if(cls.getName().equals(name)){
+                isIn = true;
+            }
+        }
+
+        //loop thorugh relContainer and print name, fromClass, toClass
+        for(Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
+            if (rel.getSourceClass().equals(name) || rel.getDestClass().equals(name)){
+                if (rel.getSourceClass().equals(name))
+                retStringRel = retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n" + "Relationship Type: " + rel.getType() + "\n");
+                isRel = true;
+            }
+        }
+        if (!isIn){
+            return ("Class with that name does not exist.");
+        }
+        if (!isRel){
+            return ("There are no relationships connected to this class.");
+        }
+        return retStringRel;
     }
 
     @FXML
