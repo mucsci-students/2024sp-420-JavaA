@@ -377,13 +377,13 @@ public class InputHandler extends Application
                 {
                     if(i%2==1)
                     {
-                        paramNames.concat(" ");
-                        paramNames.concat(userTwo[i]);
+                        paramNames = paramNames.concat(" ");
+                        paramNames = paramNames.concat(userTwo[i]);
                     }
                     else
                     {
-                        paramNames.concat(" ");
-                        paramNames.concat(userTwo[i]);
+                        paramTypes = paramTypes.concat(" ");
+                        paramTypes = paramTypes.concat(userTwo[i]);
                     }
                 }
                 boolean check = mainModel.addMethod(userTwo[2], userTwo[3], userTwo[4], paramNames, paramTypes);

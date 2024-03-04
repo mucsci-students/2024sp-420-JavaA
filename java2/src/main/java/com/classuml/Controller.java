@@ -56,16 +56,13 @@ public class Controller extends Application {
     private MenuItem MIAddMethod;
 
     @FXML
-    private MenuItem MIClick;
+    private MenuItem MIAddParam;
+
+    @FXML
+    private MenuItem MIAddParamList;
 
     @FXML
     private MenuItem MICloseDiagram;
-
-    @FXML
-    private MenuItem MICopy;
-
-    @FXML
-    private MenuItem MIDelete;
 
     @FXML
     private MenuItem MIDeleteClass;
@@ -77,13 +74,28 @@ public class Controller extends Application {
     private MenuItem MIDeleteMethod;
 
     @FXML
+    private MenuItem MIDeleteParam;
+
+    @FXML
+    private MenuItem MIDeleteRel;
+
+    @FXML
+    private MenuItem MIEditClass;
+
+    @FXML
+    private MenuItem MIEditField;
+
+    @FXML
+    private MenuItem MIEditMethod;
+
+    @FXML
+    private MenuItem MIEditParam;
+
+    @FXML
     private MenuItem MINewDiagram;
 
     @FXML
     private MenuItem MIOpenDiagram;
-
-    @FXML
-    private MenuItem MIPaste;
 
     @FXML
     private MenuItem MIPreferences;
@@ -101,9 +113,6 @@ public class Controller extends Application {
     private MenuItem MISaveAs;
 
     @FXML
-    private MenuItem MISelectAll;
-
-    @FXML
     private MenuItem MISetClassRel;
 
     @FXML
@@ -112,8 +121,6 @@ public class Controller extends Application {
     @FXML
     private MenuItem MIUndo;
 
-    @FXML
-    private MenuItem MIUnselectAll;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -208,22 +215,17 @@ public class Controller extends Application {
     }
 
     @FXML
+    void clickMIAddParam(ActionEvent event) {
+
+    }
+
+    @FXML
+    void clickMIAddParamList(ActionEvent event) {
+
+    }
+
+    @FXML
     void clickMICloseDiagram(ActionEvent event) {
-
-    }
-
-    @FXML
-    void clickMICopy(ActionEvent event) {
-
-    }
-
-    @FXML
-    void clickMICut(ActionEvent event) {
-
-    }
-
-    @FXML
-    void clickMIDelete(ActionEvent event) {
 
     }
 
@@ -243,17 +245,37 @@ public class Controller extends Application {
     }
 
     @FXML
+    void clickMIDeleteParam(ActionEvent event) {
+
+    }
+
+    @FXML
+    void clickMIDeleteRel(ActionEvent event) {
+
+    }
+
+    @FXML
+    void clickMIEditClass(ActionEvent event) {
+
+    }
+
+    @FXML
+    void clickMIEditField(ActionEvent event) {
+
+    }
+
+    @FXML
+    void clickMIEditParam(ActionEvent event) {
+
+    }
+
+    @FXML
     void clickMINewDiagram(ActionEvent event) {
 
     }
 
     @FXML
     void clickMIOpenDiagram(ActionEvent event) {
-
-    }
-
-    @FXML
-    void clickMIPaste(ActionEvent event) {
 
     }
 
@@ -274,16 +296,27 @@ public class Controller extends Application {
 
     @FXML
     void clickMISave(ActionEvent event) {
+        String name = "saveUml";
+        TextInputDialog saveDialog = new TextInputDialog();
+        saveDialog.setTitle("Saving Class UML");
+        saveDialog.setHeaderText("Enter the Save File Name:");
+        saveDialog.setContentText("Save File Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = saveDialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            name = result.get();
+            // Save the source class name
+        }
+        //saveUML.save(guiModel.getMyClassContainer(), guiModel.getMyRelationshipContainer(), name);
     }
 
     @FXML
     void clickMISaveAs(ActionEvent event) {
-
-    }
-
-    @FXML
-    void clickMISelectAll(ActionEvent event) {
 
     }
 
@@ -382,11 +415,6 @@ public class Controller extends Application {
 
     @FXML
     void clickMIUndo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void clickMIUnselectAll(ActionEvent event) {
 
     }
 

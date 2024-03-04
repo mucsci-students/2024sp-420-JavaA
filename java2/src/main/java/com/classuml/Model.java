@@ -322,7 +322,7 @@ public class Model
             return false;
         }
         ArrayList<attributes> params = new ArrayList<attributes>();
-        for(int i = 0; i < paramNameArray.length; i++)
+        for(int i = 1; i < paramNameArray.length; i++)
         {
             attributes attTemp = new attributes();
             attTemp.setName(paramNameArray[i]);
