@@ -27,6 +27,8 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -193,30 +195,66 @@ public class Controller extends Application {
         else {
             return;
         }
-        System.out.println("Is className empty?:" + className.isEmpty());
 
-        //GLIUMLClassBox gucb = new GLIUMLClassBox(guiModel, className);
-        //System.out.println("Is gucb null: " + (gucb == null));
-        //stackPane.getChildren().add(gucb.getTextArea());
-        //System.out.println("Is stackPane null: " + (stackPane == null));
-        //System.out.println("Here is what children have to say:");
-        //System.out.println(stackPane.getChildren().toString());
-        //stackPane.setPrefSize(100, 100);
-        //Scene scene = new Scene(stackPane, 100,100);
-        //System.out.println("Is scene empty: " + (scene == null));
-        //if (mainWindow == null) {
-        //    mainWindow = new Stage();
-        //}
-        //mainWindow.setScene(scene);
-        //System.out.println("Is mainWindow null: " + (mainWindow == null));
-        //mainWindow.show();
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
     void clickMIAddField(ActionEvent event) {
+        String className = "";
+        String fieldName = "";
+        String fieldType = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add Field");
+        dialog.setHeaderText("Enter the Class Name For The Field:");
+        dialog.setContentText("Class Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Add Field");
+        dialog2.setHeaderText("Enter the Field Name:");
+        dialog2.setContentText("Field Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            fieldName = result2.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Add Field");
+        dialog3.setHeaderText("Enter the Type of the Field:");
+        dialog3.setContentText("Field Type:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            fieldType = result3.get();
+            // Save the source class name
+        }
+        guiModel.addField(className, fieldName, fieldType);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
@@ -241,12 +279,72 @@ public class Controller extends Application {
 
     @FXML
     void clickMIDeleteClass(ActionEvent event) {
+        String className = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Delete Class");
+        dialog.setHeaderText("Enter the Class Name:");
+        dialog.setContentText("Class Name:");
 
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            className = result.get();
+        } else {
+            return;
+        }
+
+        // Delete the class and its relationships
+        guiModel.removeClass(className);
+
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
+
+        MIRelText.setText(new String());
+        for (ClassBase cls : guiModel.getClassContainer().getContainer()) {
+            if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(cls.getName()))) {
+                MIRelText.appendText((modelListOneClassRelationship(cls.getName())));
+            }
+        }
     }
+    
 
     @FXML
     void clickMIDeleteField(ActionEvent event) {
+        String className = "";
+        String fieldName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Delete Field");
+        dialog.setHeaderText("Enter the Class Name For The Field:");
+        dialog.setContentText("Class Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Delete Field");
+        dialog2.setHeaderText("Enter the Field Name:");
+        dialog2.setContentText("Field Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            fieldName = result2.get();
+            // Save the source class name
+        }
+        guiModel.removeField(className, fieldName);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
@@ -261,18 +359,155 @@ public class Controller extends Application {
 
     @FXML
     void clickMIDeleteRel(ActionEvent event) {
+        String srcClass = null;
+        String destClass = null;
 
+        //Source Input
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Delete Class Relationship");
+        dialog.setHeaderText("Enter the Source Class Name:");
+        dialog.setContentText("Class name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            srcClass = result.get();
+            // Save the source class name
+        }
+
+
+        //Dest Input
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Delete Class Relationship");
+        dialog2.setHeaderText("Enter the Destination Class Name:");
+        dialog2.setContentText("Class Name:");
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            destClass = result2.get();
+        }
+        guiModel.removeRelationship(srcClass, destClass);
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
+            if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+            }
+        }
     }
 
     @FXML
     void clickMIEditClass(ActionEvent event) {
+        String oldClassName = "";
+        String newClassName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Edit Class Name");
+        dialog.setHeaderText("Enter The Old Class Name:");
+        dialog.setContentText("Class Name:");
 
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            oldClassName = result.get();
+            // Save the old class name
+        } else {
+            return;
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Edit Class Name");
+        dialog2.setHeaderText("Enter The New Class Name:");
+        dialog2.setContentText("Class Name:");
+
+        Optional<String> result2 = dialog2.showAndWait();
+        if (result2.isPresent()) {
+            newClassName = result2.get();
+            // Save the new class name
+        } else {
+            return;
+        }
+
+        // Rename the class
+        guiModel.renameClass(oldClassName, newClassName);
+
+        // Update the class list
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
+
+        // Update the relationship list
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()) {
+            if (rel.getSourceClass().equals(newClassName) || rel.getDestClass().equals(newClassName)) {
+                MIRelText.appendText((modelListOneClassRelationship(newClassName)));
+            } else if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+            }
+        }
     }
 
     @FXML
     void clickMIEditField(ActionEvent event) {
+        String className = "";
+        String oldFieldName = "";
+        String newFieldName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Edit Field");
+        dialog.setHeaderText("Enter the Class Name:");
+        dialog.setContentText("Class Name:");
 
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            className = result.get();
+        } else {
+            return;
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Edit Field");
+        dialog2.setHeaderText("Enter the Old Field Name:");
+        dialog2.setContentText("Field Name:");
+
+        Optional<String> result2 = dialog2.showAndWait();
+        if (result2.isPresent()) {
+            oldFieldName = result2.get();
+        } else {
+            return;
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Edit Field");
+        dialog3.setHeaderText("Enter the New Field Name:");
+        dialog3.setContentText("Field Name:");
+
+        Optional<String> result3 = dialog3.showAndWait();
+        if (result3.isPresent()) {
+            newFieldName = result3.get();
+        } else {
+            return;
+        }
+
+        guiModel.renameField(className, oldFieldName, newFieldName);
+
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
+
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()) {
+            if (rel.getSourceClass().equals(className)) {
+                if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                    MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+                }
+            } else if (rel.getDestClass().equals(className)) {
+                if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getDestClass()))) {
+                    MIRelText.appendText((modelListOneClassRelationship(rel.getDestClass())));
+                }
+            }
+        }
     }
+    
 
     @FXML
     void clickMIEditParam(ActionEvent event) {
@@ -281,12 +516,45 @@ public class Controller extends Application {
 
     @FXML
     void clickMINewDiagram(ActionEvent event) {
-
+        guiModel.getClassContainer().getContainer().clear();
+        guiModel.getRelationshipContainer().getAllRelationships().clear();
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
+            if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+            }
+        }
     }
 
     @FXML
     void clickMIOpenDiagram(ActionEvent event) {
+        String loadName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Set Class Relationship");
+        dialog.setHeaderText("Enter the Source Class Name:");
+        dialog.setContentText("Class name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            loadName = result.get();
+            // Save the source class name
+        }
+        guiModel.load(loadName);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
+            if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+            }
+        }
     }
 
     @FXML
@@ -322,7 +590,8 @@ public class Controller extends Application {
             name = result.get();
             // Save the source class name
         }
-        saveUML.save(guiModel.getClassContainer(), guiModel.getRelationshipContainer(), name);
+        //saveUML.save(guiModel.getClassContainer(), guiModel.getRelationshipContainer(), name);
+        guiModel.save(name);
     }
 
     @FXML
@@ -396,8 +665,7 @@ public class Controller extends Application {
         return text.contains(searchString);
     }
 
-    public String modelListOneClassRelationship (String name)
-    {
+    public String modelListOneClassRelationship (String name) {
         //used to tell if the class name exists and whether or not is has relationships
         boolean isIn = false;
         boolean isRel = false;
@@ -411,7 +679,7 @@ public class Controller extends Application {
 
         //loop thorugh relContainer and print name, fromClass, toClass
         for(Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
-            if (rel.getSourceClass().equals(name)){
+            if (rel.getSourceClass().equals(name) || rel.getDestClass().equals(name)){
                 retStringRel = retStringRel.concat("Source Class: " + rel.getSourceClass() + "\nDestination Class: " + rel.getDestClass() + "\n" + "Relationship Type: " + rel.getType() + "\n");
                 isRel = true;
             }
