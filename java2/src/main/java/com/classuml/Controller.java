@@ -803,9 +803,9 @@ public class Controller extends Application {
     void clickMIOpenDiagram(ActionEvent event) {
         String loadName = "";
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Set Class Relationship");
-        dialog.setHeaderText("Enter the Source Class Name:");
-        dialog.setContentText("Class name:");
+        dialog.setTitle("Load File");
+        dialog.setHeaderText("Enter the JSON File Name:");
+        dialog.setContentText("File name:");
 
         // Display the dialog and wait for the user to enter a value
         //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
