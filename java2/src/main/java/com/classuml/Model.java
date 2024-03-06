@@ -318,28 +318,124 @@ public class Model
      * 
      * @Returns         An int indicating the status of the add.
      */
-    public boolean addMethod (String className, String name, String type, String paramNames, String paramTypes)
+    public boolean addMethod (String className, String name, String type)
     {
-        String[] paramNameArray = paramNames.split(" ");
-        String[] paramTypeArray = paramTypes.split(" ");
         ClassBase tempClassAddMethod = myClassContainer.getClassBase(className);
         if(tempClassAddMethod == null)
         {
             return false;
         }
-        ArrayList<attributes> params = new ArrayList<attributes>();
-        for(int i = 1; i < paramNameArray.length; i++)
-        {
-            attributes attTemp = new attributes();
-            attTemp.setName(paramNameArray[i]);
-            attTemp.setType(paramTypeArray[i]);
-            params.add(attTemp);
-
-        }
-        methods newMethod = new methods(name, type, params);
+        methods newMethod = new methods(name, type);
         tempClassAddMethod.addMethod(newMethod);
         return true;
     }
+    /**
+     * Adds a param to a method.
+     * 
+     * @Variables       className - The name of the class the method is in.
+     *                  methodName - The name of the method.
+     *                  paramName - The name of the param.
+     *                  paramType - The type of the param.
+     * 
+     * @Preconditions   A class of className exists with method methodName and no param paramName.
+     * @Postconditions  A param named paramName of type paramType is added to method methodName in class className.
+     * 
+     * @Returns         An int indicating the status of the add.
+     */
+    public int addParam (String className, String methodName, String paramName, String paramType)
+    {
+        ClassBase tempClassAddParam = myClassContainer.getClassBase(className);
+        if(tempClassAddParam == null)
+        {
+            return 0;
+        }
+        ArrayList<methods> methodList = tempClassAddParam.getClassMethods();
+        for(methods methodSingle : methodList)
+        {
+            if(methodSingle.getName().equals(methodName))
+            {
+                ArrayList<attributes> paramList = methodSingle.getParams();
+                for(attributes paramSingle : paramList)
+                {
+                    if(paramSingle.getName().equals(paramName))
+                    {
+                        return 2;
+                    }
+                }
+                methodSingle.addParam(paramName, paramType);
+                return 3;
+            }
+        }
+        return 1;
+    }
+    /**
+     * Removes a param from a method.
+     * 
+     * @Variables       className - The name of the class.
+     *                  methodName - The name of the method the param is being removed from.
+     * 
+     * @Preconditions   A class of className exists with method name and param paramName.
+     * @Postconditions  A param paramName is removed from methodName in className.
+     * 
+     * @Returns         An int indicating the status of the remove.
+     */
+    public int removeParam (String className, String methodName, String paramName)
+    {
+        ClassBase tempClassRemParam = myClassContainer.getClassBase(className);
+        if(tempClassRemParam == null)
+        {
+            return 0;
+        }
+        ArrayList<methods> methodList = tempClassRemParam.getClassMethods();
+        for(methods methodSingle : methodList)
+        {
+            if(methodSingle.getName().equals(methodName))
+            {
+                ArrayList<attributes> paramList = methodSingle.getParams();
+                for(attributes paramSingle : paramList)
+                {
+                    if(paramSingle.getName().equals(paramName))
+                    {
+                        methodSingle.removeParam(paramName);
+                        return 3;
+                    }
+                }
+                
+                return 2;
+            }
+        }
+        return 1;
+    }
+    /**
+     * Removes all params from a method.
+     * 
+     * @Variables       className - The name of the class the params are being cleared from.
+     *                  methodName - The name of the method.
+     * 
+     * @Preconditions   A class of className exists with method name.
+     * @Postconditions  All params are removed from the method.
+     * 
+     * @Returns         An int indicating the status of the clear.
+     */
+    public int clearParams (String className, String methodName)
+    {
+        ClassBase tempClassClearParams = myClassContainer.getClassBase(className);
+        if(tempClassClearParams == null)
+        {
+            return 0;
+        }
+        ArrayList<methods> methodList = tempClassClearParams.getClassMethods();
+        for(methods methodSingle : methodList)
+        {
+            if(methodSingle.getName().equals(methodName))
+            {
+                methodSingle.removeAllParam();
+                return 2;
+            }
+        }
+        return 1;
+    }
+
     /**
      * Removes a method from a class.
      * 
