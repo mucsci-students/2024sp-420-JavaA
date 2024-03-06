@@ -1,1 +1,0 @@
-{"Classes":[{"Name":"1","Fields":[{"Name":"fn","Type":"ft"}],"Methods":[{"Name":"mn","Return type":"mt","Paramaters":[{"Name":"pn","Type":"pt"}]}]},{"Name":"2","Fields":[{"Name":"2fn","Type":"2ft"}],"Methods":[]}],"Relationships":[{"Source Class":"1","Destination Class":"2","Type":"Aggregation"}]}
