@@ -342,13 +342,16 @@ public class Model
      * 
      * @Returns         An int indicating the status of the add.
      */
-    public int addParam (String className, String methodName, String paramName, String paramType)
+    public int addParams (String className, String methodName, String paramName, String paramType)
     {
         ClassBase tempClassAddParam = myClassContainer.getClassBase(className);
         if(tempClassAddParam == null)
         {
             return 0;
         }
+        String[] paramNames = paramName.split(" ");
+        String[] paramTypes = paramType.split(" ");
+        int counter = 0;
         ArrayList<methods> methodList = tempClassAddParam.getClassMethods();
         for(methods methodSingle : methodList)
         {
@@ -357,12 +360,18 @@ public class Model
                 ArrayList<attributes> paramList = methodSingle.getParams();
                 for(attributes paramSingle : paramList)
                 {
-                    if(paramSingle.getName().equals(paramName))
+                    for(String paramNameTest : paramNames)
+                    {
+                    if(paramSingle.getName().equals(paramNameTest))
                     {
                         return 2;
                     }
                 }
-                methodSingle.addParam(paramName, paramType);
+                }
+                for(String paramNameTwo : paramNames)
+                {
+                methodSingle.addParam(paramNameTwo, paramTypes[counter]);
+                }
                 return 3;
             }
         }

@@ -67,11 +67,11 @@ public class InputHandler extends Application
                     System.out.println("'add class <name> ' adds a class with given name.");
                     System.out.println("'remove class <name>', will remove a class with given name.");
                     System.out.println("'rename class <oldName> <newName>', will rename a class with oldName to newName.");
-                    System.out.println("'add relationship <fromClass> <toClass>', will add a relationship between two classes.");
+                    System.out.println("'add relationship <fromClass> <toClass> <type>', will add a relationship between two classes.");
                     System.out.println("'add method <className> <methodName> <methodType>', adds a methodName of type methodType to className.");
                     System.out.println("'edit method <className> <methodName> <editType>', edits method according to editType in className and methodName.");
                     System.out.println("'remove method <className> <methodName>', removed method methodName from className.");
-                    System.out.println("'add param <className> <methodName> <paramName> <paramType>', adds param of paramType to paramName in methodName in className.");
+                    System.out.println("'add param <className> <methodName> <paramName1> <paramType1> <paramName2> <paramType 2> ...', adds params of paramType and paramName to methodName in className.");
                     System.out.println("'remove param <className> <methodName> <paramName>', removes param with paramName from methodName in className.");
                     System.out.println("'clear params <className> <methodName>', clears all params from methodName in className.");
                     System.out.println("'add field <className> <fieldName> <fieldType>', adds a fieldName of fieldType to className.");
@@ -233,7 +233,7 @@ public class InputHandler extends Application
                         System.out.println("Class with name " + userTwo[3] + " does not exist.");
                         break;
                     case 3:
-                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship added.");
+                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship added with type " + userTwo[4]);
                         break;
                     case 0:
                         System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
@@ -389,19 +389,29 @@ public class InputHandler extends Application
                 }
 
                 break;
-                case "add param":
+                case "add params":
                 valid = true;
                 if(userTwo.length < 6)
                 {
                     tooSmall();
                     break;
                 }
-                if(userTwo.length > 6)
+                if(userTwo.length % 2 == 1)
                 {
-                    tooManyArgs();
+                    System.out.println("Please put the same amount of parameters and types!");
                     break;
                 }
-                int test = mainModel.addParam(userTwo[2], userTwo[3], userTwo[4], userTwo[5]);
+                String paramNames = "";
+                String paramTypes = "";
+                for(int i = 4; i < userTwo.length; i+=2)
+                {
+                    paramNames.equals(paramNames.concat(userTwo[i]));
+                    paramNames.equals(paramNames.concat(" "));
+                    paramTypes.equals(paramTypes.concat(userTwo[i+1]));
+                    paramTypes.equals(paramTypes.concat(" "));
+
+                }
+                int test = mainModel.addParams(userTwo[2], userTwo[3], paramNames, paramTypes);
                 switch(test)
                 {
                     case 0:
@@ -411,7 +421,7 @@ public class InputHandler extends Application
                     System.out.println("Method of given name doesn't exist!");
                     break;
                     case 2:
-                    System.out.println("Param of given name already exists!");
+                    System.out.println("A param sharing one of your names alrady exists!");
                     break;
                     case 3:
                     System.out.println("Param " + userTwo[4] + " of type " + userTwo[5] + " was successfully added to method " + userTwo[3] + " in class " + userTwo[2]);
