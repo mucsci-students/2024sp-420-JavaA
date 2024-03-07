@@ -19,7 +19,7 @@ public class methods {
      *                  paramList - A list of params.
      * 
      * @Preconditions   
-     * @Postconditions  Method will be created.
+     * @Postconditions  Method will be created with no attributes.
      * 
      * @Returns         The new methods object.
      */
@@ -29,6 +29,24 @@ public class methods {
         retType = methodRetType;
         ArrayList<attributes> test = new ArrayList<attributes>();
         params = test;
+    }
+
+    /**
+     * Constructor for methods
+     * 
+     * @Variables       methodName - A string to set method name.
+     *                  methodRetType - A string to set method return type.
+     *                  paramList - A list of params.
+     * 
+     * @Preconditions   
+     * @Postconditions  Method will be created.
+     * 
+     * @Returns         The new methods object.
+     */
+    public methods (String methodName, String methodRetType, ArrayList<attributes> paramList) {
+        name = methodName;
+        retType = methodRetType;
+        params = paramList;
     }
 
     /**
