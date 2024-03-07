@@ -14,11 +14,16 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot</artifactId>
+        <version>2.6.6</version>
+    </dependency>
       <dependency>
         <groupId>com.googlecode.json-simple</groupId>
         <artifactId>json-simple</artifactId>
@@ -77,11 +82,19 @@
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
           <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>2.6.6</version>
+            <configuration>
+                <mainClass>com.classuml.InputHandler</mainClass>
+            </configuration>
+        </plugin>
+          <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>fully.qualified.MainClass</mainClass>
+                  <mainClass>fully.qualified.InputHandler</mainClass>
                 </manifest>
               </archive>
               <descriptorRefs>

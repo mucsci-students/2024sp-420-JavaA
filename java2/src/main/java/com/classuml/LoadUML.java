@@ -64,7 +64,7 @@ public class LoadUML
     {
         JSONArray classesArray = (JSONArray) jsonObject.get("Classes");
         JSONArray relationshipsArray = (JSONArray) jsonObject.get("Relationships");
-    
+
         //load relationships
         for (Object relationshipObj : relationshipsArray) 
         {
@@ -98,17 +98,14 @@ public class LoadUML
                 JSONObject methodJson = (JSONObject) methodObj;
                 String methodName = (String) methodJson.get("Name");
                 String methodType = (String) methodJson.get("Return type");
-                ArrayList<attributes> methodParams = new ArrayList<>();
-                for (Object parameterObj : methodParams) {
-                    JSONObject parameterJson = (JSONObject) parameterObj;
-                    String paramName = (String) parameterJson.get("Name");
-                    String paramType = (String) parameterJson.get("Type");
-                    attributes methodParameter = new attributes();
-                    methodParameter.setName(paramName);
-                    methodParameter.setType(paramType);
-                    methodParams.add(methodParameter);
+                JSONArray paramsArray = (JSONArray) methodJson.get("Paramaters");
+                methods newMethod = new methods(methodName, methodType);
+                for (Object paramObj : paramsArray){
+                    JSONObject paramJson = (JSONObject) paramObj;
+                    String paramName = (String) paramJson.get("Name");
+                    String paramType = (String) paramJson.get("Type");
+                    newMethod.addParam(paramName, paramType);
                 }
-                methods newMethod = new methods(methodName, methodType, methodParams);
                 classMethods.add(newMethod);
             }
             ClassBase classBase = new ClassBase(className);

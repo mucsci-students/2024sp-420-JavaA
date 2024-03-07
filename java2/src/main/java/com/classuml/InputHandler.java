@@ -63,6 +63,7 @@ public class InputHandler extends Application
                     //Prints a large amount of stuff, which hopefully would tell the user how to use the program.
                     //Still needs to say what the valid types/edits are for stuff.
                     System.out.println("Here is a list of commands, please enter them without the '', or <>, replacing what's inside the <>:");
+                    System.out.println("Valid Types for Relationships: Aggregation, Compostion, Inheritence, Realization.");
                     System.out.println("'add class <name> ' adds a class with given name.");
                     System.out.println("'remove class <name>', will remove a class with given name.");
                     System.out.println("'rename class <oldName> <newName>', will rename a class with oldName to newName.");

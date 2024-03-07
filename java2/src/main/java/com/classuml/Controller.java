@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+
 public class Controller extends Application {
 
     private Model guiModel = new Model();
@@ -259,12 +260,135 @@ public class Controller extends Application {
 
     @FXML
     void clickMIAddMethod(ActionEvent event) {
+        String className = "";
+        String methodName = "";
+        String methodType = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add Method");
+        dialog.setHeaderText("Enter the Class Name For The Method:");
+        dialog.setContentText("Class Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Add Method");
+        dialog2.setHeaderText("Enter the Method Name:");
+        dialog2.setContentText("Method Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            methodName = result2.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Add Method");
+        dialog3.setHeaderText("Enter the Method Type:");
+        dialog3.setContentText("Method Type:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            methodType = result3.get();
+            // Save the source class name
+        }
+
+        guiModel.addMethod(className, methodName, methodType);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
     void clickMIAddParam(ActionEvent event) {
+        String className = "";
+        String methodName = "";
+        String paramName = "";
+        String paramType = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add Parameter");
+        dialog.setHeaderText("Enter the Class Name For The Parameter:");
+        dialog.setContentText("Class Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Add Parameter");
+        dialog2.setHeaderText("Enter the Method Name:");
+        dialog2.setContentText("Method Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            methodName = result2.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Add Parameter");
+        dialog3.setHeaderText("Enter the Parameter Name:");
+        dialog3.setContentText("Parameter Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            paramName = result3.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog4 = new TextInputDialog();
+        dialog4.setTitle("Add Parameter");
+        dialog4.setHeaderText("Enter the Parameter Type:");
+        dialog4.setContentText("Parameter Type:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result4 = dialog4.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result4.isPresent()) {
+            paramType = result4.get();
+            // Save the source class name
+        }
+
+        guiModel.addParam(className, methodName, paramName, paramType);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
@@ -274,7 +398,7 @@ public class Controller extends Application {
 
     @FXML
     void clickMICloseDiagram(ActionEvent event) {
-
+        Platform.exit();
     }
 
     @FXML
@@ -349,12 +473,101 @@ public class Controller extends Application {
 
     @FXML
     void clickMIDeleteMethod(ActionEvent event) {
+        String className = "";
+        String methodName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Delte Method");
+        dialog.setHeaderText("Enter the Class Name Of The Method:");
+        dialog.setContentText("Class Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Delete Method");
+        dialog2.setHeaderText("Enter the Method Name:");
+        dialog2.setContentText("Method Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            methodName = result2.get();
+            // Save the source class name
+        }
+
+        guiModel.removeMethod(className, methodName);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
     void clickMIDeleteParam(ActionEvent event) {
+        String className = "";
+        String methodName = "";
+        String paramName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Delete Parameter");
+        dialog.setHeaderText("Enter the Class Name For The Parameter:");
+        dialog.setContentText("Class Name:");
 
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Delete Parameter");
+        dialog2.setHeaderText("Enter the Method Name:");
+        dialog2.setContentText("Method Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            methodName = result2.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Delete Parameter");
+        dialog3.setHeaderText("Enter the Parameter Name:");
+        dialog3.setContentText("Parameter Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            paramName = result3.get();
+            // Save the source class name
+        }
+
+        guiModel.removeParam(className, methodName, paramName);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     @FXML
@@ -507,11 +720,69 @@ public class Controller extends Application {
             }
         }
     }
+
+    @FXML
+    void clickMIEditMethod(ActionEvent event) {
+        String className = "";
+        String methodName = "";
+        String newMethodName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Edit Method");
+        dialog.setHeaderText("Enter the Class Name For The Method:");
+        dialog.setContentText("Class Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Edit Method");
+        dialog2.setHeaderText("Enter the Old Method Name:");
+        dialog2.setContentText("Old Method Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            methodName = result2.get();
+            // Save the source class name
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Edit Method");
+        dialog3.setHeaderText("Enter the New Method Name:");
+        dialog3.setContentText("New Method Name:");
+
+        // Display the dialog and wait for the user to enter a value
+        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            newMethodName = result3.get();
+            // Save the source class name
+        }
+
+        guiModel.renameMethod(className, methodName, newMethodName);
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
+    }
     
 
     @FXML
     void clickMIEditParam(ActionEvent event) {
-
+        
     }
 
     @FXML
@@ -532,9 +803,9 @@ public class Controller extends Application {
     void clickMIOpenDiagram(ActionEvent event) {
         String loadName = "";
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Set Class Relationship");
-        dialog.setHeaderText("Enter the Source Class Name:");
-        dialog.setContentText("Class name:");
+        dialog.setTitle("Load File");
+        dialog.setHeaderText("Enter the JSON File Name:");
+        dialog.setContentText("File name:");
 
         // Display the dialog and wait for the user to enter a value
         //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
