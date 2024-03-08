@@ -6,7 +6,6 @@ com\classuml\saveUMLTests.class
 com\classuml\InputHandler.class
 com\classuml\Model.class
 com\classuml\Controller.class
-com\classuml\mainwindow.fxml
 com\classuml\attributes.class
 com\classuml\ExitUMLTests.class
 com\classuml\ClassBase.class
