@@ -417,7 +417,7 @@ public class InputHandler extends Application
                             System.out.println("A param named " + userTwo[i] + " already exists!");
                             break;
                             case 3:
-                            System.out.println("Param " + userTwo[i] + " of type " + userTwo[i+1] + "was successfully added to method " + userTwo[3] + " in class " + userTwo[2]);
+                            System.out.println("Param " + userTwo[i] + " of type " + userTwo[i+1] + " was successfully added to method " + userTwo[3] + " in class " + userTwo[2]);
                         }
                     if(test < 2)
                     {
