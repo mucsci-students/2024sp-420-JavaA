@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.classuml.Controller">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu id="menuFile" text="File">
+          <items>
+            <MenuItem id="MINewDiagram" fx:id="MINewDiagram" onAction="#clickMINewDiagram" text="New Diagram">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem id="MIOpenDiagram" fx:id="MIOpenDiagram" onAction="#clickMIOpenDiagram" text="Open Diagram…">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem id="MICloseDiagram" fx:id="MICloseDiagram" onAction="#clickMICloseDiagram" text="Close Diagram" />
+            <MenuItem id="MISave" fx:id="MISave" onAction="#clickMISave" text="Save">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem id="MiSaveAs" fx:id="MISaveAs" onAction="#clickMISaveAs" text="Save As …" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem id="MIPreferences" fx:id="MIPreferences" disable="true" onAction="#clickMIPreferences" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem id="MIQuit" fx:id="MIQuit" onAction="#clickMIQuit" text="Quit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Q" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+          </items>
+               <accelerator>
+                  <KeyCodeCombination alt="ANY" code="F" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+        </Menu>
+        <Menu id="menuEdit" text="Edit">
+          <items>
+            <MenuItem id="MIUndo" fx:id="MIUndo" onAction="#clickMIUndo" text="Undo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <MenuItem id="MIRedo" fx:id="MIRedo" onAction="#clickMIRedo" text="Redo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Y" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+          </items>
+               <accelerator>
+                  <KeyCodeCombination alt="ANY" code="E" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+        </Menu>
+            <Menu id="menuClasses" text="Classes">
+              <items>
+                <MenuItem id="MIAddClass" fx:id="MIAddClass" onAction="#clickMIAddClass" text="Add class" />
+                  <MenuItem id="MIDeleteClass" fx:id="MIDeleteClass" onAction="#clickMIDeleteClass" text="Delete class" />
+                  <MenuItem id="MIDeleteClass" fx:id="MIEditClass" onAction="#clickMIEditClass" text="Edit Class" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem id="MISetClassRel" fx:id="MISetClassRel" onAction="#clickMISetClassRel" text="Add Relationship" />
+                  <MenuItem id="MIDeleteClass" fx:id="MIDeleteRel" onAction="#clickMIDeleteRel" text="Delete Relationship" />
+              </items>
+               <accelerator>
+                  <KeyCodeCombination alt="ANY" code="C" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </Menu>
+            <Menu text="Attributes">
+              <items>
+                <MenuItem id="MIAddField" fx:id="MIAddField" onAction="#clickMIAddField" text="Add Field ..." />
+                  <MenuItem id="MIDeleteField" fx:id="MIDeleteField" onAction="#clickMIDeleteField" text="Delete Field" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditField" onAction="#clickMIEditField" text="Edit Field" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem id="MIAddMethod" fx:id="MIAddMethod" onAction="#clickMIAddMethod" text="Add Method ..." />
+                  <MenuItem id="MIDeleteMethod" fx:id="MIDeleteMethod" onAction="#clickMIDeleteMethod" text="Delete Method" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditMethod" onAction="#clickMIEditMethod" text="Edit Method" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem id="MIAddMethod" fx:id="MIAddParam" onAction="#clickMIAddParam" text="Add Parameter" />
+                  <MenuItem id="MIAddMethod" fx:id="MIAddParamList" onAction="#clickMIAddParamList" text="Add Parameter List" />
+                  <MenuItem id="MIDeleteMethod" fx:id="MIDeleteParam" onAction="#clickMIDeleteParam" text="Delete Parameter" />
+                  <MenuItem id="MIDeleteMethod" fx:id="MIClearParams" onAction="#clickMIClearParams" text="Clear Parameters" />
+              </items>
+               <accelerator>
+                  <KeyCodeCombination alt="ANY" code="A" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+            </Menu>
+        <Menu id="menuHelp" text="Help">
+          <items>
+                  <MenuItem id="MIShowHelp" fx:id="MIShowHelp" onAction="#clickMIShowHelp" text="Show help ..." />
+            <MenuItem id="MIAbout" fx:id="MIAbout" onAction="#clickMIAbout" text="About UML Reader" />
+          </items>
+               <accelerator>
+                  <KeyCodeCombination alt="ANY" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="401.0" layoutY="1.0" style="&#10;" text="UML Reader" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label>
+            <ScrollBar layoutX="886.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="575.0" prefWidth="14.0" />
+            <TextArea fx:id="MIListAll" editable="false" layoutX="14.0" layoutY="27.0" prefHeight="539.0" prefWidth="427.0" />
+            <TextArea fx:id="MIRelText" editable="false" layoutX="441.0" layoutY="27.0" prefHeight="539.0" prefWidth="427.0" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

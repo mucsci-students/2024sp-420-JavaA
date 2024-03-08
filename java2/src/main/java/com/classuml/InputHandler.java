@@ -398,35 +398,36 @@ public class InputHandler extends Application
                 }
                 if(userTwo.length % 2 == 1)
                 {
-                    System.out.println("Please put the same amount of parameters and types!");
+                    System.out.println("Please put the same amount of parameter names and types!");
                     break;
                 }
-                String paramNames = "";
-                String paramTypes = "";
+                int test = 0;
                 for(int i = 4; i < userTwo.length; i+=2)
                 {
-                    paramNames.equals(paramNames.concat(userTwo[i]));
-                    paramNames.equals(paramNames.concat(" "));
-                    paramTypes.equals(paramTypes.concat(userTwo[i+1]));
-                    paramTypes.equals(paramTypes.concat(" "));
+                    test = mainModel.addParams(userTwo[2], userTwo[3], userTwo[i], userTwo[i+1]);
+                        switch(test)
+                        {
+                            case 0:
+                            System.out.println("Class of given name doesn't exist");
+                            break;
+                            case 1:
+                            System.out.println("Method of given name doesn't exist!");
+                            break;
+                            case 2:
+                            System.out.println("A param named " + userTwo[i] + " already exists!");
+                            break;
+                            case 3:
+                            System.out.println("Param " + userTwo[i] + " of type " + userTwo[i+1] + " was successfully added to method " + userTwo[3] + " in class " + userTwo[2]);
+                        }
+                    if(test < 2)
+                    {
+                        break;
+                    }
+
+                    
 
                 }
-                int test = mainModel.addParams(userTwo[2], userTwo[3], paramNames, paramTypes);
-                switch(test)
-                {
-                    case 0:
-                    System.out.println("Class of given name doesn't exist");
-                    break;
-                    case 1:
-                    System.out.println("Method of given name doesn't exist!");
-                    break;
-                    case 2:
-                    System.out.println("A param sharing one of your names alrady exists!");
-                    break;
-                    case 3:
-                    System.out.println("Param " + userTwo[4] + " of type " + userTwo[5] + " was successfully added to method " + userTwo[3] + " in class " + userTwo[2]);
-                    break;
-                }
+
                 break;
                 case "remove param":
                 valid = true;
