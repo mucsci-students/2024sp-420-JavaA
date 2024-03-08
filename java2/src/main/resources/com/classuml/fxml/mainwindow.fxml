@@ -119,7 +119,7 @@
                   <MenuItem id="MIAddMethod" fx:id="MIAddParam" onAction="#clickMIAddParam" text="Add Parameter" />
                   <MenuItem id="MIAddMethod" fx:id="MIAddParamList" onAction="#clickMIAddParamList" text="Add Parameter List" />
                   <MenuItem id="MIDeleteMethod" fx:id="MIDeleteParam" onAction="#clickMIDeleteParam" text="Delete Parameter" />
-                  <MenuItem id="MIDeleteField" fx:id="MIEditParam" onAction="#clickMIEditParam" text="Edit Parameter" />
+                  <MenuItem id="MIDeleteMethod" fx:id="MIClearParams" onAction="#clickMIClearParams" text="Clear Parameters" />
               </items>
                <accelerator>
                   <KeyCodeCombination alt="ANY" code="A" control="UP" meta="UP" shift="UP" shortcut="UP" />
