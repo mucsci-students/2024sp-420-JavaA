@@ -349,9 +349,6 @@ public class Model
         {
             return 0;
         }
-        String[] paramNames = paramName.split(" ");
-        String[] paramTypes = paramType.split(" ");
-        int counter = 0;
         ArrayList<methods> methodList = tempClassAddParam.getClassMethods();
         for(methods methodSingle : methodList)
         {
@@ -360,18 +357,12 @@ public class Model
                 ArrayList<attributes> paramList = methodSingle.getParams();
                 for(attributes paramSingle : paramList)
                 {
-                    for(String paramNameTest : paramNames)
-                    {
-                    if(paramSingle.getName().equals(paramNameTest))
+                    if(paramSingle.getName().equals(paramName))
                     {
                         return 2;
                     }
                 }
-                }
-                for(String paramNameTwo : paramNames)
-                {
-                methodSingle.addParam(paramNameTwo, paramTypes[counter]);
-                }
+                methodSingle.addParam(paramName, paramType);
                 return 3;
             }
         }
