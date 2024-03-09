@@ -167,7 +167,7 @@ public class Controller extends Application {
         }
         
         //dialogVbox.getChildren().add(new Text("This is a Dialog"));
-        Scene dialogScene = new Scene(dialogVbox, 620, 400);
+        Scene dialogScene = new Scene(dialogVbox, 620, 450);
         dialog.setScene(dialogScene);
         dialog.show();
     }
@@ -183,7 +183,15 @@ public class Controller extends Application {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             className = result.get();
-            guiModel.addClass(className);
+            String temp = guiModel.addClass(className);
+            if(temp.equals("Class with that name already exists!")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Class already exists");
+                alert.setContentText("The class name \"" + className + "\" already exists. Please enter a different class name.");
+                alert.showAndWait();
+            }
+
         }
         else {
             return;
@@ -203,15 +211,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name For The Field:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -219,15 +223,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Field Name:");
         dialog2.setContentText("Field Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             fieldName = result2.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog3 = new TextInputDialog();
@@ -235,17 +235,20 @@ public class Controller extends Application {
         dialog3.setHeaderText("Enter the Type of the Field:");
         dialog3.setContentText("Field Type:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result3 = dialog3.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result3.isPresent()) {
             fieldType = result3.get();
-            // Save the source class name
         }
-        guiModel.addField(className, fieldName, fieldType);
+        int temp = guiModel.addField(className, fieldName, fieldType);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Field name already exists in this class");
+            alert.setContentText("The field name \"" + fieldName + "\" already exists in class \"" + className + "\".\nOR The class name \"" + className + "\" does not exist.");
+            alert.showAndWait();
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -260,15 +263,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name For The Method:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -276,15 +275,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Method Name:");
         dialog2.setContentText("Method Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             methodName = result2.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog3 = new TextInputDialog();
@@ -292,18 +287,31 @@ public class Controller extends Application {
         dialog3.setHeaderText("Enter the Method Type:");
         dialog3.setContentText("Method Type:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result3 = dialog3.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result3.isPresent()) {
             methodType = result3.get();
-            // Save the source class name
         }
 
-        guiModel.addMethod(className, methodName, methodType);
+        ArrayList<methods> methodcontainer = guiModel.getClassContainer().getClassBase(className).getClassMethods();
+        for(methods meth : methodcontainer){
+            if (meth.getName().equals(methodName)){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Method already exists");
+                alert.setContentText("The method name \"" + methodName + "\" already exists. Please enter a different method name.");
+                alert.showAndWait();
+            }
+        }
+        boolean temp = guiModel.addMethod(className, methodName, methodType);
+        if (!temp){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Class already exists");
+            alert.setContentText("The class name \"" + className + "\" already exists. Please enter a different class name.");
+            alert.showAndWait();
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -319,15 +327,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name For The Parameter:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -335,15 +339,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Method Name:");
         dialog2.setContentText("Method Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             methodName = result2.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog3 = new TextInputDialog();
@@ -351,15 +351,11 @@ public class Controller extends Application {
         dialog3.setHeaderText("Enter the Parameter Name:");
         dialog3.setContentText("Parameter Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result3 = dialog3.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result3.isPresent()) {
             paramName = result3.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog4 = new TextInputDialog();
@@ -367,18 +363,37 @@ public class Controller extends Application {
         dialog4.setHeaderText("Enter the Parameter Type:");
         dialog4.setContentText("Parameter Type:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result4 = dialog4.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result4.isPresent()) {
             paramType = result4.get();
-            // Save the source class name
         }
 
-        guiModel.addParams(className, methodName, paramName, paramType);
+        int test = guiModel.addParams(className, methodName, paramName, paramType);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        switch (test){
+            case 0:
+                alert.setTitle("Error");
+                alert.setHeaderText("Class does not exist");
+                alert.setContentText("The class name \"" + className + "\" does not exist.");
+                alert.showAndWait();
+                break;
+
+            case 1:
+                alert.setTitle("Error");
+                alert.setHeaderText("Method does not exist");
+                alert.setContentText("The method name \"" + methodName + "\" does not exist.");
+                alert.showAndWait();
+                break;
+
+            case 2:
+                alert.setTitle("Error");
+                alert.setHeaderText("Param already exists");
+                alert.setContentText("The param name \"" + paramName + "\" already exists.");
+                alert.showAndWait();
+                break;
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -508,15 +523,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name For The Field:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -524,15 +535,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Field Name:");
         dialog2.setContentText("Field Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             fieldName = result2.get();
-            // Save the source class name
         }
         guiModel.removeField(className, fieldName);
         MIListAll.clear();
@@ -548,15 +555,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name Of The Method:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -564,15 +567,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Method Name:");
         dialog2.setContentText("Method Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             methodName = result2.get();
-            // Save the source class name
         }
 
         guiModel.removeMethod(className, methodName);
@@ -590,15 +589,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name For The Parameter:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -606,15 +601,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Method Name:");
         dialog2.setContentText("Method Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             methodName = result2.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog3 = new TextInputDialog();
@@ -622,15 +613,11 @@ public class Controller extends Application {
         dialog3.setHeaderText("Enter the Parameter Name:");
         dialog3.setContentText("Parameter Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result3 = dialog3.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result3.isPresent()) {
             paramName = result3.get();
-            // Save the source class name
         }
 
         guiModel.removeParam(className, methodName, paramName);
@@ -647,15 +634,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name For The Parameter:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -663,15 +646,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Method Name:");
         dialog2.setContentText("Method Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             methodName = result2.get();
-            // Save the source class name
         }
         guiModel.clearParams(className, methodName);
         MIListAll.clear();
@@ -689,15 +668,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Source Class Name:");
         dialog.setContentText("Class name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             srcClass = result.get();
-            // Save the source class name
         }
 
 
@@ -839,15 +814,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Class Name For The Method:");
         dialog.setContentText("Class Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             className = result.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog2 = new TextInputDialog();
@@ -855,15 +826,11 @@ public class Controller extends Application {
         dialog2.setHeaderText("Enter the Old Method Name:");
         dialog2.setContentText("Old Method Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result2 = dialog2.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result2.isPresent()) {
             methodName = result2.get();
-            // Save the source class name
         }
 
         TextInputDialog dialog3 = new TextInputDialog();
@@ -871,15 +838,11 @@ public class Controller extends Application {
         dialog3.setHeaderText("Enter the New Method Name:");
         dialog3.setContentText("New Method Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result3 = dialog3.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result3.isPresent()) {
             newMethodName = result3.get();
-            // Save the source class name
         }
 
         guiModel.renameMethod(className, methodName, newMethodName);
@@ -910,15 +873,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the JSON File Name:");
         dialog.setContentText("File name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             loadName = result.get();
-            // Save the source class name
         }
         guiModel.load(loadName);
         MIListAll.clear();
@@ -954,15 +913,11 @@ public class Controller extends Application {
         saveDialog.setHeaderText("Enter the Save File Name:");
         saveDialog.setContentText("Save File Name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = saveDialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             name = result.get();
-            // Save the source class name
         }
         //saveUML.save(guiModel.getClassContainer(), guiModel.getRelationshipContainer(), name);
         guiModel.save(name);
@@ -985,15 +940,11 @@ public class Controller extends Application {
         dialog.setHeaderText("Enter the Source Class Name:");
         dialog.setContentText("Class name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result = dialog.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result.isPresent()) {
             srcClass = result.get();
-            // Save the source class name
         }
 
 
@@ -1015,15 +966,11 @@ public class Controller extends Application {
         dialog3.setHeaderText("Enter the relationship type:");
         dialog3.setContentText("Type name:");
 
-        // Display the dialog and wait for the user to enter a value
-        //Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         Optional<String> result3 = dialog3.showAndWait();
 
         // If the user clicked OK and entered a value, save it
         if (result3.isPresent()) {
             relType = result3.get();
-            // Save the source class name
         }
         guiModel.addRelationship(srcClass, destClass, relType);
         MIRelText.setText(new String());
@@ -1073,10 +1020,6 @@ public class Controller extends Application {
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(mainWindow);
         VBox dialogVbox = new VBox(20);
-        // The following operation assumes you are running this program
-        // from "/java2" directory with mvn clean javafx:run
-        // and NOT by clicking the play button, which assumes you are in
-        // the "/" (github root) directory.
         String filePath = "HELP.md";
         File currentDirectoryFile = new File(filePath);
         if (!currentDirectoryFile.exists()) {
