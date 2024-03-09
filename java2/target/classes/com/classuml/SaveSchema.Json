@@ -6,19 +6,19 @@
     "type": "object",
     "properties": {
         "classes": {
-            "description": "",
+            "description": "A class created in the UML editor, requires a name, and has fields and methods that can be null, if a method is not null it can also contain parameters that can be null",
 
             "type": "object",
             "properties": {
                 "name": {
-                    "description": "",
+                    "description": "The name for the class",
                     "type": "string"
                 },
-                "feilds":{
-                    "description": "",
+                "fields":{
+                    "description": "fields are a part of a class, they have a name and a value type",
                     "properties":{
                         "name": {
-                            "description": "",
+                            "description": "The name of the field",
                             "type": "string"
                         }
                     },
@@ -26,20 +26,20 @@
                 
                 },
                 "methods":{
-                    "description": "",
+                    "description": "Methods are a part of a class, they have a name and return type, and they can also contain parameters",
 
                     "type":"object",
                     "properties":{
                         "name":{
-                            "description": "",
+                            "description": "The name of the method",
                             "type": "string"
                         },
                         "return type": {
-                            "description": "",
+                            "description": "The return type of the method",
                             "type":["array", "boolean", "integer", "null", "number", "object", "string"]
                         },
                         "parameters": {
-                            "description": "",
+                            "description": "Can be any number of parameters tied to a method, each contain a name and a value type",
                             "type": "array"
                         }
                     }
@@ -47,24 +47,24 @@
             }
         },
         "relationships": {
-            "description": "",
+            "description": "Relationships are how classes relate to each other",
 
             "type": "object",
             "properties": {
-                "name":{
-                    "description": "",
-                    "type": "string"
-                },
                 "Source Class": {
-                    "description": "",
+                    "description": "the first class in the relationship, meaning the relation starts from here",
                     "type": "object"
                 },
                 "Destination Class": {
-                    "description": "",
+                    "description": "the second class in the relationship, meaning the relation ends here",
                     "type": "object"
+                },
+                "relation type":{
+                    "description": "the type of relationship between the two classes",
+                    "type":"string"
                 }
             },
-            "required": ["name", "Source Class", "Destination Class"]
+            "required": ["Source Class", "Destination Class", "relation type"]
         }
     },
     "required": ["Classes", "Relationships"]

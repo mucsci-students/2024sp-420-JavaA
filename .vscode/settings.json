@@ -3,5 +3,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "c:\\Users\\vasil\\OneDrive - Millersville University\\CSCI 420 Attempt 2\\json-simple-1.1.1.jar"
-    ]
+    ],
+    "maven.view": "flat"
 }
