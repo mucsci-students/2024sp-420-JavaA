@@ -110,11 +110,13 @@
               <items>
                 <MenuItem id="MIAddField" fx:id="MIAddField" onAction="#clickMIAddField" text="Add Field ..." />
                   <MenuItem id="MIDeleteField" fx:id="MIDeleteField" onAction="#clickMIDeleteField" text="Delete Field" />
-                  <MenuItem id="MIDeleteField" fx:id="MIEditField" onAction="#clickMIEditField" text="Edit Field" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditField" onAction="#clickMIEditField" text="Edit Field Name" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditFieldType" onAction="#clickMIEditFieldType" text="Edit Field Type" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem id="MIAddMethod" fx:id="MIAddMethod" onAction="#clickMIAddMethod" text="Add Method ..." />
                   <MenuItem id="MIDeleteMethod" fx:id="MIDeleteMethod" onAction="#clickMIDeleteMethod" text="Delete Method" />
-                  <MenuItem id="MIDeleteField" fx:id="MIEditMethod" onAction="#clickMIEditMethod" text="Edit Method" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditMethod" onAction="#clickMIEditMethod" text="Edit Method Name" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditMethodType" onAction="#clickMIEditMethodType" text="Edit Method Type" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem id="MIAddMethod" fx:id="MIAddParam" onAction="#clickMIAddParam" text="Add Parameter" />
                   <MenuItem id="MIAddMethod" fx:id="MIAddParamList" onAction="#clickMIAddParamList" text="Add Parameter List" />
