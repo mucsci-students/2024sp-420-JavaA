@@ -23,11 +23,12 @@ public class methods {
      * 
      * @Returns         The new methods object.
      */
-    public methods (String methodName, String methodRetType, ArrayList<attributes> paramList)
+    public methods (String methodName, String methodRetType)
     {
         name = methodName;
         retType = methodRetType;
-        params = paramList;
+        ArrayList<attributes> test = new ArrayList<attributes>();
+        params = test;
     }
 
     /**

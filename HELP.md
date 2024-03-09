@@ -1,15 +1,22 @@
-add class <name>: adds a class with the given name
-remove class <name>: removes a class with the given name
-rename class <oldName> <newName>: renames a class with the old name to the new name
-add relationship <fromClass> <toClass>: adds a relationship between the two classes
-remove relationship <fromClass> <toClass>: removes a relationship between the two classes
-add attribute: adds an attribute with a name, type, and class name
-edit attribute: edits an attribute's name, type, or class name
-remove attribute: removes an attribute from a class
-list one class: lists all attributes and their types for a given class
-list all classes: lists all classes and their attributes and types
-list one class relationship: lists all relationships for a given class
-save: saves the current state of the classes and relationships
-load: loads a state of classes and relationships from a file
-exit: exits the program
-help: displays this help text
+Valid Types for Relationships: Aggregation, Compostion, Inheritence, Realization
+
+add class <name> ' adds a class with given name.
+remove class <name>, will remove a class with given name.
+rename class <oldName> <newName>, will rename a class with oldName to newName.
+add relationship <fromClass> <toClass>, will add a relationship between two classes.
+add method <className> <methodName> <methodType>, adds a methodName of type methodType to className.
+edit method <className> <methodName> <editType>, edits method according to editType in className and methodName.
+remove method <className> <methodName>, removed method methodName from className.
+add param <className> <methodName> <paramName> <paramType>, adds param of paramType to paramName in methodName in className.
+remove param <className> <methodName> <paramName>, removes param with paramName from methodName in className.
+clear params <className> <methodName>, clears all params from methodName in className.
+add field <className> <fieldName> <fieldType>, adds a fieldName of fieldType to className.
+edit field <className> <fieldName> <editType>, edits field according to editType in className and methodName.
+remove field <className> <fieldName>, removed fieldName from className.
+list one class <className>, will list all fields and methods of className.
+list all classes, will list all classes and all of their fields and methods and types.
+list one classes relationships <className>, will list all of the relationship the class belongs to.
+save <fileName>, saves the class with file name fileName, if none is chosen it uses a default name.
+load <fileName>, loads a file fileName.
+exit, closes the program.
+help, displays the help text.

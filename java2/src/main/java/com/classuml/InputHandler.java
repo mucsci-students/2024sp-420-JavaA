@@ -61,21 +61,27 @@ public class InputHandler extends Application
                     valid = true;
 
                     //Prints a large amount of stuff, which hopefully would tell the user how to use the program.
+                    //Still needs to say what the valid types/edits are for stuff.
                     System.out.println("Here is a list of commands, please enter them without the '', or <>, replacing what's inside the <>:");
-                    System.out.println("'add class <name> ' adds a class with given name");
-                    System.out.println("'remove class <name>', will remove a class with given name");
-                    System.out.println("'rename class <oldName> <newName>', will rename a class with oldName to newName");
-                    System.out.println("'add relationship <fromClass> <toClass>', will add a relationship between two classes.");
-                    System.out.println("'remove relationship <fromClass> <toClass>', will remove a relationship between two classes.");
-                    //Got to replace attribute stuff with method/field specific ones.
-                    System.out.println("'add attribute', asks you for the name of the attribute you wish to add, the type, and the class name.");
-                    System.out.println("'edit attribute', asks you which class you want to edit an attribute from, which attribute you want to edit, how would you like to edit it, and the edit itself.");
-                    System.out.println("'remove attribute', asks which class you would like to remove an attribute from, and which attribute you would like to remove. ");
-                    System.out.println("'list one class', will prompt you for a class name and list all of its attributes and their type.");
-                    System.out.println("'list all classes', will list all classes and all of their attributes and type.");
-                    System.out.println("'list one class relationship', will prompt you for a class name and list all of the relationships it belongs to.");
-                    System.out.println("'save', saves the class.");
-                    System.out.println("'load', asks you for a file to load from, then loads said file.");
+                    System.out.println("Valid Types for Relationships: Aggregation, Compostion, Inheritence, Realization.");
+                    System.out.println("'add class <name> ' adds a class with given name.");
+                    System.out.println("'remove class <name>', will remove a class with given name.");
+                    System.out.println("'rename class <oldName> <newName>', will rename a class with oldName to newName.");
+                    System.out.println("'add relationship <fromClass> <toClass> <type>', will add a relationship between two classes.");
+                    System.out.println("'add method <className> <methodName> <methodType>', adds a methodName of type methodType to className.");
+                    System.out.println("'edit method <className> <methodName> <editType>', edits method according to editType in className and methodName.");
+                    System.out.println("'remove method <className> <methodName>', removed method methodName from className.");
+                    System.out.println("'add param <className> <methodName> <paramName1> <paramType1> <paramName2> <paramType 2> ...', adds params of paramType and paramName to methodName in className.");
+                    System.out.println("'remove param <className> <methodName> <paramName>', removes param with paramName from methodName in className.");
+                    System.out.println("'clear params <className> <methodName>', clears all params from methodName in className.");
+                    System.out.println("'add field <className> <fieldName> <fieldType>', adds a fieldName of fieldType to className.");
+                    System.out.println("'edit field <className> <fieldName> <editType>', edits field according to editType in className and methodName.");
+                    System.out.println("'remove field <className> <fieldName>', removed fieldName from className.");
+                    System.out.println("'list one class <className>', will list all fields and methods of className.");
+                    System.out.println("'list all classes', will list all classes and all of their fields and methods and types.");
+                    System.out.println("'list one classes relationships <className>', will list all of the relationship the class belongs to.");
+                    System.out.println("'save <fileName>', saves the class with file name fileName, if none is chosen it uses a default name.");
+                    System.out.println("'load <fileName>', loads a file fileName.");
                     System.out.println("'exit', closes the program.");
                     System.out.println("'help', displays the help text.");
                     break;
@@ -227,7 +233,7 @@ public class InputHandler extends Application
                         System.out.println("Class with name " + userTwo[3] + " does not exist.");
                         break;
                     case 3:
-                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship added.");
+                        System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship added with type " + userTwo[4]);
                         break;
                     case 0:
                         System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
@@ -277,12 +283,12 @@ public class InputHandler extends Application
                         case 1:
                         
                             //The attribute was added successfully.
-                            System.out.println(userTwo[3] + " attribute was added.");
+                            System.out.println(userTwo[3] + " field was added.");
                             break;
                         
                         case 2:
                         
-                            System.out.println("An attribute with this name already exists in this class.");
+                            System.out.println("A field with this name already exists in this class.");
                             break;
                     }   
                     break;
@@ -320,13 +326,13 @@ public class InputHandler extends Application
                     System.out.println("A class of the given name does not exist.");
                 break;
                 case 1:
-                    System.out.println("An attribute with this name does not exist.");
+                    System.out.println("A field with this name does not exist.");
                 break;
                 case 2:
-                    System.out.println("An attribute with your new name already exists");
+                    System.out.println("A field with your new name already exists");
                 break;
                 case 3:
-                    System.out.println("The attributes " + userTwo[4] + " was changed.");
+                    System.out.println("The fields " + userTwo[4] + " were changed.");
                 break;
                 }
                     break;
@@ -349,10 +355,10 @@ public class InputHandler extends Application
                             System.out.println("A class of the given name does not exist.");
                             break;
                         case 1:
-                            System.out.println("The attribute was deleted.");
+                            System.out.println("The field was deleted.");
                             break;
                         case 2:
-                            System.out.println("An attribute with this name does not exist.");
+                            System.out.println("A field with this name does not exist.");
                             break;
                     }
 
@@ -361,32 +367,18 @@ public class InputHandler extends Application
                 
                 case "add method":
                     valid = true;
-                if(userTwo.length < 7)
+                if(userTwo.length < 5)
                 {
                     tooSmall();
                     break;
                 }
-                if(userTwo.length % 2 == 0)
+                if(userTwo.length > 5)
                 {
-                    System.out.println("Please enter an equal amount of parameter names and types.");
+                    tooManyArgs();
                     break;
                 }
-                String paramNames = "";
-                String paramTypes = "";
-                for(int i = 5; i < userTwo.length; i++)
-                {
-                    if(i%2==1)
-                    {
-                        paramNames.concat(" ");
-                        paramNames.concat(userTwo[i]);
-                    }
-                    else
-                    {
-                        paramNames.concat(" ");
-                        paramNames.concat(userTwo[i]);
-                    }
-                }
-                boolean check = mainModel.addMethod(userTwo[2], userTwo[3], userTwo[4], paramNames, paramTypes);
+
+                boolean check = mainModel.addMethod(userTwo[2], userTwo[3], userTwo[4]);
                 if (check == false)
                 {
                     System.out.println("A class of your given name doesn't exist.");
@@ -396,6 +388,101 @@ public class InputHandler extends Application
                     System.out.println("Method " + userTwo[3] + " of type " + userTwo[4] + " was successfully created in class " + userTwo[2]);
                 }
 
+                break;
+                case "add params":
+                valid = true;
+                if(userTwo.length < 6)
+                {
+                    tooSmall();
+                    break;
+                }
+                if(userTwo.length % 2 == 1)
+                {
+                    System.out.println("Please put the same amount of parameter names and types!");
+                    break;
+                }
+                int test = 0;
+                for(int i = 4; i < userTwo.length; i+=2)
+                {
+                    test = mainModel.addParams(userTwo[2], userTwo[3], userTwo[i], userTwo[i+1]);
+                        switch(test)
+                        {
+                            case 0:
+                            System.out.println("Class of given name doesn't exist");
+                            break;
+                            case 1:
+                            System.out.println("Method of given name doesn't exist!");
+                            break;
+                            case 2:
+                            System.out.println("A param named " + userTwo[i] + " already exists!");
+                            break;
+                            case 3:
+                            System.out.println("Param " + userTwo[i] + " of type " + userTwo[i+1] + " was successfully added to method " + userTwo[3] + " in class " + userTwo[2]);
+                        }
+                    if(test < 2)
+                    {
+                        break;
+                    }
+
+                    
+
+                }
+
+                break;
+                case "remove param":
+                valid = true;
+                if(userTwo.length < 5)
+                {
+                    tooSmall();
+                    break;
+                }
+                if(userTwo.length > 5)
+                {
+                    tooManyArgs();
+                    break;
+                }
+                int testRemove = mainModel.removeParam(userTwo[2], userTwo[3], userTwo[4]);
+                switch(testRemove)
+                {
+                    case 0:
+                    System.out.println("Class of given name doesn't exist");
+                    break;
+                    case 1:
+                    System.out.println("Method of given name doesn't exist!");
+                    break;
+                    case 2:
+                    System.out.println("Param of given name doesn't exist!");
+                    break;
+                    case 3:
+                    System.out.println("Param " + userTwo[4] + " was successfully removed from method " + userTwo[3] + " in class " + userTwo[2]);
+                    break;
+                }
+                break;
+                case "clear params":
+                valid = true;
+                if(userTwo.length < 4)
+                {
+                    tooSmall();
+                    break;
+                }
+                if(userTwo.length > 4)
+                {
+                    tooManyArgs();
+                    break;
+                }
+                int testClear = mainModel.clearParams(userTwo[2], userTwo[3]);
+                switch(testClear)
+                {
+                    case 0:
+                    System.out.println("Class of given name doesn't exist");
+                    break;
+                    case 1:
+                    System.out.println("Method of given name doesn't exist!");
+                    break;
+                    case 2:
+                    System.out.println("Params were cleared from method " + userTwo[3] + " in class " + userTwo[3]);
+                    break;
+                }
                 break;
                 case "remove method":
                 valid = true;
@@ -538,7 +625,7 @@ public class InputHandler extends Application
                 {
                 switch(userTwo[0] + " " + userTwo[1] + " " + userTwo[2] + " " + userTwo[3])
                 {
-                case "list one class relationship":
+                case "list one classes relationships":
                     valid = true;
                     if(userTwo.length < 5)
                     {

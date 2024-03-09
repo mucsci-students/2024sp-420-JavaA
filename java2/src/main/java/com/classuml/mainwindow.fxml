@@ -38,6 +38,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -87,25 +88,6 @@
                         <KeyCodeCombination alt="UP" code="Y" control="ANY" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem id="MICut" fx:id="MIClick" onAction="#clickMICut" text="Cut">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="X" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <MenuItem id="MICopy" fx:id="MICopy" onAction="#clickMICopy" text="Copy">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="C" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <MenuItem id="MIPaste" fx:id="MIPaste" onAction="#clickMIPaste" text="Paste">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="V" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <MenuItem id="MIDelete" fx:id="MIDelete" onAction="#clickMIDelete" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem id="MISelectAll" fx:id="MISelectAll" onAction="#clickMISelectAll" text="Select All">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="A" control="ANY" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
-            <MenuItem id="MIUnselectAll" fx:id="MIUnselectAll" onAction="#clickMIUnselectAll" text="Unselect All" />
           </items>
                <accelerator>
                   <KeyCodeCombination alt="ANY" code="E" control="UP" meta="UP" shift="UP" shortcut="UP" />
@@ -114,8 +96,11 @@
             <Menu id="menuClasses" text="Classes">
               <items>
                 <MenuItem id="MIAddClass" fx:id="MIAddClass" onAction="#clickMIAddClass" text="Add class" />
-                  <MenuItem id="MISetClassRel" fx:id="MISetClassRel" onAction="#clickMISetClassRel" text="Set Class Relationship ..." />
                   <MenuItem id="MIDeleteClass" fx:id="MIDeleteClass" onAction="#clickMIDeleteClass" text="Delete class" />
+                  <MenuItem id="MIDeleteClass" fx:id="MIEditClass" onAction="#clickMIEditClass" text="Edit Class" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem id="MISetClassRel" fx:id="MISetClassRel" onAction="#clickMISetClassRel" text="Add Relationship" />
+                  <MenuItem id="MIDeleteClass" fx:id="MIDeleteRel" onAction="#clickMIDeleteRel" text="Delete Relationship" />
               </items>
                <accelerator>
                   <KeyCodeCombination alt="ANY" code="C" control="UP" meta="UP" shift="UP" shortcut="UP" />
@@ -125,9 +110,16 @@
               <items>
                 <MenuItem id="MIAddField" fx:id="MIAddField" onAction="#clickMIAddField" text="Add Field ..." />
                   <MenuItem id="MIDeleteField" fx:id="MIDeleteField" onAction="#clickMIDeleteField" text="Delete Field" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditField" onAction="#clickMIEditField" text="Edit Field" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem id="MIAddMethod" fx:id="MIAddMethod" onAction="#clickMIAddMethod" text="Add Method ..." />
                   <MenuItem id="MIDeleteMethod" fx:id="MIDeleteMethod" onAction="#clickMIDeleteMethod" text="Delete Method" />
+                  <MenuItem id="MIDeleteField" fx:id="MIEditMethod" onAction="#clickMIEditMethod" text="Edit Method" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem id="MIAddMethod" fx:id="MIAddParam" onAction="#clickMIAddParam" text="Add Parameter" />
+                  <MenuItem id="MIAddMethod" fx:id="MIAddParamList" onAction="#clickMIAddParamList" text="Add Parameter List" />
+                  <MenuItem id="MIDeleteMethod" fx:id="MIDeleteParam" onAction="#clickMIDeleteParam" text="Delete Parameter" />
+                  <MenuItem id="MIDeleteMethod" fx:id="MIClearParams" onAction="#clickMIClearParams" text="Clear Parameters" />
               </items>
                <accelerator>
                   <KeyCodeCombination alt="ANY" code="A" control="UP" meta="UP" shift="UP" shortcut="UP" />
@@ -152,6 +144,8 @@
           </font>
         </Label>
             <ScrollBar layoutX="886.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="575.0" prefWidth="14.0" />
+            <TextArea fx:id="MIListAll" editable="false" layoutX="14.0" layoutY="27.0" prefHeight="539.0" prefWidth="427.0" />
+            <TextArea fx:id="MIRelText" editable="false" layoutX="441.0" layoutY="27.0" prefHeight="539.0" prefWidth="427.0" />
       </children>
     </AnchorPane>
   </children>
