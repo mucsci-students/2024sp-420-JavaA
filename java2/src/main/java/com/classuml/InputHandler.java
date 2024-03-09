@@ -276,7 +276,7 @@ public class InputHandler extends Application
                     switch(success)
                     {
                         case 0:
-                            System.out.println("A class of the given name does not exist.");
+                            System.out.println("A field with this name already exists in this class.\nOr A class of the given name does not exist.");
                             break;
                     
                         case 1:
@@ -502,7 +502,7 @@ public class InputHandler extends Application
                             System.out.println("Class of given name doesn't exist!");
                         break;
                         case 1:
-                            System.out.println("Method " + userTwo[5] + " was removed from class " + userTwo[4]);
+                            System.out.println("Method " + userTwo[3] + " was removed from class " + userTwo[2]);
                         break;
                         case 2:
                             System.out.println("Method of given name doesn't exist!");
@@ -522,16 +522,16 @@ public class InputHandler extends Application
                         break;
                     }
                     int retValEdit = 0;
-                    if(userTwo[2].equalsIgnoreCase("name"))
+                    if(userTwo[4].equalsIgnoreCase("name"))
                     {
-                        retValEdit = mainModel.renameMethod(userTwo[3], userTwo[4], userTwo[5]);
+                        retValEdit = mainModel.renameMethod(userTwo[2], userTwo[3], userTwo[5]);
 
                     }
                     else
                     {
-                        if(userTwo[2].equalsIgnoreCase("type"))
+                        if(userTwo[4].equalsIgnoreCase("type"))
                         {
-                            retValEdit = mainModel.changeMethodType(userTwo[3], userTwo[4], userTwo[5]);
+                            retValEdit = mainModel.changeMethodType(userTwo[2], userTwo[3], userTwo[5]);
                         }
                         else
                         {
