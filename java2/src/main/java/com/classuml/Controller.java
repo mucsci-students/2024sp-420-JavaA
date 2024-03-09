@@ -3,6 +3,7 @@ package com.classuml;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
@@ -36,6 +37,7 @@ public class Controller extends Application {
     FXMLLoader loader;
     Parent root;
     Scene scene;
+    private String saveName;
 
     private Stage mainWindow; // Define mainWindow as a variable of type Stage
 
@@ -45,6 +47,12 @@ public class Controller extends Application {
 
     @FXML
     private MenuItem MIAbout;
+
+    @FXML
+    private MenuItem MIEditFieldType;
+
+    @FXML
+    private MenuItem MIEditMethodType;
 
     @FXML
     private MenuItem MIAddClass;
@@ -473,7 +481,30 @@ public class Controller extends Application {
 
         // Add the parameters to the guiModel object
         for (int i = 0; i < paramNames.size(); i++) {
-            guiModel.addParams(className, methodName, paramNames.get(i), paramTypes.get(i));
+            int test = guiModel.addParams(className, methodName, paramNames.get(i), paramTypes.get(i));
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            switch (test){
+                case 0:
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Class does not exist");
+                    alert.setContentText("The class name \"" + className + "\" does not exist.");
+                    alert.showAndWait();
+                    break;
+
+                case 1:
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Method does not exist");
+                    alert.setContentText("The method name \"" + methodName + "\" does not exist.");
+                    alert.showAndWait();
+                    break;
+
+                case 2:
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Param already exists");
+                    alert.setContentText("The param name \"" + paramNames.get(i) + "\" already exists.");
+                    alert.showAndWait();
+                    break;
+            }
         }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
@@ -500,7 +531,14 @@ public class Controller extends Application {
         }
 
         // Delete the class and its relationships
-        guiModel.removeClass(className);
+        String temp = guiModel.removeClass(className);
+        if (temp.equals("No class matching that name was found.")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Class does not exist");
+            alert.setContentText("The class name \"" + className + "\" does not exist.");
+            alert.showAndWait();
+        }
 
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
@@ -541,7 +579,23 @@ public class Controller extends Application {
         if (result2.isPresent()) {
             fieldName = result2.get();
         }
-        guiModel.removeField(className, fieldName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        int temp = guiModel.removeField(className, fieldName);
+        switch (temp){
+            case 0:
+                alert.setTitle("Error");
+                alert.setHeaderText("Class does not exist");
+                alert.setContentText("The class name \"" + className + "\" does not exist.");
+                alert.showAndWait();
+                break;
+
+            case 2:
+                alert.setTitle("Error");
+                alert.setHeaderText("Field does not exist");
+                alert.setContentText("The field name \"" + fieldName + "\" does not exist.");
+                alert.showAndWait();
+                break;
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -573,8 +627,20 @@ public class Controller extends Application {
         if (result2.isPresent()) {
             methodName = result2.get();
         }
-
-        guiModel.removeMethod(className, methodName);
+        int temp = guiModel.removeMethod(className, methodName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Class does not exist");
+            alert.setContentText("The class name \"" + className + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 2){
+            alert.setTitle("Error");
+            alert.setHeaderText("Method does not exist");
+            alert.setContentText("The method name \"" + methodName + "\" does not exist.");
+            alert.showAndWait();
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -619,8 +685,26 @@ public class Controller extends Application {
         if (result3.isPresent()) {
             paramName = result3.get();
         }
-
-        guiModel.removeParam(className, methodName, paramName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        int temp = guiModel.removeParam(className, methodName, paramName);
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Class does not exist");
+            alert.setContentText("The class name \"" + className + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 1){
+            alert.setTitle("Error");
+            alert.setHeaderText("Method does not exist");
+            alert.setContentText("The method name \"" + methodName + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 2){
+            alert.setTitle("Error");
+            alert.setHeaderText("Parameter does not exist");
+            alert.setContentText("The parameter name \"" + paramName + "\" does not exist.");
+            alert.showAndWait();
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -652,7 +736,20 @@ public class Controller extends Application {
         if (result2.isPresent()) {
             methodName = result2.get();
         }
-        guiModel.clearParams(className, methodName);
+        int temp = guiModel.clearParams(className, methodName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Class does not exist");
+            alert.setContentText("The class name \"" + className + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 1){
+            alert.setTitle("Error");
+            alert.setHeaderText("Method does not exist");
+            alert.setContentText("The method name \"" + methodName + "\" does not exist.");
+            alert.showAndWait();
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -687,7 +784,15 @@ public class Controller extends Application {
         if (result2.isPresent()) {
             destClass = result2.get();
         }
-        guiModel.removeRelationship(srcClass, destClass);
+        int temp = guiModel.removeRelationship(srcClass, destClass);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 2){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Relationship");
+            alert.setContentText("No such relationship with that source and destination");
+            alert.showAndWait();
+        }
+
         MIRelText.setText(new String());
         for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
             if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
@@ -727,7 +832,20 @@ public class Controller extends Application {
         }
 
         // Rename the class
-        guiModel.renameClass(oldClassName, newClassName);
+        String temp = guiModel.renameClass(oldClassName, newClassName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp.equals("A class with your new name already exists!")){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid New Class Name");
+            alert.setContentText("The class name \"" + newClassName  + "\" already exists.");
+            alert.showAndWait();
+        }
+        if (temp.equals("You can't rename a class that doesn't exist!")){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Old Class Name");
+            alert.setContentText("The class name \"" + oldClassName + "\" does not exist.");
+            alert.showAndWait();
+        }
 
         // Update the class list
         MIListAll.clear();
@@ -785,7 +903,29 @@ public class Controller extends Application {
             return;
         }
 
-        guiModel.renameField(className, oldFieldName, newFieldName);
+        int temp = guiModel.renameField(className, oldFieldName, newFieldName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        switch (temp){
+            case 0:
+                alert.setTitle("Error");
+                alert.setHeaderText("Class does not exist");
+                alert.setContentText("The class name \"" + className + "\" does not exist.");
+                alert.showAndWait();
+                break;
+
+            case 1:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid old field name");
+                alert.setContentText("The field name \"" + oldFieldName + "\" does not exist.");
+                alert.showAndWait();
+                break;
+            case 2:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid new field name");
+                alert.setContentText("The field name \"" + newFieldName + "\" already exists.");
+                alert.showAndWait();
+                break;
+        }
 
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
@@ -845,7 +985,20 @@ public class Controller extends Application {
             newMethodName = result3.get();
         }
 
-        guiModel.renameMethod(className, methodName, newMethodName);
+        int temp = guiModel.renameMethod(className, methodName, newMethodName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Class does not exist");
+            alert.setContentText("The class name \"" + className + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 2){
+            alert.setTitle("Error");
+            alert.setHeaderText("Old method name does not exist");
+            alert.setContentText("The method name \"" + methodName + "\" does not exist.");
+            alert.showAndWait();
+        }
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
     }
@@ -857,6 +1010,7 @@ public class Controller extends Application {
         guiModel.getRelationshipContainer().getAllRelationships().clear();
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
+        saveName = null;
         MIRelText.setText(new String());
         for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
             if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
@@ -879,6 +1033,7 @@ public class Controller extends Application {
         if (result.isPresent()) {
             loadName = result.get();
         }
+        saveName = loadName;
         guiModel.load(loadName);
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
@@ -907,10 +1062,34 @@ public class Controller extends Application {
 
     @FXML
     void clickMISave(ActionEvent event) {
+        if(saveName == null){
+            String name = "saveUml";
+            TextInputDialog saveDialog = new TextInputDialog();
+            saveDialog.setTitle("Saving Class UML");
+            saveDialog.setHeaderText("Enter the Save File Name (default saveUML):");
+            saveDialog.setContentText("Save File Name:");
+    
+            Optional<String> result = saveDialog.showAndWait();
+    
+            // If the user clicked OK and entered a value, save it
+            if (result.isPresent()) {
+                name = result.get();
+            }
+            //saveUML.save(guiModel.getClassContainer(), guiModel.getRelationshipContainer(), name);
+            guiModel.save(name);
+            saveName = name;
+        }
+        else {
+            guiModel.save(saveName);
+        }
+    }
+
+    @FXML
+    void clickMISaveAs(ActionEvent event) {
         String name = "saveUml";
         TextInputDialog saveDialog = new TextInputDialog();
         saveDialog.setTitle("Saving Class UML");
-        saveDialog.setHeaderText("Enter the Save File Name:");
+        saveDialog.setHeaderText("Enter the Save File Name (default saveUML):");
         saveDialog.setContentText("Save File Name:");
 
         Optional<String> result = saveDialog.showAndWait();
@@ -921,11 +1100,7 @@ public class Controller extends Application {
         }
         //saveUML.save(guiModel.getClassContainer(), guiModel.getRelationshipContainer(), name);
         guiModel.save(name);
-    }
-
-    @FXML
-    void clickMISaveAs(ActionEvent event) {
-
+        saveName = name;
     }
 
     @FXML
@@ -972,13 +1147,173 @@ public class Controller extends Application {
         if (result3.isPresent()) {
             relType = result3.get();
         }
-        guiModel.addRelationship(srcClass, destClass, relType);
+        int temp = guiModel.addRelationship(srcClass, destClass, relType);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 1){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Source Class");
+            alert.setContentText("The class name \"" + srcClass + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 2){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Destination Class");
+            alert.setContentText("The class name \"" + destClass + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Relationship");
+            alert.setContentText("Relationship with that source and destination already exists or relationship type is not one of the choices.\nValid Types: Aggregation, Compostion, Inheritence, Realization");
+            alert.showAndWait();
+        }
         MIRelText.setText(new String());
         for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
             if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
                 MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
             }
         }
+    }
+
+    @FXML
+    void clickMIEditFieldType(ActionEvent Event){
+        String className = "";
+        String oldFieldName = "";
+        String newFieldName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Edit Field");
+        dialog.setHeaderText("Enter the Class Name:");
+        dialog.setContentText("Class Name:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            className = result.get();
+        } else {
+            return;
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Edit Field");
+        dialog2.setHeaderText("Enter the Field Name:");
+        dialog2.setContentText("Field Name:");
+
+        Optional<String> result2 = dialog2.showAndWait();
+        if (result2.isPresent()) {
+            oldFieldName = result2.get();
+        } else {
+            return;
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Edit Field");
+        dialog3.setHeaderText("Enter the New Field Type:");
+        dialog3.setContentText("Field Type:");
+
+        Optional<String> result3 = dialog3.showAndWait();
+        if (result3.isPresent()) {
+            newFieldName = result3.get();
+        } else {
+            return;
+        }
+
+        int temp = guiModel.changeFieldType(className, oldFieldName, newFieldName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        switch (temp){
+            case 0:
+                alert.setTitle("Error");
+                alert.setHeaderText("Class does not exist");
+                alert.setContentText("The class name \"" + className + "\" does not exist.");
+                alert.showAndWait();
+                break;
+
+            case 1:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid old field name");
+                alert.setContentText("The field name \"" + oldFieldName + "\" does not exist.");
+                alert.showAndWait();
+                break;
+            case 2:
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid new field name");
+                alert.setContentText("The field type \"" + newFieldName + "\" already exists.");
+                alert.showAndWait();
+                break;
+        }
+
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
+
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()) {
+            if (rel.getSourceClass().equals(className)) {
+                if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                    MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+                }
+            } else if (rel.getDestClass().equals(className)) {
+                if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getDestClass()))) {
+                    MIRelText.appendText((modelListOneClassRelationship(rel.getDestClass())));
+                }
+            }
+        }
+    }
+
+    @FXML
+    void clickMIEditMethodType(ActionEvent Event){
+        String className = "";
+        String methodName = "";
+        String newMethodName = "";
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Edit Method");
+        dialog.setHeaderText("Enter the Class Name For The Method:");
+        dialog.setContentText("Class Name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            className = result.get();
+        }
+
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Edit Method");
+        dialog2.setHeaderText("Enter the Method Name:");
+        dialog2.setContentText("Method Name:");
+
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            methodName = result2.get();
+        }
+
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Edit Method");
+        dialog3.setHeaderText("Enter the new Method Type:");
+        dialog3.setContentText("New Method Type:");
+
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            newMethodName = result3.get();
+        }
+
+        int temp = guiModel.changeMethodType(className, methodName, newMethodName);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Class does not exist");
+            alert.setContentText("The class name \"" + className + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 2){
+            alert.setTitle("Error");
+            alert.setHeaderText("Method name does not exist");
+            alert.setContentText("The method name \"" + methodName + "\" does not exist.");
+            alert.showAndWait();
+        }
+        MIListAll.clear();
+        MIListAll.setText(guiModel.listAllClasses());
     }
 
     public boolean textAreaContainsString(TextArea textArea, String searchString) {
