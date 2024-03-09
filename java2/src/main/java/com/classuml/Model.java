@@ -152,6 +152,47 @@ public class Model
             return 0;
         }
     }
+    /*
+     * Changes Relationship Type
+     * 
+     * @Variables       fromRel - The class the relationship went from.
+     *                  toRel - The class the relationship went to.
+     * 
+     * @Preconditions   A relationship from fromRel and to toRel exists.
+     * @Postconditions  That relationship no longer exists.
+     * 
+     * @Returns         An int indicating the status of the remove.
+     */
+    public int editRelationship(String fromRel, String toRel, String relType){
+        if (myClassContainer.getClassBase(fromRel) == null){
+            return 1;
+        }
+        if (myClassContainer.getClassBase(toRel) == null){
+            return 2;
+        }
+        if(relType.toLowerCase().equals("aggregation")){
+            
+        }
+        else if (relType.toLowerCase().equals("composition")){
+            
+        }
+        else if (relType.toLowerCase().equals("inheritence")){
+            
+        }
+        else if (relType.toLowerCase().equals("realization")){
+            
+        }
+        else{
+            return 0;
+        }
+        for (Relationship rel : myRelationshipContainer.getAllRelationships()){
+            if (rel.getSourceClass().equals(fromRel) && rel.getDestClass().equals(toRel)){
+                rel.setType(relType);
+                return 3;
+            }
+        }
+        return 0;
+    }
     /**
      * Removes a relationship from fromRel to toRel.
      * 

@@ -3,7 +3,6 @@ package com.classuml;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
@@ -107,6 +106,9 @@ public class Controller extends Application {
 
     @FXML
     private MenuItem MINewDiagram;
+
+    @FXML
+    private MenuItem MIEditRel;
 
     @FXML
     private MenuItem MIOpenDiagram;
@@ -1381,6 +1383,78 @@ public class Controller extends Application {
         Scene dialogScene = new Scene(dialogVbox, 800, 400);
         dialog.setScene(dialogScene);
         dialog.show();
+    }
+
+    @FXML
+    void clickMIEditRel(){
+        String srcClass = null;
+        String destClass = null;
+        String relType = null;
+
+        //Source Input
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Edit Relationship Type");
+        dialog.setHeaderText("Enter the Source Class Name:");
+        dialog.setContentText("Class name:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result.isPresent()) {
+            srcClass = result.get();
+        }
+
+
+        //Dest Input
+        TextInputDialog dialog2 = new TextInputDialog();
+        dialog2.setTitle("Edit Relationship Type");
+        dialog2.setHeaderText("Enter the Destination Class Name:");
+        dialog2.setContentText("Class Name:");
+        Optional<String> result2 = dialog2.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result2.isPresent()) {
+            destClass = result2.get();
+        }
+
+        //Type Input
+        TextInputDialog dialog3 = new TextInputDialog();
+        dialog3.setTitle("Edit Relationship Type");
+        dialog3.setHeaderText("Enter the new relationship type:");
+        dialog3.setContentText("New Type name:");
+
+        Optional<String> result3 = dialog3.showAndWait();
+
+        // If the user clicked OK and entered a value, save it
+        if (result3.isPresent()) {
+            relType = result3.get();
+        }
+        int temp = guiModel.editRelationship(srcClass, destClass, relType);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (temp == 1){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Source Class");
+            alert.setContentText("The class name \"" + srcClass + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 2){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Destination Class");
+            alert.setContentText("The class name \"" + destClass + "\" does not exist.");
+            alert.showAndWait();
+        }
+        if (temp == 0){
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Relationship");
+            alert.setContentText("Relationship with that source and destination already exists or relationship type is not one of the choices.\nValid Types: Aggregation, Compostion, Inheritence, Realization");
+            alert.showAndWait();
+        }
+        MIRelText.setText(new String());
+        for (Relationship rel : guiModel.getRelationshipContainer().getAllRelationships()){
+            if (!textAreaContainsString(MIRelText, modelListOneClassRelationship(rel.getSourceClass()))) {
+                MIRelText.appendText((modelListOneClassRelationship(rel.getSourceClass())));
+            }
+        }
     }
 
     @FXML
