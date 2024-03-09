@@ -144,10 +144,6 @@ public class Controller extends Application {
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(mainWindow);
         VBox dialogVbox = new VBox(20);
-        // The following operation assumes you are running this program
-        // from "/java2" directory with mvn clean javafx:run
-        // and NOT by clicking the play button, which assumes you are in
-        // the "/" (github root) directory.
         String filePath = "README.md";
         File currentDirectoryFile = new File(filePath);
         if (!currentDirectoryFile.exists()) {

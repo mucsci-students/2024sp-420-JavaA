@@ -22,3 +22,5 @@
 11. Run specific tests by using "mvn test -Dtest=TestClassName#MethodName" where TestClassName is the name
 of the file you want to run and Methodname is the name of the test you want to run, you can also use *
 as the MethodName to run all tests of that class.
+
+12. To run the CLI use "java -jar .\target\java2-1.0-SNAPSHOT.jar cli" when starting the program
