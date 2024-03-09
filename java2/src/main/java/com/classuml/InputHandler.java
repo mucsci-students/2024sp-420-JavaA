@@ -240,6 +240,35 @@ public class InputHandler extends Application
                     }
                      
                      break;
+                case "edit relationship":
+                    valid = true;
+                    if(userTwo.length < 5 )
+                    {
+                        tooSmall();
+                        break;
+                    }
+                    if(userTwo.length > 5)
+                    {
+                        tooManyArgs();
+                        break;
+                    }
+                    int retEdit = mainModel.editRelationship(userTwo[2], userTwo[3], userTwo[4]);
+                    switch(retEdit)
+                    {
+                    case 1:
+                       System.out.println("Class with name " + userTwo[2] + " does not exist.");
+                       break;
+                   case 2:
+                       System.out.println("Class with name " + userTwo[3] + " does not exist.");
+                       break;
+                   case 3:
+                       System.out.println(userTwo[2] + " -> " + userTwo[3] + " relationship changed to type " + userTwo[4]);
+                       break;
+                   case 0:
+                       System.out.println("Relationship with that source and destination already exists or relationship type is not one of the choices.");
+                       break;
+                   }
+                    break;
                 case "remove relationship":
                     valid = true;
                 if(userTwo.length < 4)

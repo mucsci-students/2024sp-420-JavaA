@@ -4,7 +4,8 @@ Valid editTypes: Name, Type
 add class <name> ' adds a class with given name.
 remove class <name>, will remove a class with given name.
 rename class <oldName> <newName>, will rename a class with oldName to newName.
-add relationship <fromClass> <toClass>, will add a relationship between two classes.
+add relationship <fromClass> <toClass> <relType>, will add a relationship between two classes.
+edit relationship <fromClass> <toClass> <relType>, changes the type of relationship.
 add method <className> <methodName> <methodType>, adds a methodName of type methodType to className.
 edit method <className> <methodName> <editType> <newName>, edits method according to editType in className and methodName.
 remove method <className> <methodName>, removed method methodName from className.

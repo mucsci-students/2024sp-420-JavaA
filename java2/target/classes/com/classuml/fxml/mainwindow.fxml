@@ -101,6 +101,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem id="MISetClassRel" fx:id="MISetClassRel" onAction="#clickMISetClassRel" text="Add Relationship" />
                   <MenuItem id="MIDeleteClass" fx:id="MIDeleteRel" onAction="#clickMIDeleteRel" text="Delete Relationship" />
+                  <MenuItem id="MIDeleteClass" fx:id="MIEditRel" onAction="#clickMIEditRel" text="Edit Relationship Type" />
               </items>
                <accelerator>
                   <KeyCodeCombination alt="ANY" code="C" control="UP" meta="UP" shift="UP" shortcut="UP" />
