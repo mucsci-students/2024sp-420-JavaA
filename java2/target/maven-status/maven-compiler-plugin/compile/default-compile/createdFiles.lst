@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5e4e122236fa8d3e8585ff1668a6afd1f6da95ff
 com\classuml\LoadUML.class
 com\classuml\App.class
 com\classuml\ExitUML.class
 com\classuml\Relationship$Type.class
+<<<<<<< HEAD
 com\classuml\saveUMLTests.class
 com\classuml\InputHandler.class
 <<<<<<< HEAD
@@ -20,5 +24,17 @@ com\classuml\App$1.class
 =======
 >>>>>>> 9820ddbdebebaed360863d642634120c920d91d9
 com\classuml\attributesTests.class
+=======
+com\classuml\InputHandler.class
+com\classuml\Model.class
+>>>>>>> 5e4e122236fa8d3e8585ff1668a6afd1f6da95ff
 com\classuml\Controller.class
+com\classuml\attributes.class
+com\classuml\ClassBase.class
+com\classuml\Relationship.class
+com\classuml\GLIUMLClassBox.class
+com\classuml\RelationshipContainer.class
+com\classuml\App$1.class
 com\classuml\saveUML.class
+com\classuml\ClassContainer.class
+com\classuml\methods.class

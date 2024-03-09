@@ -1,5 +1,4 @@
 package com.classuml;
-import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

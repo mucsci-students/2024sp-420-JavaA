@@ -1,11 +1,6 @@
 package com.classuml;
 import java.util.Scanner;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 public class InputHandler extends Application
 {  
@@ -31,20 +26,24 @@ public class InputHandler extends Application
 
     public static void main(String[] args)
     {   
+        if (args.length == 0 && !"cli".equals(args.length > 0 ? args[0] : "")){
+            Application.launch(Controller.class, args);
+            return;
+        }
         //setup containers and print welcome message
         Model mainModel = new Model();
-        ClassContainer myClassContainer = new ClassContainer();
+        //ClassContainer myClassContainer = new ClassContainer();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         Scanner userInput = new Scanner(System.in);
-        System.out.println("To start GUI, type gui (else, press enter): ");
-        String guiResult = userInput.nextLine();
-        if (guiResult.contains("gui")) {
-            //launch(args);
-            Application.launch(Controller.class, args);
-            userInput.close();
-            return;
-        }
+        // System.out.println("To start CLI, type cli (else, press enter to start gui): ");
+        // String guiResult = userInput.nextLine();
+        // if (!guiResult.contains("cli")) {
+        //     //launch(args);
+        //     Application.launch(Controller.class, args);
+        //     userInput.close();
+        //     return;
+        // }
         while(true)
         {
             //Used for printing the "No valid command!" message.

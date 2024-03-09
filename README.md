@@ -16,3 +16,11 @@
 8. from the java2 directory run "java -jar .\target\java2-1.0-SNAPSHOT.jar"
 
 9. When loading json files it is expected that they are in the java2 directory
+
+10. Run tests by using "mvn clean test" from the java2 directory
+
+11. Run specific tests by using "mvn test -Dtest=TestClassName#MethodName" where TestClassName is the name
+of the file you want to run and Methodname is the name of the test you want to run, you can also use *
+as the MethodName to run all tests of that class.
+
+12. To run the CLI use "java -jar .\target\java2-1.0-SNAPSHOT.jar cli" when starting the program

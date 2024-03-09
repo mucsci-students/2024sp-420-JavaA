@@ -1,18 +1,16 @@
 package com.classuml;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -23,16 +21,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 
 public class Controller extends Application {
@@ -150,10 +144,6 @@ public class Controller extends Application {
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(mainWindow);
         VBox dialogVbox = new VBox(20);
-        // The following operation assumes you are running this program
-        // from "/java2" directory with mvn clean javafx:run
-        // and NOT by clicking the play button, which assumes you are in
-        // the "/" (github root) directory.
         String filePath = "README.md";
         File currentDirectoryFile = new File(filePath);
         if (!currentDirectoryFile.exists()) {
@@ -177,7 +167,7 @@ public class Controller extends Application {
         }
         
         //dialogVbox.getChildren().add(new Text("This is a Dialog"));
-        Scene dialogScene = new Scene(dialogVbox, 400, 200);
+        Scene dialogScene = new Scene(dialogVbox, 620, 400);
         dialog.setScene(dialogScene);
         dialog.show();
     }
