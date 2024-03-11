@@ -1166,7 +1166,7 @@ public class Controller extends Application {
         if (temp == 0){
             alert.setTitle("Error");
             alert.setHeaderText("Invalid Relationship");
-            alert.setContentText("Relationship with that source and destination already exists or relationship type is not one of the choices.\nValid Types: Aggregation, Compostion, Inheritence, Realization");
+            alert.setContentText("Relationship with that source and destination already exists or relationship type is not one of the choices.\nValid Types: Aggregation, Compostion, Inheritance, Realization");
             alert.showAndWait();
         }
         MIRelText.setText(new String());

@@ -12,7 +12,7 @@ public class RelationshipContainer {
      * and add a new relationship to the container
      */
     public boolean addRelationship(String sourceClass, String destClass, String relType){
-        if (!relType.toLowerCase().equals("composition") && !relType.toLowerCase().equals("aggregation") && !relType.toLowerCase().equals("inheritence") && !relType.toLowerCase().equals("realization")){
+        if (!relType.toLowerCase().equals("composition") && !relType.toLowerCase().equals("aggregation") && !relType.toLowerCase().equals("inheritance") && !relType.toLowerCase().equals("realization")){
             return false;
         }
         //loops through relationship container

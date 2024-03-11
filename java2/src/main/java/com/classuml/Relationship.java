@@ -6,7 +6,7 @@ public class Relationship {
     enum Type {
         Aggregation,
         Composition,
-        Inheritence,
+        Inheritance,
         Realization
     }
     private Type myType;
@@ -20,8 +20,8 @@ public class Relationship {
             this.myType = Type.Composition;
             return true;
         }
-        else if (relType.toLowerCase().equals("inheritence")){
-            this.myType = Type.Inheritence;
+        else if (relType.toLowerCase().equals("inheritance")){
+            this.myType = Type.Inheritance;
             return true;
         }
         else if (relType.toLowerCase().equals("realization")){
