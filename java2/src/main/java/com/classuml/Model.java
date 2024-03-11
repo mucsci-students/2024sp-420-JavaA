@@ -176,7 +176,7 @@ public class Model
         else if (relType.toLowerCase().equals("composition")){
             
         }
-        else if (relType.toLowerCase().equals("inheritence")){
+        else if (relType.toLowerCase().equals("inheritance")){
             
         }
         else if (relType.toLowerCase().equals("realization")){
