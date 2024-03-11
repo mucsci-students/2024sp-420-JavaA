@@ -12,8 +12,8 @@ public class RelationshipTests {
         assertEquals("aggregation", relationship.getType().toLowerCase());
         assertTrue(relationship.setType("composition"));
         assertEquals("composition", relationship.getType().toLowerCase());
-        assertTrue(relationship.setType("inheritence"));
-        assertEquals("inheritence", relationship.getType().toLowerCase());
+        assertTrue(relationship.setType("inheritance"));
+        assertEquals("inheritance", relationship.getType().toLowerCase());
         assertTrue(relationship.setType("realization"));
         assertEquals("realization", relationship.getType().toLowerCase());
     }
@@ -25,8 +25,8 @@ public class RelationshipTests {
         assertEquals("Aggregation", relationship.getType());
         relationship.setType("composition");
         assertEquals("Composition", relationship.getType());
-        relationship.setType("inheritence");
-        assertEquals("Inheritence", relationship.getType());
+        relationship.setType("inheritance");
+        assertEquals("Inheritance", relationship.getType());
         relationship.setType("realization");
         assertEquals("Realization", relationship.getType());
     }
