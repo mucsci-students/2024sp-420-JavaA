@@ -1,61 +1,76 @@
-// package com.classuml;
-// public class RelationshipTests {
+package com.classuml;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+public class RelationshipTests {
 
-//     private Relationship relationship1;
-//     private Relationship relationship2;
+    private Relationship relationship1;
+    private Relationship relationship2;
 
-//     public static void main(String[] args) {
-//         RelationshipTests test = new RelationshipTests();
-//         //Call all tests
-//         test.setUp();
-//         test.testGetName();
-//         test.testGetFromClass();
-//         test.testGetToClass();
-//         test.testSetRelation();
-//     }
+    Relationship setUpRelationship1() {
+        relationship1 = new Relationship();
+        relationship1.setRelationship("OldSource1", "OldDest1", "Aggregation");
+        return relationship1;
+    }
 
-//     //Test to set relationship and class names
-//     private void setUp() {
-//         relationship1 = new Relationship();
-//         relationship2 = new Relationship();
-//         relationship1.setRelationship("Relationship1", "Class1", "Class2");
-//         relationship2.setRelationship("Relationship2", "Class3", "Class4");
-//     }
+    Relationship setUpRelationship2() {
+        relationship1 = new Relationship();
+        relationship1.setRelationship("OldSource2", "OldDest2", "Inheritance");
+        return relationship1;
+    }
 
-//     //Test to see if the recieved name is the same as the inputed name
-//     private void testGetName() {
-//         assertEquals("Relationship1", relationship1.getName());
-//         assertEquals("Relationship2", relationship2.getName());
-//         System.out.println("TestGetName Passed");
-//     }
+    @Test
+    void areRelSourceAndDestClassesInitializedCorrectly() {
+        this.relationship1 = setUpRelationship1();
+        this.relationship2 = setUpRelationship2();
+        assertEquals("OldSource1", this.relationship1.getSourceClass(), 
+            "Relationship 1's source class is not initialized \"OldSource1\"");
+        assertEquals("OldSource2", this.relationship2.getSourceClass(), 
+            "Relationship 2's source class is not initialized \"OldSource2\"");
+        assertEquals("OldDest1", this.relationship1.getDestClass(), 
+            "Relationship 1's destination class is not initialized \"OldDest1\"");
+        assertEquals("OldDest2", this.relationship2.getDestClass(), 
+            "Relationship 2's destination class is not initialized \"OldDest2\"");
+    }
 
-//     //Test to see if the first class is equal to the first class in the relationship
-//     private void testGetFromClass() {
-//         assertEquals("Class1", relationship1.getFromClass());
-//         assertEquals("Class3", relationship2.getFromClass());
-//         System.out.println("TestGetFromClass Passed");
-//     }
+    @Test
+    void areRelSourceAndDestClassesModifiedCorrectly() {
+        this.relationship1 = setUpRelationship1();
+        this.relationship2 = setUpRelationship2();
+        assertEquals("OldSource1", this.relationship1.getSourceClass(), 
+            "Relationship 1's source class is not initialized \"OldSource1\"");
+        assertEquals("OldSource2", this.relationship2.getSourceClass(), 
+            "Relationship 2's source class is not initialized \"OldSource2\"");
+        assertEquals("OldDest1", this.relationship1.getDestClass(), 
+            "Relationship 1's destination class is not initialized \"OldDest1\"");
+        assertEquals("OldDest2", this.relationship2.getDestClass(), 
+            "Relationship 2's destination class is not initialized \"OldDest2\"");
+        this.relationship1.setSourceClass("NewSource1");
+        this.relationship2.setSourceClass("NewSource2");
+        this.relationship1.setDestClass("NewDest1");
+        this.relationship2.setDestClass("NewDest2");
+        assertEquals("NewSource1", this.relationship1.getSourceClass(), 
+            "Relationship 1's source class is not modified to \"NewSource1\"");
+        assertEquals("NewSource2", this.relationship2.getSourceClass(), 
+            "Relationship 2's source class is not modified to \"NewSource2\"");
+        assertEquals("NewDest1", this.relationship1.getDestClass(), 
+            "Relationship 1's destination class is not modified to \"NewDest1\"");
+        assertEquals("NewDest2", this.relationship2.getDestClass(), 
+            "Relationship 2's destination class is not modified to \"NewDest2\"");
+    }
 
-//     //Test to see if the second class is equal to the second class in the relationship
-//     private void testGetToClass() {
-//         assertEquals("Class2", relationship1.getToClass());
-//         assertEquals("Class4", relationship2.getToClass());
-//         System.out.println("TestGetToCLass Passed");
-//     }
-
-//     //Test to set relation names with a new relationship
-//     private void testSetRelation() {
-//         relationship1.setRelationship("NewRelationship", "NewClass1", "NewClass2");
-//         assertEquals("NewRelationship", relationship1.getName());
-//         assertEquals("NewClass1", relationship1.getFromClass());
-//         assertEquals("NewClass2", relationship1.getToClass());
-//         System.out.println("testSetRelation Passed");
-//     }
-
-//     //setup for assertEquals because we are not using junit
-//     private void assertEquals(Object expected, Object actual) {
-//         if (!expected.equals(actual)) {
-//             throw new AssertionError("Expected: " + expected + ", but was: " + actual);
-//         }
-//     }
-// }
+    @Test
+    void areRelTestsModifiedCorrectly() {
+        this.relationship1 = setUpRelationship1();
+        this.relationship2 = setUpRelationship2();
+        assertEquals("Aggregation", this.relationship1.getType(), 
+            "Relationship 1's relation type is not initialized (case-insensitive) \"Aggregation\"");
+        assertEquals("Inheritance", this.relationship2.getType(), 
+            "Relationship 2's relation type is not initialized (case-insensitive) \"Inheritance\"");
+        this.relationship1.setType("Composition");
+        this.relationship2.setType("Realization");
+        assertEquals("Composition", this.relationship1.getType(), 
+            "Relationship 1's relation type is not modified to (case-insensitive) \"Composition\"");
+        assertEquals("Realization", this.relationship2.getType(), 
+            "Relationship 2's relation type is not modified to (case-insensitive) \"Realization\"");
+    }
+}
