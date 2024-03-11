@@ -3,26 +3,7 @@ import java.util.Scanner;
 import javafx.application.Application;
 import javafx.stage.Stage;
 public class InputHandler extends Application
-{  
-    /*@Override
-    public void start(Stage primaryStage)
-    {
-        primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
- 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
-        primaryStage.show();
-    }*/
+{
 
     public static void main(String[] args)
     {   
@@ -32,18 +13,9 @@ public class InputHandler extends Application
         }
         //setup containers and print welcome message
         Model mainModel = new Model();
-        //ClassContainer myClassContainer = new ClassContainer();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         Scanner userInput = new Scanner(System.in);
-        // System.out.println("To start CLI, type cli (else, press enter to start gui): ");
-        // String guiResult = userInput.nextLine();
-        // if (!guiResult.contains("cli")) {
-        //     //launch(args);
-        //     Application.launch(Controller.class, args);
-        //     userInput.close();
-        //     return;
-        // }
         while(true)
         {
             //Used for printing the "No valid command!" message.
@@ -673,6 +645,13 @@ public class InputHandler extends Application
                     //if a command without a case was entered print this
                     if(valid == false)
                     System.out.println("Please enter a valid command, type 'help' without '' to see a list of available commands.");
+
+                    if (!userInput.hasNextLine()) {
+                        // Handle end of input
+                        System.out.println("End of input detected. Exiting program.");
+                        userInput.close();
+                        System.exit(0);
+                    }
             }
         }
     //Informs the user that they used too few arguments for the given command.
