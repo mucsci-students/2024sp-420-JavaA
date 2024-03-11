@@ -19,6 +19,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import javafx.scene.control.Alert;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +35,7 @@ public class LoadUML
      *  @param classContainer An empty container of classes to be filled in from JSON file.
      *  @param relationshipContainer An empty container of relationships to be filled in from JSON file.
      */
-    public void load(String fileName, ClassContainer classContainer, RelationshipContainer relationshipContainer) 
+    public void load(String fileName, ClassContainer classContainer, RelationshipContainer relationshipContainer, String cligui) 
     {
         JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(fileName)) 
@@ -44,6 +47,13 @@ public class LoadUML
         } 
         catch (IOException | ParseException e) 
         {
+            if (cligui.equals("gui")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Load File");
+                alert.setContentText("An error occurred while loading the file. Please make sure the file is valid.");
+                alert.showAndWait();
+            }
             System.out.println("This is an invalid file name.");
         }
     }
