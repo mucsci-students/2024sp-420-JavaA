@@ -763,7 +763,7 @@ public class Model
      * 
      * @Returns
      */
-    public void load (String name)
+    public void load (String name, String cligui)
     {
         LoadUML load = new LoadUML();
         for (ClassBase cls : myClassContainer.getContainer()){
@@ -772,7 +772,7 @@ public class Model
         }
         myClassContainer.getContainer().clear();
         myRelationshipContainer.getAllRelationships().clear();
-        load.load(name + ".json",myClassContainer,myRelationshipContainer);
+        load.load(name + ".json",myClassContainer,myRelationshipContainer, cligui);
         return;
     }
 }

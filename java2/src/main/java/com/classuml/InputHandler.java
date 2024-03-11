@@ -16,11 +16,12 @@ public class InputHandler extends Application
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
         System.out.println("Welcome. If you need help with commands, please type 'help', without the '' surrounding it.");
         Scanner userInput = new Scanner(System.in);
+        System.out.print("> ");
         while(true)
         {
             //Used for printing the "No valid command!" message.
             boolean valid = false;
-            System.out.print("> ");
+            //System.out.print("> ");
             //Splits userinput into strings split by a space.
             String userString = userInput.nextLine();
             String[] userTwo = userString.split(" ");
@@ -99,7 +100,7 @@ public class InputHandler extends Application
                         else
                             counter++;
                     }
-                    mainModel.load(fileNameLoad);
+                    mainModel.load(fileNameLoad, "cli");
                     break;
                 case "exit":
                     valid = true;
@@ -646,6 +647,7 @@ public class InputHandler extends Application
                     if(valid == false)
                     System.out.println("Please enter a valid command, type 'help' without '' to see a list of available commands.");
 
+                    System.out.print("> ");
                     if (!userInput.hasNextLine()) {
                         // Handle end of input
                         System.out.println("End of input detected. Exiting program.");

@@ -1036,7 +1036,7 @@ public class Controller extends Application {
             loadName = result.get();
         }
         saveName = loadName;
-        guiModel.load(loadName);
+        guiModel.load(loadName, "gui");
         MIListAll.clear();
         MIListAll.setText(guiModel.listAllClasses());
         MIRelText.setText(new String());
