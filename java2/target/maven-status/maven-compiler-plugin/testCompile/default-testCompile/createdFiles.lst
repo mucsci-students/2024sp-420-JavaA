@@ -1,0 +1,6 @@
+com\classuml\ClassBaseTest.class
+com\classuml\ClassContainerTest.class
+com\classuml\RelationshipTests.class
+com\classuml\saveUMLTests.class
+com\classuml\attributesTests.class
+com\classuml\methodsTest.class
