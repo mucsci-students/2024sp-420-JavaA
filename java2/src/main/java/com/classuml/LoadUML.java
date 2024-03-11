@@ -44,7 +44,7 @@ public class LoadUML
         } 
         catch (IOException | ParseException e) 
         {
-            e.printStackTrace();
+            System.out.println("This is an invalid file name.");
         }
     }
 
