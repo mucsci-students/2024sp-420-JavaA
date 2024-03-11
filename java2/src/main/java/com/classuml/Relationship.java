@@ -5,7 +5,7 @@ public class Relationship {
     private String destClass;
     enum Type {
         Aggregation,
-        Compostion,
+        Composition,
         Inheritence,
         Realization
     }
@@ -17,7 +17,7 @@ public class Relationship {
             return true;
         }
         else if (relType.toLowerCase().equals("composition")){
-            this.myType = Type.Compostion;
+            this.myType = Type.Composition;
             return true;
         }
         else if (relType.toLowerCase().equals("inheritence")){
