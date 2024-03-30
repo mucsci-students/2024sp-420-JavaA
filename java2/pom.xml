@@ -60,6 +60,11 @@
         <version>11</version>
         <type>pom</type>
     </dependency>
+  <dependency>
+    <groupId>org.jline</groupId>
+    <artifactId>jline</artifactId>
+    <version>3.21.0</version> <!-- Or the latest version available -->
+</dependency>
 
     <dependency>
       <groupId>org.openjfx</groupId>
