@@ -15,6 +15,8 @@ public class InputHandler extends Application {
         }
         TabComplete tabComplete = new TabComplete();
 
+        if ("cli".equals(args.length > 0 ? args[0] : "cli")){
+
         // Setup containers and print welcome message
         Model mainModel = new Model();
         RelationshipContainer myRelationshipContainer = new RelationshipContainer();
@@ -577,7 +579,7 @@ public class InputHandler extends Application {
                         break;
                 }
             }
-
+            }
         }
     }
 
