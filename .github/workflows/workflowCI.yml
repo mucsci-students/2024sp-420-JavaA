@@ -17,9 +17,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        working-directory: 2024sp-420-JavaA/java2
-        run: | 
-          mvn clean install
-          package spring-boot:repackag
-          java -jar .\target\java2-1.0-SNAPSHOT.jar
-          mvn clean test
+    - working-directory: 2024sp-420-JavaA/java2
+    - run: | 
+        mvn clean install
+        package spring-boot:repackag
+        java -jar .\target\java2-1.0-SNAPSHOT.jar
+        mvn clean test
