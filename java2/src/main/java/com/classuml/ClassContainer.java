@@ -21,6 +21,10 @@ public class ClassContainer
     {
         //If true, class with that name already exists!
         boolean exists = false;
+
+        if (newClass.getName().isEmpty() || newClass.getName() == null || newClass.getName().contains(" ")){
+            return "Class name cannot be empty or invalid characters!";
+        }
         //Loops through every class in Classes, checking if any match
         //the name of the new class being added.
         for(ClassBase classList : classes)
