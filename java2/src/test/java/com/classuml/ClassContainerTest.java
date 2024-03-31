@@ -1,11 +1,10 @@
 package com.classuml;
 
-//import org.junit.Before;
-//import org.junit.Test;
-import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 
 public class ClassContainerTest {
 
@@ -20,6 +19,24 @@ public class ClassContainerTest {
         ClassBase newClass = new ClassBase("NewClass");
         assertEquals("Class NewClass was added.", classContainer.addClass(newClass));
         assertEquals(1, classContainer.getContainer().size());
+    }
+
+    @Test
+    void testAddEmptyClass() {
+        ClassBase newClass = new ClassBase("");
+        assertEquals("Class name cannot be empty or invalid characters!", classContainer.addClass(newClass));
+    }
+
+    @Test
+    void testAddBigEmptyClass() {
+        ClassBase newClass = new ClassBase("               ");
+        assertEquals("Class name cannot be empty or invalid characters!", classContainer.addClass(newClass));
+    }
+
+    @Test
+    void testAddClassWithSpace() {
+        ClassBase newClass = new ClassBase("bong bing");
+        assertEquals("Class name cannot be empty or invalid characters!", classContainer.addClass(newClass));
     }
 
     @Test
