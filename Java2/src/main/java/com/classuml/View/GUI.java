@@ -141,7 +141,7 @@ public class GUI extends JPanel {
 			componentList.get(i).setSize(componentList.get(i + 1).getWidth(), componentList.get(i + 1).getHeight());
 
 			((JComponent) componentList.get(i))
-					.setBorder(BorderFactory.createMatteBorder(100, 100, 100, 100, new Color(173, 216, 230)));
+					.setBorder(BorderFactory.createMatteBorder(5, 10, 5, 10, Color.black));
 			revalidate();
 			repaint();
 		}
