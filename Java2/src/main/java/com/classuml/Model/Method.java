@@ -1,14 +1,16 @@
 package com.classuml.Model;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class Method {
+public class Method implements Serializable, Comparable<Method> {
+	private static final long serialVersionUID = 1L;
 
 	private String returnType;
 	private String name;
-	private SortedSet<Parameter> parameters = new TreeSet<Parameter>();
+	private SortedSet<Parameter> parameters = new TreeSet<>();
 
 	/**
 	 * Constructs an uninitialized instance of the object.
@@ -214,5 +216,45 @@ public class Method {
 		}
 		return result;
 	}
+
+	/**
+ 	* Compares this method with another for order based on names and return types.
+ 	* Names are compared first; if equal, return types are compared. Null values
+ 	* are considered less than non-null. If both names or both return types are null,
+ 	* they are considered equal.
+ 	* 
+ 	* @param other the method to compare to.
+ 	* @return a negative integer, zero, or a positive integer as this method is less
+ 	*         than, equal to, or greater than the specified method.
+ 	*/
+	@Override
+	public int compareTo(Method other) {
+	    if (this.name == null && other.name == null) {
+		return 0;
+	    }
+	    if (this.name == null) {
+		return -1;
+	    }
+	    if (other.name == null) {
+		return 1;
+	    }
+	    int nameComparison = this.name.compareTo(other.name);
+	    if (nameComparison != 0) {
+		return nameComparison;
+	    }
+	
+	    // Assuming returnType could also be null
+	    if (this.returnType == null && other.returnType == null) {
+		return 0;
+	    }
+	    if (this.returnType == null) {
+		return -1;
+	    }
+	    if (other.returnType == null) {
+		return 1;
+	    }
+	    return this.returnType.compareTo(other.returnType);
+	}
+	
 
 }
