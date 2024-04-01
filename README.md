@@ -13,7 +13,7 @@
 
 7. from the java2 directory run "mvn clean package"
 
-8. from the java2 directory run "java -jar ./target/java2-1.0-SNAPSHOT.jar"
+8. from the java2 directory run "java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar"
 9. To run the CLI use "java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli" when starting the program
 
 10. When loading json files it is expected that they are in the java2 directory
