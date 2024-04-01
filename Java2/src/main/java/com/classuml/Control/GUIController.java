@@ -1105,11 +1105,14 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
             customJPanels.clear();
         }
         for (SortedMap.Entry<String, ClassBase> entry : model.getClasses().entrySet()) {
-            Border emptyborder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+            Border emptyborder = BorderFactory.createMatteBorder(2, 2, 2, 2, Color.black);
 
-            JPanel panel = new JPanel();
-            JLabel label = new JLabel();
+            JPanel panel = new JPanel(new GridBagLayout());
+            JLabel label = new JLabel(entry.getValue().toStringGUI());
 
+            panel.setName(entry.getValue().getName() + "Panel");
+            label.setName(entry.getValue().getName() + "Label");
+            
             panel.setOpaque(true);
 
             label.setText(entry.getValue().toStringGUI());
