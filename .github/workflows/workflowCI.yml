@@ -20,6 +20,7 @@ jobs:
         working-directory: 2024sp-420-JavaA/java2
         run: | 
           mvn clean install
-          package spring-boot:repackag
-          java -jar .\target\java2-1.0-SNAPSHOT.jar
+          mvn clean package
+          java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar
+          java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli
           mvn clean test
