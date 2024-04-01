@@ -187,37 +187,53 @@ public class ClassBase implements Serializable {
 	}
 
 	/**
-	 * Sets the class's methods.
-	 * 
-	 * @param newFeilds A SortedSet of methods containing the class methods.
-	 */
+ 	* Replaces the current set of methods with the provided set.
+ 	* 
+ 	* @param newMethods the new set of methods to be used.
+ 	*/
 	public void setMethods(SortedSet<Method> newMethods) {
 		methods = newMethods;
 	}
 
 	/**
-	 * Adds a new method to the class.
-	 * 
-	 * @param newField A String containing the class method name.
-	 * @return A boolean true if it is added and false if it already exists or is
-	 *         not added.
-	 */
+ 	* Constructor to create a method instance with the specified name.
+ 	* Throws IllegalArgumentException if the method name is null.
+ 	* 
+ 	* @param name the name of the method.
+ 	* @throws IllegalArgumentException if the method name is null.
+ 	*/
+	public void Method(String name) {
+		if (name == null) throw new IllegalArgumentException("Method name cannot be null");
+		this.name = name;
+	    }
+	    
+	/**
+ 	* Adds a method with the given name to the class if it does not already exist.
+ 	* 
+ 	* @param newMethod the name of the method to add.
+ 	* @return true if the method was added, false if it already exists.
+ 	*/
 	public boolean addMethod(String newMethod) {
 		Method m = new Method(newMethod);
 		return methods.add(m);
 	}
 
 	/**
-	 * Adds a new method to the class.
-	 * 
-	 * @param newField A String containing the class method name.
-	 * @return A boolean true if it is added and false if it already exists or is
-	 *         not added.
-	 */
-	public boolean addMethod(String returnType, String newMethod, SortedSet<Parameter> parameters) {
-		Method m = new Method();
+ 	* Adds a method with the given return type, name, and parameters to the class if it does not already exist.
+ 	* 
+ 	* @param returnType the return type of the method.
+ 	* @param methodName the name of the method.
+ 	* @param parameters the parameters of the method.
+ 	* @return true if the method was added, false if it already exists or parameters are invalid.
+ 	*/
+	public boolean addMethod(String returnType, String methodName, SortedSet<Parameter> parameters) {
+		if (methodName == null || returnType == null) {
+		    return false; // or throw an exception based on your error handling strategy
+		}
+		Method m = new Method(returnType, methodName, parameters);
 		return methods.add(m);
-	}
+	    }
+	    
 
 	/**
 	 * Deletes an existing method from the class.
