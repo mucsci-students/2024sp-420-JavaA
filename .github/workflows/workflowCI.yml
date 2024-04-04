@@ -17,10 +17,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        working-directory: 2024sp-420-JavaA/java2
-        run: | 
-          mvn clean install
-          mvn clean package
-          java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar
-          java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli
-          mvn clean test
+    - name: Build with Maven
+      working-directory: ./java2
+      run: | 
+        mvn clean install
+        mvn clean package
+        java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar
+        java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli
+        mvn clean test
