@@ -1,26 +1,21 @@
 # 2024sp-420-Java2
-1. Java Runtime Version of 11 or higher https://www.oracle.com/java/technologies/downloads/#jdk21-windows
 
-2. Git Installed https://github.com/git-guides/install-git
+ git clone https://github.com/mucsci-students/2024sp-420-Java2.git
 
-3. Download maven https://maven.apache.org/download.cgi
+ from the java2 directory run "mvn clean install"
 
-4. Install maven https://maven.apache.org/install.html
+ from the java2 directory run "mvn clean package"
 
-5. git clone https://github.com/mucsci-students/2024sp-420-Java2.git
+ from the java2 directory run "java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar"
 
-6. from the java2 directory run "mvn clean install"
+ To run the CLI use "java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli" 
 
-7. from the java2 directory run "mvn clean package"
+ Run tests by using "mvn clean test" from the java2 directory
 
-8. from the java2 directory run "java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar"
-9. To run the CLI use "java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli" when starting the program
+Design Patterns Used
 
-10. When loading json files it is expected that they are in the java2 directory
-
-11. Run tests by using "mvn clean test" from the java2 directory
-
-12. Run specific tests by using "mvn test -Dtest=TestClassName#MethodName" where TestClassName is the name
-of the file you want to run and Methodname is the name of the test you want to run, you can also use *
-as the MethodName to run all tests of that class.
+1. Model–view–controller
+2. Command
+3. Iterator
+4. Memento
 
