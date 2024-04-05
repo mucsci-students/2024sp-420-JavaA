@@ -10,17 +10,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
       with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-        working-directory: 2024sp-420-JavaA/java2
-        run: | 
-          mvn clean install
-          mvn clean package
-          java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar
-          java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli
-          mvn clean test
+        java-version: 1.8
+    - name: Build with Maven
+      working-directory: Java2
+      run: |
+        mvn clean install
+        mvn clean package
+        mvn clean test
