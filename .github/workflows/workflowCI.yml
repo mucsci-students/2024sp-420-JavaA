@@ -20,6 +20,5 @@ jobs:
       run: |
         mvn clean install
         mvn clean package
-        java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar
         java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar -cli
         mvn clean test
