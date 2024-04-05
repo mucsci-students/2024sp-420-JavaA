@@ -21,8 +21,7 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       working-directory: Java2
-      run: | 
-        export DISPLAY =: 0.0
+      run: |
         mvn clean install
         mvn clean package
         java -jar target/NRDS-1.0-SNAPSHOT-jar-with-dependencies.jar
