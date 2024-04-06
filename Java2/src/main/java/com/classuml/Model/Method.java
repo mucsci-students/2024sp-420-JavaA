@@ -170,21 +170,20 @@ public class Method implements Serializable, Comparable<Method> {
 	 * 
 	 * @return A String containing this class.
 	 */
-	public String toStringGUI() {
-		Iterator<Parameter> it = parameters.iterator();
-		String result = returnType + " " + name + "(";
-		while (it.hasNext()) {
-			Parameter p = it.next();
-			if (it.hasNext()) {
-				result += p.toString() + ", ";
-			} else {
-				result += "" + p.toString();
-			}
-		}
-		result += ")";
-
-		return result.trim();
-	}
+    	public String toStringGUI() {
+        	StringBuilder sb = new StringBuilder();
+        	sb.append(returnType).append(" ").append(name).append("(");
+        	Iterator<Parameter> it = parameters.iterator();
+        	while (it.hasNext()) {
+            		Parameter p = it.next();
+            		sb.append(p.getType()).append(" ").append(p.getName());
+            		if (it.hasNext()) {
+            		sb.append(", ");
+            		}
+        	}
+        sb.append(")");
+        return sb.toString();
+        }
 
 	/**
 	 * Represents this class as a String.
