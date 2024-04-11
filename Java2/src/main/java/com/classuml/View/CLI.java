@@ -71,7 +71,7 @@ public class CLI {
 			comp.put("C5", new StringsCompleter("field"));
 			comp.put("C6", new StringsCompleter("method"));
 			comp.put("C7", new StringsCompleter("rel"));
-			comp.put("C8", new StringsCompleter("Composition", "Aggregation", "Inheritance", "Realization"));
+			comp.put("C8", new StringsCompleter("Aggregation", "Composition", "Inheritance", "Realization"));
 
 			comp.put("C9", new StringsCompleter(""));
 			comp.put("C10", new StringsCompleter(""));
@@ -92,7 +92,11 @@ public class CLI {
 			comp.put("C25", new StringsCompleter("exit"));
 
 			customCompleter = new Completers.RegexCompleter(
-					"C20 | C21 | C22 | C23 | C24 | C25 | C0 C4 | C0 C5 C9 | C0 C6 C9 | C0 C7 C9 C9 | C1 C4 C9 | C1 C5 C9 C10 | C1 C6 C9 C11 | C1 C7 C9 C12 | C2 C4 C9 | C2 C5 C13 C9 C10 | C2 C5 C14 C9 C10 | C2 C6 C13 C9 C11 | C2 C6 C14 C9 C11 | C2 C6 C16 C9 C11 | C2 C7 C15 C9 C12 | C2 C7 C14 C9 C12 | C3 C17 | C3 C4 C9 | C3 C7",
+					"C20 | C21 | C22 | C23 | C24 | C25 | C0 C4 | C0 C7 C9 C9 C8 | C0 C5 C9 "+
+					"| C0 C6 C9 | C0 C7 C9 C9 | C1 C4 C9 | C1 C5 C9 C10 | C1 C6 C9 C11 "+
+					"| C1 C7 C9 C12 | C2 C4 C9 | C2 C5 C13 C9 C10 | C2 C5 C14 C9 C10 "+
+					"| C2 C6 C13 C9 C11 | C2 C6 C14 C9 C11 | C2 C6 C16 C9 C11 | C2 C7 C15 C9 C12 "+
+					"| C2 C7 C14 C9 C12 | C3 C17 | C3 C4 C9 | C3 C7",
 					comp::get);
 
 		}
@@ -179,7 +183,7 @@ public class CLI {
 			comp.put("C25", new StringsCompleter("exit"));
 
 			customCompleter = new Completers.RegexCompleter(
-					"C20 | C21 | C22 | C23 | C24 | C25 | C0 C4 | C0 C5 C9 "+ 
+					"C20 | C21 | C22 | C23 | C24 | C25 | C0 C4 | C0 C7 C9 C9 C8 | C0 C5 C9 "+ 
 					"| C0 C6 C9 | C0 C7 C9 C9 | C1 C4 C9 | C1 C5 C9 C10 | C1 C6 C9 C11 "+
 					"| C1 C7 C9 C12 | C2 C4 C9 | C2 C5 C13 C9 C10 | C2 C5 C14 C9 C10 "+
 					"| C2 C6 C13 C9 C11 | C2 C6 C14 C9 C11 | C2 C6 C16 C9 C11 "+
