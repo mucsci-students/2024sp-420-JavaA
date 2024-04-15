@@ -171,7 +171,7 @@ public class ClassBase implements Serializable {
 		String result = "";
 		while (it.hasNext()) {
 			Field f = it.next();
-			result += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + f.toString();
+			result += "<br/>" + f.toString();
 		}
 		return result;
 
