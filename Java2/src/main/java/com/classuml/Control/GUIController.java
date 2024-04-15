@@ -17,35 +17,6 @@
 
 package com.classuml.Control;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-
 import com.classuml.Commands.AddClassCommand;
 import com.classuml.Commands.AddFieldCommand;
 import com.classuml.Commands.AddMethodCommand;
@@ -74,6 +45,26 @@ import com.classuml.Model.Method;
 import com.classuml.Model.Parameter;
 import com.classuml.Model.Relationship;
 import com.classuml.View.GUI;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.awt.event.MouseListener;
+import javax.swing.border.Border;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class GUIController extends JPanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
@@ -104,9 +95,10 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
         this.view = view;
         history = new History();
 
-        // SAVE & LOAD
+        // SAVE, LOAD & EXPORT AS IMAGE
         view.addActionListener(this.saveJSONListener(), 0, 0);
         view.addActionListener(this.loadJSONListener(), 0, 1);
+        view.addActionListener(this.imageExportListener(), 0, 2);
 
         // CLASSES
         view.addActionListener(this.addClassListener(), 1, 0);
@@ -333,7 +325,6 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
     };
 }
 
-
     /**
      * When the delete field button is pushed this function is called to get info
      * from the user.
@@ -456,8 +447,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
      * 
      * @return An ActionListener is sent back to the GUI so the data is passed back.
      */
-    // Assuming 'model' and 'view' are accessible in the context this method is used
-public ActionListener addMethodListener() {
+    public ActionListener addMethodListener() {
     return new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -516,7 +506,6 @@ public ActionListener addMethodListener() {
         }
     };
 }
-
 
     /**
      * When the delete method button is pushed this function is called to get info
@@ -1144,7 +1133,7 @@ public ActionListener addMethodListener() {
 
             panel.setName(entry.getValue().getName() + "Panel");
             label.setName(entry.getValue().getName() + "Label");
-            
+
             panel.setOpaque(true);
 
             label.setText(entry.getValue().toStringGUI());
@@ -1188,6 +1177,70 @@ public ActionListener addMethodListener() {
         view.revalidate();
         view.repaint();
 
+    }
+
+    /**
+     * Listens for the action event to export the contents of a Swing component as
+     * an image.
+     * 
+     * @return an ActionListener for exporting images.
+     */
+    public ActionListener imageExportListener() {
+        JFrame pic = view.frame;
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fileName = promptInput("Save Image as: ");
+                while (fileName == null || fileName.trim().isEmpty()) {
+                    fileName = promptInput("Please enter a valid name for the image:");
+                }
+
+                boolean saveSuccessful = false;
+                while (!saveSuccessful) {
+                    // Check if file already exists
+                    File file = new File(fileName + ".jpg");
+                    if (file.exists()) {
+                        int option = JOptionPane.showConfirmDialog(null,
+                                "File already exists. Do you want to overwrite it?", "File Exists",
+                                JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.NO_OPTION) {
+                            fileName = promptInput("Save as"); // Prompt again for a new file name
+                            continue;
+                        }
+                    }
+
+                    BufferedImage img = getScreenShot(pic.getContentPane());
+
+                    try {
+                        // Write the image as a JPG
+                        ImageIO.write(
+                                img,
+                                "jpg",
+                                file);
+                        // Show prompt saying the file is saved
+                        JOptionPane.showMessageDialog(null, "Image saved successfully.");
+                        saveSuccessful = true; // Set flag to true to break out of the loop
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+     * Captures the contents of a Swing component as a BufferedImage.
+     * 
+     * @param component the Swing component to capture.
+     * @return a BufferedImage containing the captured content.
+     */
+    public static BufferedImage getScreenShot(Component component) {
+        BufferedImage image = new BufferedImage(
+                component.getWidth(),
+                component.getHeight(),
+                BufferedImage.TYPE_INT_RGB);
+        component.paint(image.getGraphics()); // alternately use .printAll(..)
+        return image;
     }
 
     /*******************************************************************************************************************
