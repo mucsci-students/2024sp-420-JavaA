@@ -31,7 +31,6 @@ import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
-
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -1139,6 +1138,9 @@ public class GUI extends JPanel {
 
 		JMenuItem loadItem = new JMenuItem("Load");
 		saveAndLoadMenu.add(loadItem);
+
+		JMenuItem imgItem = new JMenuItem("Export as Image");
+		saveAndLoadMenu.add(imgItem);
 
 		JMenu classMenu = new JMenu("Class");
 		menuBar.add(classMenu);
