@@ -171,7 +171,7 @@ public class ClassBase implements Serializable {
 		String result = "";
 		while (it.hasNext()) {
 			Field f = it.next();
-			result += "<br/>" + f.toString();
+			result += f.toString();
 		}
 		return result;
 
@@ -301,7 +301,7 @@ public class ClassBase implements Serializable {
 		String result = "";
 		while (it.hasNext()) {
 			Method m = it.next();
-			result += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;" + m.toStringGUI();
+			result += m.toStringGUI();
 		}
 		return result;
 
@@ -420,8 +420,8 @@ public class ClassBase implements Serializable {
 	 * @return A String containing this class.
 	 */
 	public String toStringGUI() {
-		String result = "<html><b>" + this.getName() + "</b><hr/><b>&nbsp;&nbsp; Fields:</b>" + this.printFieldsGUI()
-				+ "<hr/>&nbsp;&nbsp; <b>Methods:</b>" + this.printMethodsGUI() + "</html>";
+		String result = "<html><b>" + this.getName() + "</b><hr/><b>&nbsp;&nbsp;</b>" + this.printFieldsGUI()
+				+ "</b><hr/><b>&nbsp;&nbsp;</b>" + this.printMethodsGUI() + "</html>";
 		return result;
 	}
 
