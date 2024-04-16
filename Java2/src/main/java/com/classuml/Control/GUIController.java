@@ -292,7 +292,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
             JTextField fieldTypeField = new JTextField();
             JTextField fieldNameField = new JTextField();
 
-            // Populate the dropdown with class names from the model
+            // Have the dropdown with all the class names from the model
             for (String className : model.getClassNames()) {
                 classNameDropDown.addItem(className);
             }
