@@ -284,37 +284,46 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
      * @return An ActionListener is sent back to the GUI so the data is passed back.
      */
     public ActionListener addFieldListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String className = promptClassDropDown("Select the class where the field will be added.");
-                if (className != null) {
-                    String fieldType = promptInput("Enter new field type.");
-                    if (fieldType != null && !fieldType.isEmpty()) {
-                        String fieldName = promptInput("Enter new field name.");
-                        if (fieldName != null && !fieldName.isEmpty()) {
-                            Command c = new AddFieldCommand(model, className, fieldType, fieldName);
-                            String response = executeCommand(c);
-                            if (c.getStateChange() == true) {
-                                refreshJFrame();
-                            } else {
-                                JOptionPane.showMessageDialog(view.frame, response);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(view.frame, "No field name was entered.", "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
+    return new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPanel panel = new JPanel(new GridLayout(0, 1));
+            JTextField classNameField = new JTextField();
+            JTextField fieldTypeField = new JTextField();
+            JTextField fieldNameField = new JTextField();
+
+            panel.add(new JLabel("Class Name:"));
+            panel.add(classNameField);
+            panel.add(new JLabel("Field Type:"));
+            panel.add(fieldTypeField);
+            panel.add(new JLabel("Field Name:"));
+            panel.add(fieldNameField);
+
+            int result = JOptionPane.showConfirmDialog(null, panel, "Enter Field Information",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION) {
+                String className = classNameField.getText();
+                String fieldType = fieldTypeField.getText();
+                String fieldName = fieldNameField.getText();
+
+                if (className != null && !className.isEmpty() && fieldType != null && !fieldType.isEmpty()
+                        && fieldName != null && !fieldName.isEmpty()) {
+                    Command c = new AddFieldCommand(model, className, fieldType, fieldName);
+                    String response = executeCommand(c);
+                    if (c.getStateChange()) {
+                        refreshJFrame();
                     } else {
-                        JOptionPane.showMessageDialog(view.frame, "No field type was entered.", "Error",
-                                JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(view.frame, response);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(view.frame, "No class was selected.", "Error",
+                    JOptionPane.showMessageDialog(view.frame, "All fields are required.", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
-        };
-    }
+        }
+    };
+}
 
     /**
      * When the delete field button is pushed this function is called to get info
@@ -439,46 +448,64 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
      * @return An ActionListener is sent back to the GUI so the data is passed back.
      */
     public ActionListener addMethodListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String className = promptClassDropDown("Select the class where the method will be added.");
-                if (className != null) {
-                    String methodReturnType = promptInput("Enter new method return type.");
-                    if (methodReturnType != null && !methodReturnType.isEmpty()) {
-                        String methodName = promptInput("Enter new method name.");
-                        if (methodName != null && !methodName.isEmpty()) {
-                            SortedSet<Parameter> parameters = promptMultipleInputParameters(
-                                    "Enter new method parameters type first then name seperated by a space and new parameters seperated with commas.");
-                            if (parameters != null) {
-                                Command c = new AddMethodCommand(model, className, methodReturnType, methodName,
-                                        parameters);
-                                String response = executeCommand(c);
-                                if (c.getStateChange() == true) {
-                                    refreshJFrame();
-                                } else {
-                                    JOptionPane.showMessageDialog(view.frame, response);
-                                }
-                            } else {
-                                JOptionPane.showMessageDialog(view.frame,
-                                        "No parameters were entered or the parameter format was incorrect.", "Error",
-                                        JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(view.frame, "No method was entered.", "Error",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
+    return new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JPanel panel = new JPanel(new GridLayout(0, 1));
+            JTextField classNameField = new JTextField();
+            JTextField methodReturnTypeField = new JTextField();
+            JTextField methodNameField = new JTextField();
+            JTextField parametersField = new JTextField();
+
+            panel.add(new JLabel("Class Name:"));
+            panel.add(classNameField);
+            panel.add(new JLabel("Method Return Type:"));
+            panel.add(methodReturnTypeField);
+            panel.add(new JLabel("Method Name:"));
+            panel.add(methodNameField);
+            panel.add(new JLabel("Parameters (type name, ...):"));
+            panel.add(parametersField);
+
+            int result = JOptionPane.showConfirmDialog(view.frame, panel, "Enter Field Information",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (result == JOptionPane.OK_OPTION) {
+                String className = classNameField.getText();
+                String methodReturnType = methodReturnTypeField.getText();
+                String methodName = methodNameField.getText();
+                String params = parametersField.getText();
+                SortedSet<Parameter> parameters = parseParameters(params);
+
+                if (!className.isEmpty() && !methodReturnType.isEmpty() && !methodName.isEmpty() && !parameters.isEmpty()) {
+                    Command c = new AddMethodCommand(model, className, methodReturnType, methodName, parameters);
+                    String response = executeCommand(c);
+                    if (c.getStateChange()) {
+                        refreshJFrame();
                     } else {
-                        JOptionPane.showMessageDialog(view.frame, "No return type was entered.", "Error",
-                                JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(view.frame, response);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(view.frame, "No class was selected.", "Error",
+                    JOptionPane.showMessageDialog(view.frame,
+                            "Please make sure all fields are filled correctly.", "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
-        };
-    }
+        }
+
+        private SortedSet<Parameter> parseParameters(String params) {
+            SortedSet<Parameter> parameters = new TreeSet<>();
+            String[] paramPairs = params.split(",");
+            for (String pair : paramPairs) {
+                String[] parts = pair.trim().split("\\s+");
+                if (parts.length == 2) {
+                    String type = parts[0];
+                    String name = parts[1];
+                    parameters.add(new Parameter(type, name));
+                }
+            }
+            return parameters;
+        }
+    };
+}
 
     /**
      * When the delete method button is pushed this function is called to get info
