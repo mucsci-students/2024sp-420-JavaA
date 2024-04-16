@@ -288,22 +288,27 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
         @Override
         public void actionPerformed(ActionEvent e) {
             JPanel panel = new JPanel(new GridLayout(0, 1));
-            JTextField classNameField = new JTextField();
+            JComboBox<String> classNameDropDown = new JComboBox<>();
             JTextField fieldTypeField = new JTextField();
             JTextField fieldNameField = new JTextField();
 
+            // Populate the dropdown with class names from the model
+            for (String className : model.getClassNames()) {
+                classNameDropDown.addItem(className);
+            }
+
             panel.add(new JLabel("Class Name:"));
-            panel.add(classNameField);
-            panel.add(new JLabel("Field Type:"));
-            panel.add(fieldTypeField);
+            panel.add(classNameDropDown);
             panel.add(new JLabel("Field Name:"));
+            panel.add(fieldTypeField);
+            panel.add(new JLabel("Field Return Type:"));
             panel.add(fieldNameField);
 
             int result = JOptionPane.showConfirmDialog(null, panel, "Enter Field Information",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
             if (result == JOptionPane.OK_OPTION) {
-                String className = classNameField.getText();
+                String className = (String) classNameDropDown.getSelectedItem();
                 String fieldType = fieldTypeField.getText();
                 String fieldName = fieldNameField.getText();
 
@@ -447,35 +452,40 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
      * 
      * @return An ActionListener is sent back to the GUI so the data is passed back.
      */
-    public ActionListener addMethodListener() {
+  public ActionListener addMethodListener() {
     return new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             JPanel panel = new JPanel(new GridLayout(0, 1));
-            JTextField classNameField = new JTextField();
+            JComboBox<String> classNameDropDown = new JComboBox<>();
             JTextField methodReturnTypeField = new JTextField();
             JTextField methodNameField = new JTextField();
             JTextField parametersField = new JTextField();
 
+            // Populate the dropdown with class names from the model
+            for (String className : model.getClassNames()) {
+                classNameDropDown.addItem(className);
+            }
+
             panel.add(new JLabel("Class Name:"));
-            panel.add(classNameField);
-            panel.add(new JLabel("Method Return Type:"));
-            panel.add(methodReturnTypeField);
+            panel.add(classNameDropDown);
             panel.add(new JLabel("Method Name:"));
+            panel.add(methodReturnTypeField);
+            panel.add(new JLabel("Method Return Type:"));
             panel.add(methodNameField);
-            panel.add(new JLabel("Parameters (type name, ...):"));
+            panel.add(new JLabel("Parameters (type, name, ...):"));
             panel.add(parametersField);
 
-            int result = JOptionPane.showConfirmDialog(view.frame, panel, "Enter Field Information",
+            int result = JOptionPane.showConfirmDialog(view.frame, panel, "Enter Method Information",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (result == JOptionPane.OK_OPTION) {
-                String className = classNameField.getText();
+                String className = (String) classNameDropDown.getSelectedItem();
                 String methodReturnType = methodReturnTypeField.getText();
                 String methodName = methodNameField.getText();
                 String params = parametersField.getText();
                 SortedSet<Parameter> parameters = parseParameters(params);
 
-                if (!className.isEmpty() && !methodReturnType.isEmpty() && !methodName.isEmpty() && !parameters.isEmpty()) {
+                if (className != null && !methodReturnType.isEmpty() && !methodName.isEmpty() && parameters != null && !parameters.isEmpty()) {
                     Command c = new AddMethodCommand(model, className, methodReturnType, methodName, parameters);
                     String response = executeCommand(c);
                     if (c.getStateChange()) {
@@ -484,9 +494,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
                         JOptionPane.showMessageDialog(view.frame, response);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(view.frame,
-                            "Please make sure all fields are filled correctly.", "Error",
-                            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(view.frame, "Please make sure all fields are filled correctly, or It can't be Empty!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -506,6 +514,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
         }
     };
 }
+
 
     /**
      * When the delete method button is pushed this function is called to get info
