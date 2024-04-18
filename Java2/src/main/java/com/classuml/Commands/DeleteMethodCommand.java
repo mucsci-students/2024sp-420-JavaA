@@ -3,13 +3,13 @@ package com.classuml.Commands;
 import java.util.SortedSet;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.classuml.Model.Parameter;
 
 public class DeleteMethodCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the desired class name of the class to be deleted from the model.
 	String className;
 	// Stores the desired method name of the method to be deleted from the class.
@@ -30,7 +30,7 @@ public class DeleteMethodCommand implements Command {
 	 * @param newMethodName The method name.
 	 * @param newParameters The parameters.
 	 */
-	public DeleteMethodCommand(ClassContainer newModel, String newClassName, String newMethodName,
+	public DeleteMethodCommand(MementoState newModel, String newClassName, String newMethodName,
 			SortedSet<Parameter> newParameters) {
 
 		// Stores the model that the command will be executed against.

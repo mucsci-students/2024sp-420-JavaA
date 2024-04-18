@@ -2,7 +2,7 @@ package com.classuml;
 
 import com.classuml.Control.CLIController;
 import com.classuml.Control.GUIController;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.classuml.View.CLI;
 import com.classuml.View.GUI;
 
@@ -22,7 +22,7 @@ public final class App {
 	 */
 	public static void main(String[] args) {
 		// Initialize the ClassContainer model
-		ClassContainer model = new ClassContainer();
+		MementoState model = new MementoState();
 
 		// Check command-line arguments
 		if ((args.length == 1) && (args[0].equals("-cli"))) {

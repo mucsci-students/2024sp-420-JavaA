@@ -1,19 +1,19 @@
 package com.classuml.Commands;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 
 public class ListClassCommand implements Command {
 
 	// Stores the model that the command will be executed against
-	private final ClassContainer model;
+	private final MementoState model;
 	// Stores the desired class name of the class to be listed
 	private final String className;
 	// Stores whether or not the state of the model has changed. True if the state
 	// has changed, false if not
 	private boolean stateChange;
 
-	public ListClassCommand(ClassContainer model, String className) {
+	public ListClassCommand(MementoState model, String className) {
 		this.model = model;
 		this.className = className;
 		this.stateChange = false;

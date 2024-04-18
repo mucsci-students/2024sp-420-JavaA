@@ -1,13 +1,13 @@
 package com.classuml.Commands;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
 import com.classuml.Model.Field;
+import com.classuml.Model.MementoState;
 
 public class EditFieldTypeCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the desired class name of the class in which the field exists.
 	String className;
 	// Stores the desired field name of the field to edited.
@@ -18,7 +18,7 @@ public class EditFieldTypeCommand implements Command {
 	// has changed false if not.
 	boolean stateChange;
 
-	public EditFieldTypeCommand(ClassContainer model, String className, String fieldName, String newFieldType) {
+	public EditFieldTypeCommand(MementoState model, String className, String fieldName, String newFieldType) {
 		this.model = model;
 		this.className = className;
 		this.fieldName = fieldName;

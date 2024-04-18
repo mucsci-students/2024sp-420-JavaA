@@ -17,6 +17,40 @@
 
 package com.classuml.Control;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+
 import com.classuml.Commands.AddClassCommand;
 import com.classuml.Commands.AddFieldCommand;
 import com.classuml.Commands.AddMethodCommand;
@@ -39,37 +73,17 @@ import com.classuml.Commands.SaveJSONCommand;
 import com.classuml.Memento.History;
 import com.classuml.Memento.Memento;
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
 import com.classuml.Model.Field;
+import com.classuml.Model.MementoState;
 import com.classuml.Model.Method;
 import com.classuml.Model.Parameter;
 import com.classuml.Model.Relationship;
 import com.classuml.View.GUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.awt.event.MouseListener;
-import javax.swing.border.Border;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
 public class GUIController extends JPanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     // Stores the model that the controller will act on.
-    private ClassContainer model;
+    private MementoState model;
     // Stores the view that the controller will update.
     private GUI view;
     // Stores the history object that the controller uses to perform undo and redo.
@@ -90,7 +104,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
      * GUI CONTROLLER
      ********************************************************************************************************************/
 
-    public GUIController(ClassContainer model, GUI view) {
+    public GUIController(MementoState model, GUI view) {
         this.model = model;
         this.view = view;
         history = new History();
@@ -130,7 +144,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
 
     }
 
-    public ClassContainer getModel() {
+    public MementoState getModel() {
         return model;
     }
 
@@ -147,7 +161,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
      */
 
     private String executeCommand(Command command) {
-        ClassContainer deepCopy = (ClassContainer) org.apache.commons.lang.SerializationUtils.clone(model);
+        MementoState deepCopy = (MementoState) org.apache.commons.lang.SerializationUtils.clone(model);
         model.setBackup(deepCopy.getClasses());
         String response = command.execute();
         if (command.getStateChange()) {

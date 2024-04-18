@@ -3,14 +3,14 @@ package com.classuml.Commands;
 import java.util.SortedSet;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.classuml.Model.Method;
 import com.classuml.Model.Parameter;
 
 public class EditMethodNameCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the desired class name of the class in which the method exists.
 	String className;
 	// Stores the desired method name of the method to be edited.
@@ -23,7 +23,7 @@ public class EditMethodNameCommand implements Command {
 	// has changed false if not.
 	boolean stateChange;
 
-	public EditMethodNameCommand(ClassContainer model, String className, String methodName,
+	public EditMethodNameCommand(MementoState model, String className, String methodName,
 			SortedSet<Parameter> parameters, String newMethodName) {
 		this.model = model;
 		this.className = className;

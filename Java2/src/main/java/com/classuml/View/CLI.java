@@ -36,8 +36,8 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
 import com.classuml.Model.Field;
+import com.classuml.Model.MementoState;
 import com.classuml.Model.Method;
 import com.classuml.Model.Relationship;
 
@@ -120,7 +120,7 @@ public class CLI {
 		 * @param model The ClassContainer model containing the current state of UML
 		 *              classes and relationships.
 		 */
-		public void setCompleter(ClassContainer model) {
+		public void setCompleter(MementoState model) {
 			List<String> classes = new ArrayList<String>();
 			List<String> fields = new ArrayList<String>();
 			List<String> methods = new ArrayList<String>();
@@ -232,7 +232,7 @@ public class CLI {
 	 * 
 	 * @param model The model to be used.
 	 */
-	public void setCompleter(ClassContainer model) {
+	public void setCompleter(MementoState model) {
 		completer.setCompleter(model);
 	}
 

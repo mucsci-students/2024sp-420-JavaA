@@ -1,12 +1,12 @@
 package com.classuml.Commands;
 
-import com.classuml.Model.ClassContainer;
 import com.classuml.Model.ClassBase;
+import com.classuml.Model.MementoState;
 
 public class AddRelationshipCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	private ClassContainer model;
+	private MementoState model;
 	// Stores the desired class name for the relationship to be created in.
 	private String className;
 	// Stores the desired relationship destination to be used when the relationship
@@ -28,7 +28,7 @@ public class AddRelationshipCommand implements Command {
 	 * @param newRelationshipDestination The relationship destination.
 	 * @param newRelationshipType        The relationship type.
 	 */
-	public AddRelationshipCommand(ClassContainer newModel, String newClassName, String newRelationshipDestination,
+	public AddRelationshipCommand(MementoState newModel, String newClassName, String newRelationshipDestination,
 			String newRelationshipType) {
 		model = newModel;
 		className = newClassName;

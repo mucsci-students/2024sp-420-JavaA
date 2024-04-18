@@ -1,13 +1,13 @@
 package com.classuml.Commands;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.classuml.Model.Relationship;
 
 public class EditRelationshipDestinationCommand implements Command {
 
     // Stores the model that the command will be executed against.
-    ClassContainer model;
+    MementoState model;
     // Stores the desired class name of the class in which the relationship exists.
     String className;
     // Stores the relationship destination of the class to be edited.
@@ -27,7 +27,7 @@ public class EditRelationshipDestinationCommand implements Command {
      * @param newRelationshipDestinationP The new relationship destination name.
      * @param modelP                      The model.
      */
-    public EditRelationshipDestinationCommand(ClassContainer modelP, String classNameP, String relationshipDestinationP,
+    public EditRelationshipDestinationCommand(MementoState modelP, String classNameP, String relationshipDestinationP,
             String newRelationshipDestinationP) {
         model = modelP;
         className = classNameP;

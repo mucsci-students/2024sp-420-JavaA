@@ -3,12 +3,12 @@ package com.classuml.Commands;
 import java.util.SortedSet;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.classuml.Model.Parameter;
 
 public class AddMethodCommand implements Command {
 	// Stores the model that the command will be executed against.
-	private ClassContainer model;
+	private MementoState model;
 	// Stores the desired return type for the method.
 	private String returnType;
 	// Stores the desired class name for the method.
@@ -31,7 +31,7 @@ public class AddMethodCommand implements Command {
 	 * @param newMethodName The method name.
 	 * @param newParameters The method parameters.
 	 */
-	public AddMethodCommand(ClassContainer newModel, String newClassName, String newReturnType, String newMethodName,
+	public AddMethodCommand(MementoState newModel, String newClassName, String newReturnType, String newMethodName,
 			SortedSet<Parameter> newParameters) {
 		model = newModel;
 		className = newClassName;

@@ -2,13 +2,13 @@ package com.classuml.Commands;
 
 import java.io.File;
 
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SaveJSONCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the file name of the file that will be loaded.
 	String fileName;
 	// Stores the file to be loaded this will be null if the cli controller is
@@ -21,7 +21,7 @@ public class SaveJSONCommand implements Command {
 	/**
 	 * Constructs a Save JSON command with the desired model and file.
 	 */
-	public SaveJSONCommand(ClassContainer model, File file) {
+	public SaveJSONCommand(MementoState model, File file) {
 		this.model = model;
 		fileName = null;
 		this.file = file;
@@ -31,7 +31,7 @@ public class SaveJSONCommand implements Command {
 	/**
 	 * Constructs a Save JSON command with the desired model and file name.
 	 */
-	public SaveJSONCommand(ClassContainer model, String fileName) {
+	public SaveJSONCommand(MementoState model, String fileName) {
 		this.model = model;
 		this.fileName = fileName;
 		file = null;
