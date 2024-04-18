@@ -1,12 +1,12 @@
 package com.classuml.Commands;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 
 public class DeleteRelationshipCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the desired class name of the class to be deleted from the model.
 	String className;
 	// Stores the desired relationship destination to be deleted from the class.
@@ -23,7 +23,7 @@ public class DeleteRelationshipCommand implements Command {
 	 * @param relationshipDestinationP The relationship destination name.
 	 * @param modelP                   The model.
 	 */
-	public DeleteRelationshipCommand(ClassContainer modelP, String classNameP, String relationshipDestinationP) {
+	public DeleteRelationshipCommand(MementoState modelP, String classNameP, String relationshipDestinationP) {
 		model = modelP;
 		className = classNameP;
 		relationshipDestination = relationshipDestinationP;

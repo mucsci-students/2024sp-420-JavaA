@@ -5,14 +5,14 @@ import java.nio.file.Paths;
 import java.util.SortedMap;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LoadJSONCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the file name of the file that will be loaded.
 	String fileName;
 	// Stores the file to be loaded this will be null if the cli controller is
@@ -25,14 +25,14 @@ public class LoadJSONCommand implements Command {
 	/**
 	 * Constructs a Load JSON command with the desired model and file name.
 	 */
-	public LoadJSONCommand(ClassContainer modelP, File fileP) {
+	public LoadJSONCommand(MementoState modelP, File fileP) {
 		model = modelP;
 		fileName = null;
 		file = fileP;
 		stateChange = false;
 	}
 
-	public LoadJSONCommand(ClassContainer modelP, String fileNameP) {
+	public LoadJSONCommand(MementoState modelP, String fileNameP) {
 		model = modelP;
 		fileName = fileNameP;
 		file = null;

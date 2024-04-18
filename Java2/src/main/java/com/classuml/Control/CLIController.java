@@ -49,8 +49,8 @@ import com.classuml.Commands.EditFieldTypeCommand;
 import com.classuml.Commands.EditMethodNameCommand;
 import com.classuml.Commands.EditMethodParametersCommand;
 import com.classuml.Commands.EditMethodTypeCommand;
-import com.classuml.Commands.EditRelationshipTypeCommand;
 import com.classuml.Commands.EditRelationshipDestinationCommand;
+import com.classuml.Commands.EditRelationshipTypeCommand;
 import com.classuml.Commands.HelpCommand;
 import com.classuml.Commands.ListClassCommand;
 import com.classuml.Commands.ListClassesCommand;
@@ -59,14 +59,14 @@ import com.classuml.Commands.LoadJSONCommand;
 import com.classuml.Commands.SaveJSONCommand;
 import com.classuml.Memento.History;
 import com.classuml.Memento.Memento;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 import com.classuml.Model.Parameter;
 import com.classuml.View.CLI;
 
 public class CLIController {
 
 	// Stores the model that the controller will act on.
-	private ClassContainer model;
+	private MementoState model;
 	// Stores the view that the controller will update.
 	private CLI view;
 	// Stores the history object that the controller uses to perform undo and redo.
@@ -87,7 +87,7 @@ public class CLIController {
 	 *              output.
 	 */
 
-	public CLIController(ClassContainer model, CLI view) {
+	public CLIController(MementoState model, CLI view) {
 		this.model = model;
 		this.view = view;
 		history = new History();
@@ -274,7 +274,7 @@ public class CLIController {
 	 * @return A string that represents the outcome of the execution.
 	 */
 	private String executeCommand(Command command) {
-		ClassContainer deepCopy = (ClassContainer) org.apache.commons.lang.SerializationUtils.clone(model);
+		MementoState deepCopy = (MementoState) org.apache.commons.lang.SerializationUtils.clone(model);
 		model.setBackup(deepCopy.getClasses());
 		String response = command.execute();
 		if (command.getStateChange()) {

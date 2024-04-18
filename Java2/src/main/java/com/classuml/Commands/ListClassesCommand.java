@@ -3,12 +3,12 @@ package com.classuml.Commands;
 import java.util.Map.Entry;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 
 public class ListClassesCommand implements Command {
 
 	// Stores the model that the command will be executed against
-	private final ClassContainer model;
+	private final MementoState model;
 	// Stores whether or not the state of the model has changed. True if the state
 	// has changed, false if not
 	private boolean stateChange;
@@ -18,7 +18,7 @@ public class ListClassesCommand implements Command {
 	 * 
 	 * @param modelP The model.
 	 */
-	public ListClassesCommand(ClassContainer modelP) {
+	public ListClassesCommand(MementoState modelP) {
 		this.model = modelP;
 		this.stateChange = false;
 	}

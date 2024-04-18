@@ -1,11 +1,11 @@
 package com.classuml.Commands;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 
 public class AddFieldCommand implements Command {
 	// Stores the model that the command will be executed against.
-	private ClassContainer model;
+	private MementoState model;
 	// Stores the desired class name for the field to be created in.
 	private String className;
 	// Stores the desired field type to be used when the field is created.
@@ -25,7 +25,7 @@ public class AddFieldCommand implements Command {
 	 * @param newFieldType The field type.
 	 * @param fieldNameP   The field name.
 	 */
-	public AddFieldCommand(ClassContainer newModel, String newClassName, String newFieldType, String fieldNameP) {
+	public AddFieldCommand(MementoState newModel, String newClassName, String newFieldType, String fieldNameP) {
 		model = newModel;
 		className = newClassName;
 		fieldType = newFieldType;

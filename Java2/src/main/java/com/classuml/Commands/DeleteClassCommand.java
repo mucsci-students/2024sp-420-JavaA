@@ -3,12 +3,12 @@ package com.classuml.Commands;
 import java.util.SortedMap;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 
 public class DeleteClassCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the desired class name of the class to be deleted from the model.
 	String className;
 	// Stores whether or not the state of the model has changed. True if the state
@@ -21,7 +21,7 @@ public class DeleteClassCommand implements Command {
 	 * @param newModel     The model.
 	 * @param newClassName The class name.
 	 */
-	public DeleteClassCommand(ClassContainer newModel, String newClassName) {
+	public DeleteClassCommand(MementoState newModel, String newClassName) {
 		model = newModel;
 		className = newClassName;
 		stateChange = false;

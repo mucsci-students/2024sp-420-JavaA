@@ -1,11 +1,11 @@
 package com.classuml.Commands;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 
 public class AddClassCommand implements Command {
 	// Stores the model that the command will be executed against.
-	private ClassContainer model;
+	private MementoState model;
 	// Stores the desired class name to be used when the class is created.
 	private String className;
 	// Stores whether or not the state of the model has changed. True if the state
@@ -18,7 +18,7 @@ public class AddClassCommand implements Command {
 	 * @param newModel      The model.
 	 * @param newClassNameP The class name.
 	 */
-	public AddClassCommand(ClassContainer newModel, String newClassNameNrds) {
+	public AddClassCommand(MementoState newModel, String newClassNameNrds) {
 		model = newModel;
 		className = newClassNameNrds;
 		stateChange = false;

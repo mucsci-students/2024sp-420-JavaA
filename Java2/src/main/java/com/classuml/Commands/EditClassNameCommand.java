@@ -1,12 +1,12 @@
 package com.classuml.Commands;
 
 import com.classuml.Model.ClassBase;
-import com.classuml.Model.ClassContainer;
+import com.classuml.Model.MementoState;
 
 public class EditClassNameCommand implements Command {
 
 	// Stores the model that the command will be executed against.
-	ClassContainer model;
+	MementoState model;
 	// Stores the desired class name of the class to be edited.
 	String className;
 	// Stores the desired new class name.
@@ -15,7 +15,7 @@ public class EditClassNameCommand implements Command {
 	// has changed false if not.
 	boolean stateChange;
 
-	public EditClassNameCommand(ClassContainer newModel, String newClassName, String className) {
+	public EditClassNameCommand(MementoState newModel, String newClassName, String className) {
 		model = newModel;
 		this.newClassName = newClassName;
 		this.className = className;

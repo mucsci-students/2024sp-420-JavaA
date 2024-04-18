@@ -1,6 +1,6 @@
 package com.classuml.Model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -30,17 +30,17 @@ public class ClassContainerTest {
 		classes.put("test", c);
 		classes.put("test1", c1);
 		
-		ClassContainer model = new ClassContainer(classes);
+		MementoState model = new MementoState(classes);
 		assertEquals(classes,model.getClasses());
 		
-		ClassContainer model1 = new ClassContainer();
+		MementoState model1 = new MementoState();
 		model1.setClasses(classes);
 		assertEquals(classes, model1.getClasses());
 		
-		ClassContainer model2 = new ClassContainer (classes,classes);
+		MementoState model2 = new MementoState (classes,classes);
 		assertEquals(classes,model2.getBackup());
 		
-		ClassContainer model3 = new ClassContainer();
+		MementoState model3 = new MementoState();
 		model3.setBackup(classes);
 		assertEquals(classes, model3.getBackup());
 	}
