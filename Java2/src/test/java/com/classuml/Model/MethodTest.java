@@ -12,7 +12,7 @@ import java.util.TreeSet;
 import org.junit.Test;
 
 public class MethodTest {
-private Method method;
+	private Method method;
 
 @SuppressWarnings("unlikely-arg-type")
 @Test
@@ -61,12 +61,15 @@ public <MyClass> void Method() {
     	Method method2 = new Method("anotherMethod", "void", parameters);
     	Method methodNull = new Method(null, "void", parameters);
         
+	Method methodNull2 = new Method(null, null, parameters);          
+	assertEquals("Passing null method should return 1", 1, method1.compareTo(methodNull2));
     	assertEquals("Comparing method with itself should return 0", 0, method.compareTo(method));
     	assertEquals("Comparing method with identical method should return 0", 0, method.compareTo(method1));
     	assertTrue("Comparing method with method of different name should not return 0", method.compareTo(method2) != 0);
     	assertTrue("Comparing method with null-named method should return positive", method.compareTo(methodNull) > 0);
     	assertTrue("Comparing null-named method with method should return negative", methodNull.compareTo(method) < 0);
-                
+        assertEquals("Passing null method should return 1", 1, method.compareTo(methodNull));
+
     	String expectedGUIString = "testMethod void(string p2)";
     	assertEquals("toStringGUI should return the correct String", expectedGUIString, method.toStringGUI());
     	Method method = new Method();
