@@ -12,8 +12,6 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-
-
 public class ClassBaseTests {
 private Object classBase = new ClassBase("testClass");
 private TreeSet parameters = new TreeSet<>();
@@ -21,7 +19,7 @@ private TreeSet methods = new TreeSet<>();
 private TreeSet fields = new TreeSet<>();
 private TreeSet relationships = new TreeSet<>();
 
-@Test
+	@Test
 	public void Class() {
 		ClassBase c = new ClassBase("test");
 		assertEquals("test",c.getName());
@@ -83,7 +81,15 @@ private TreeSet relationships = new TreeSet<>();
 		
 		c1.deleteRelationship("rel3");
 		assertEquals(false,c1.containsField("f3"));
+
 		assertEquals(false,c1.containsMethod(m3.getName(),m3.getParameters()));
+		assertFalse("m3 should not be present in c1 initially", c1.containsMethod(m3.getName(), m3.getParameters()));
+		c1.addMethod(m3.getType(), m3.getName(), m3.getParameters());
+		assertTrue("m3 should now be present in c1 after addition", c1.containsMethod(m3.getName(), m3.getParameters()));
+		c1.deleteMethod(m3.getName(), m3.getParameters());
+		assertFalse("m3 should no longer be present after being removed", c1.containsMethod(m3.getName(), m3.getParameters()));
+
+
 		assertEquals(false,c1.containsRelationship("rel3"));
 		
 		ClassBase c2 = new ClassBase("test2",c1.getFields(),c1.getMethods(),c1.getRelationships(), 0, 0);;
@@ -187,9 +193,78 @@ private TreeSet relationships = new TreeSet<>();
 		int yLocation = ((ClassBase) classBase).getYLocation();
 
 		// Assert - the Y location is as expected
-		assertEquals("getYLocation should return the Y location that was set", 100, yLocation);
-	    
+		assertEquals("getYLocation should return the Y location that was set", 100, yLocation);	
+	}
 
-		
+	@Test
+	public void testPrintFields() {
+    		// Create a ClassBase instance
+    		ClassBase classBase = new ClassBase("TestClass");
+
+    		// Create some fields for the class
+    		Field field1 = new Field("int", "field1");
+    		Field field2 = new Field("String", "field2");
+    		classBase.addField("int", "field1");
+    		classBase.addField("String", "field2");
+
+    		// Expected result of printFields method
+    		String expectedFieldsResult = System.lineSeparator() + field1.toString() + System.lineSeparator() + field2.toString();
+
+    		// Assert the result of printFields method
+    		assertEquals(expectedFieldsResult, classBase.printFields());
+	}
+
+	@Test
+	public void testPrintFieldsGUI() {
+    		// Create a ClassBase instance
+    		ClassBase classBase = new ClassBase("TestClass");
+
+    		// Create some fields for the class
+    		Field field1 = new Field("int", "field1");
+    		Field field2 = new Field("String", "field2");
+    		classBase.addField("int", "field1");
+    		classBase.addField("String", "field2");
+
+    		// Expected result of printFieldsGUI method
+    		String expectedFieldsGUIResult = field1.toString() + field2.toString();
+
+    		// Assert the result of printFieldsGUI method
+    		assertEquals(expectedFieldsGUIResult, classBase.printFieldsGUI());
+	}
+
+	@Test
+	public void testPrintMethods() {
+    		// Create a ClassBase instance
+    		ClassBase classBase = new ClassBase("TestClass");
+
+    		// Create some methods for the class
+    		Method method1 = new Method("void", "method1", fields);
+    		Method method2 = new Method("int", "method2", fields);
+    		classBase.addMethod("void", "method1", new TreeSet<>());
+    		classBase.addMethod("int", "method2", new TreeSet<>());
+
+    		// Expected result of printMethods method
+    		String expectedMethodsResult = System.lineSeparator() + method1.toString() + System.lineSeparator() + method2.toString();
+
+    		// Assert the result of printMethods method
+    		assertEquals(expectedMethodsResult, classBase.printMethods());
+	}
+
+	@Test
+	public void testPrintMethodsGUI() {
+    		// Create a ClassBase instance
+    		ClassBase classBase = new ClassBase("TestClass");
+
+    		// Create some methods for the class
+    		Method method1 = new Method("void", "method1", fields);
+    		Method method2 = new Method("int", "method2", fields);
+    		classBase.addMethod("void", "method1", new TreeSet<>());
+    		classBase.addMethod("int", "method2", new TreeSet<>());
+
+    		// Expected result of printMethodsGUI method
+    		String expectedMethodsGUIResult = method1.toStringGUI() + method2.toStringGUI();
+
+    		// Assert the result of printMethodsGUI method
+    		assertEquals(expectedMethodsGUIResult, classBase.printMethodsGUI());
 	}
 }
