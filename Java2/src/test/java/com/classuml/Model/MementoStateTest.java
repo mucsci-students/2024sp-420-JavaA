@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-public class ClassContainerTest {
+public class MementoStateTest {
         @Test
 	public void Classes() {
 		ClassBase c = new ClassBase("test");
