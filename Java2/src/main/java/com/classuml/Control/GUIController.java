@@ -1221,7 +1221,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
                 boolean saveSuccessful = false;
                 while (!saveSuccessful) {
                     // Check if file already exists
-                    File file = new File(fileName + ".jpg");
+                    File file = new File(fileName + ".png");
                     if (file.exists()) {
                         int option = JOptionPane.showConfirmDialog(null,
                                 "File already exists. Do you want to overwrite it?", "File Exists",
@@ -1235,10 +1235,10 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
                     BufferedImage img = getScreenShot(pic.getContentPane());
 
                     try {
-                        // Write the image as a JPG
+                        // Write the image as a PNG
                         ImageIO.write(
                                 img,
-                                "jpg",
+                                "png",
                                 file);
                         // Show prompt saying the file is saved
                         JOptionPane.showMessageDialog(null, "Image saved successfully.");
