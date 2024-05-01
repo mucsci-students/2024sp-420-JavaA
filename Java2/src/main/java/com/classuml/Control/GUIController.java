@@ -313,9 +313,9 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
 
             panel.add(new JLabel("Class Name:"));
             panel.add(classNameDropDown);
-            panel.add(new JLabel("Field Name:"));
+            panel.add(new JLabel("Name:"));
             panel.add(fieldTypeField);
-            panel.add(new JLabel("Field Return Type:"));
+            panel.add(new JLabel("Type:"));
             panel.add(fieldNameField);
 
             int result = JOptionPane.showConfirmDialog(null, panel, "Enter Field Information",
@@ -483,11 +483,11 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
 
             panel.add(new JLabel("Class Name:"));
             panel.add(classNameDropDown);
-            panel.add(new JLabel("Method Name:"));
+            panel.add(new JLabel("Name:"));
             panel.add(methodReturnTypeField);
-            panel.add(new JLabel("Method Return Type:"));
+            panel.add(new JLabel("Type:"));
             panel.add(methodNameField);
-            panel.add(new JLabel("Parameters (type, name, ...):"));
+            panel.add(new JLabel("Parameters (type name):"));
             panel.add(parametersField);
 
             int result = JOptionPane.showConfirmDialog(view.frame, panel, "Enter Method Information",
