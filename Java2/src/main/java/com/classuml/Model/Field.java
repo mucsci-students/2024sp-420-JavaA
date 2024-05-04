@@ -24,8 +24,9 @@ public class Field implements Comparable<Field>, Serializable {
 	 * @param nameP A String that represents the field name.
 	 */
 	public Field(String type, String name) {
-		this.name = name;
 		this.type = type;
+		this.name = name;
+		
 	}
 
 	/**
