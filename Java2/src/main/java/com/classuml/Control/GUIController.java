@@ -704,31 +704,57 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String className = promptClassDropDown("Select the class where the relationship will be added.");
-                if (className != null) {
-                    String relationshipName = promptClassDropDown("Select the relationship destination.");
-                    if (relationshipName != null) {
-                        String relationshipType = promptRelationshipTypeDropDown("Select the new relationship type.");
-                        if (relationshipType != null) {
-                            Command c = new AddRelationshipCommand(model, className, relationshipName,
-                                    relationshipType);
-                            String response = executeCommand(c);
-                            if (c.getStateChange() == true) {
-                                refreshJFrame();
-                            } else {
-                                JOptionPane.showMessageDialog(view.frame, response);
-                            }
+                // Create a panel to hold the input components
+                JPanel panel = new JPanel(new GridLayout(0, 1));
+
+                // Create dropdowns for class selection and relationship destination
+                JComboBox<String> classDropDown = new JComboBox<>();
+                JComboBox<String> relationshipDropDown = new JComboBox<>();
+
+                // Populate dropdowns with class names from the model
+                for (String className : model.getClassNames()) {
+                    classDropDown.addItem(className);
+                    relationshipDropDown.addItem(className); // Assuming relationship destination can be any class
+                }
+
+                // Create dropdown for relationship type selection
+                JComboBox<String> relationshipTypeDropDown = new JComboBox<>(
+                        new String[] { "Association", "Inheritance", "Aggregation", "Composition" });
+
+                // Add components to the panel
+                panel.add(new JLabel("Select the class where the relationship will be added:"));
+                panel.add(classDropDown);
+                panel.add(new JLabel("Select the relationship destination:"));
+                panel.add(relationshipDropDown);
+                panel.add(new JLabel("Select the new relationship type:"));
+                panel.add(relationshipTypeDropDown);
+
+                // Show the dialog box
+                int result = JOptionPane.showConfirmDialog(view.frame, panel, "Add Relationship",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                // Process user input
+                if (result == JOptionPane.OK_OPTION) {
+                    String className = (String) classDropDown.getSelectedItem();
+                    String relationshipName = (String) relationshipDropDown.getSelectedItem();
+                    String relationshipType = (String) relationshipTypeDropDown.getSelectedItem();
+
+                    // Check if all fields are filled
+                    if (className != null && relationshipName != null && relationshipType != null) {
+                        // Create and execute command
+                        Command c = new AddRelationshipCommand(model, className, relationshipName, relationshipType);
+                        String response = executeCommand(c);
+
+                        // Handle command execution response
+                        if (c.getStateChange()) {
+                            refreshJFrame();
                         } else {
-                            JOptionPane.showMessageDialog(view.frame, "No relatioship type was selected.", "Error",
-                                    JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(view.frame, response);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(view.frame, "No relationship destination was selected.", "Error",
+                        JOptionPane.showMessageDialog(view.frame, "Please fill all fields.", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(view.frame, "No class was selected.", "Error",
-                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
