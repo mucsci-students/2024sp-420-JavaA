@@ -499,7 +499,7 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
                 String params = parametersField.getText();
                 SortedSet<Parameter> parameters = parseParameters(params);
 
-                if (className != null && !methodReturnType.isEmpty() && !methodName.isEmpty() && parameters != null && !parameters.isEmpty()) {
+                if (className != null && !methodReturnType.isEmpty() && !methodName.isEmpty()) {
                     Command c = new AddMethodCommand(model, className, methodReturnType, methodName, parameters);
                     String response = executeCommand(c);
                     if (c.getStateChange()) {
