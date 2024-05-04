@@ -313,10 +313,11 @@ public class GUIController extends JPanel implements MouseListener, MouseMotionL
 
             panel.add(new JLabel("Class Name:"));
             panel.add(classNameDropDown);
-            panel.add(new JLabel("Name:"));
-            panel.add(fieldTypeField);
             panel.add(new JLabel("Type:"));
             panel.add(fieldNameField);
+            panel.add(new JLabel("Name:"));
+            panel.add(fieldTypeField);
+           
 
             int result = JOptionPane.showConfirmDialog(null, panel, "Enter Field Information",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
